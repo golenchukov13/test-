@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIDCIRCLE - инвестиция в будущее вашего ребенка</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Nunito:wght@300;400;600;700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #6c5ce7;
@@ -19,6 +21,7 @@
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --neon: #00fff0;
             --neon-2: #a56eff;
+            --bg-gradient: linear-gradient(135deg, #f5f7ff 0%, #e5e9ff 100%);
         }
         
         * {
@@ -28,7 +31,7 @@
         }
         
         body {
-            background: linear-gradient(180deg, #f8f9ff 0%, #eef1ff 35%, #f8f9ff 100%);
+            background: var(--bg-gradient);
             color: var(--dark);
             line-height: 1.6;
             font-family: 'Nunito', sans-serif;
@@ -44,24 +47,25 @@
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 15px;
         }
         
-        /* Header */
+        /* Новый стиль навигации */
         header {
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
         }
         
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 0;
+            padding: 1rem 0;
         }
         
         .logo {
@@ -69,7 +73,7 @@
             align-items: center;
             gap: 0.5rem;
             font-weight: 800;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             color: var(--primary);
             text-decoration: none;
             transition: var(--transition);
@@ -81,13 +85,38 @@
         
         .logo-icon {
             color: var(--secondary);
-            font-size: 1.8rem;
+            font-size: 2rem;
+        }
+        
+        /* Мобильное меню */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 2rem;
+            height: 2rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 10;
+        }
+        
+        .menu-toggle span {
+            width: 2rem;
+            height: 0.25rem;
+            background: var(--primary);
+            border-radius: 10px;
+            transition: all 0.3s linear;
+            position: relative;
+            transform-origin: 1px;
         }
         
         nav ul {
             display: flex;
             list-style: none;
             gap: 2rem;
+            align-items: center;
         }
         
         nav a {
@@ -97,6 +126,7 @@
             transition: var(--transition);
             position: relative;
             padding: 0.5rem 0;
+            font-size: 1rem;
         }
         
         nav a:after {
@@ -106,7 +136,7 @@
             left: 0;
             width: 0;
             height: 3px;
-            background: linear-gradient(90deg, var(--secondary), var(--primary), var(--accent));
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
             transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-radius: 10px;
         }
@@ -125,7 +155,7 @@
         }
         
         .btn {
-            padding: 0.7rem 1.8rem;
+            padding: 0.8rem 2rem;
             border-radius: 50px;
             font-weight: 600;
             cursor: pointer;
@@ -134,7 +164,9 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            border: none;
+            outline: none;
         }
         
         .btn-outline {
@@ -163,36 +195,58 @@
             box-shadow: 0 15px 25px rgba(108, 92, 231, 0.35);
         }
         
-        /* Hero section */
+        /* Hero section - полностью переработан */
         .hero {
-            padding: 6rem 0 8rem;
-            background: radial-gradient(1200px 600px at 70% 10%, rgba(165, 110, 255, 0.15), transparent 60%),
-                        radial-gradient(1000px 600px at 0% 0%, rgba(0, 209, 178, 0.15), transparent 60%),
-                        linear-gradient(120deg, #f8f9ff 0%, #edf0ff 100%);
+            padding: 5rem 0 6rem;
             position: relative;
+            overflow: hidden;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             overflow: hidden;
         }
         
-        .hero::before {
+        .hero-bg::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
+            top: -20%;
+            right: -10%;
             width: 70%;
-            height: 200%;
-            background: linear-gradient(45deg, rgba(94, 114, 228, 0.05) 0%, rgba(255, 107, 107, 0.05) 100%);
-            transform: rotate(30deg);
-            z-index: 1;
+            height: 140%;
+            background: linear-gradient(45deg, rgba(108, 92, 231, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
+            transform: rotate(15deg);
+            border-radius: 30px;
+        }
+        
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 60%;
+            height: 120%;
+            background: linear-gradient(45deg, rgba(0, 209, 178, 0.1) 0%, rgba(165, 110, 255, 0.1) 100%);
+            transform: rotate(-15deg);
+            border-radius: 30px;
         }
         
         .hero-content {
-            max-width: 600px;
+            max-width: 650px;
             position: relative;
             z-index: 2;
         }
         
         .hero h1 {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
             color: var(--dark);
             line-height: 1.2;
@@ -202,6 +256,7 @@
         .hero h1 span {
             color: var(--primary);
             position: relative;
+            display: inline-block;
         }
         
         .hero h1 span::after {
@@ -217,7 +272,7 @@
         }
         
         .hero p {
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             margin-bottom: 2.5rem;
             color: var(--gray);
             animation: fadeInUp 1s ease 0.2s forwards;
@@ -232,15 +287,32 @@
             opacity: 0;
         }
         
-        .hero-image {
-            position: absolute;
-            right: 5%;
-            bottom: 0;
-            width: 40%;
-            z-index: 1;
-            animation: float 6s ease-in-out infinite;
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
         }
         
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+        
+        /* Floating elements animation */
         .floating-elements {
             position: absolute;
             width: 100%;
@@ -248,13 +320,15 @@
             top: 0;
             left: 0;
             z-index: 0;
+            pointer-events: none;
         }
         
         .floating-element {
             position: absolute;
             border-radius: 50%;
-            opacity: 0.3;
+            opacity: 0.5;
             animation: float 8s ease-in-out infinite;
+            filter: blur(2px);
         }
         
         .floating-element:nth-child(1) {
@@ -284,9 +358,9 @@
             animation-delay: 2s;
         }
         
-        /* Search section */
+        /* Search section - улучшенный */
         .search-section {
-            padding: 5rem 0;
+            padding: 4rem 0;
             background: white;
             position: relative;
             z-index: 5;
@@ -395,7 +469,7 @@
             transform: translateY(-3px);
         }
         
-        /* Circles grid */
+        /* Circles grid - полностью переработан */
         .circles-section {
             padding: 5rem 0;
             background: #f9fafc;
@@ -403,13 +477,13 @@
         
         .circles-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
         }
         
         .circle-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
             transition: var(--transition);
@@ -537,7 +611,7 @@
             box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
         }
         
-        /* Features section */
+        /* Features section - улучшенный */
         .features {
             padding: 6rem 0;
             background: var(--light);
@@ -630,7 +704,7 @@
             line-height: 1.7;
         }
         
-        /* CTA section */
+        /* CTA section - улучшенный */
         .cta-section {
             padding: 7rem 0;
             background: linear-gradient(120deg, var(--primary) 0%, #7795f8 100%);
@@ -689,7 +763,7 @@
             box-shadow: 0 15px 25px rgba(255, 255, 255, 0.2);
         }
         
-        /* Footer */
+        /* Footer - улучшенный */
         footer {
             background: var(--dark);
             color: white;
@@ -832,168 +906,7 @@
             animation: float 8s ease-in-out infinite;
         }
         
-        /* Responsive */
-        @media (max-width: 992px) {
-            .hero-image {
-                display: none;
-            }
-            
-            .hero-content {
-                max-width: 100%;
-                text-align: center;
-            }
-            
-            .hero-buttons {
-                justify-content: center;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1.2rem;
-            }
-            
-            nav ul {
-                gap: 1.2rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .search-box {
-                flex-direction: column;
-                border-radius: 16px;
-            }
-            
-            .search-input {
-                width: 100%;
-                padding: 1.2rem;
-            }
-            
-            .search-btn {
-                padding: 1rem;
-                width: 100%;
-            }
-            
-            .cta-content h2 {
-                font-size: 2.2rem;
-            }
-            
-            .cta-content p {
-                font-size: 1.1rem;
-            }
-        }
-        
-        /* Animation classes */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Loading animation */
-        .loader-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        
-        .loader {
-            width: 50px;
-            height: 50px;
-            position: relative;
-        }
-        
-        .loader:before, .loader:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-color: var(--primary);
-            opacity: 0.6;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        .loader:after {
-            animation-delay: -1s;
-        }
-        
-        /* Стили для раздела с советом */
-        .advice-section {
-            padding: 5rem 0;
-            background: white;
-        }
-        
-        .advice-content {
-            max-width: 900px;
-            margin: 0 auto;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            line-height: 1.8;
-        }
-        
-        .advice-content h2 {
-            color: var(--primary);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-        
-        .advice-content h3 {
-            color: var(--dark);
-            margin: 2rem 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid var(--light-gray);
-        }
-        
-        .advice-tips {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .advice-tip {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--primary);
-        }
-        
-        .advice-tip h4 {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.8rem;
-            color: var(--primary);
-        }
-        
-        /* Стили для раздела с тестом */
+        /* Magic test section - полностью переработан */
         .magic-test-section {
             padding: 6rem 0;
             background: linear-gradient(135deg, #0b1020, #141a3a 40%, #0b1020 100%);
@@ -1188,18 +1101,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes glow {
-            0% { box-shadow: 0 0 10px rgba(255, 204, 0, 0.5); }
-            50% { box-shadow: 0 0 20px rgba(255, 204, 0, 0.8); }
-            100% { box-shadow: 0 0 10px rgba(255, 204, 0, 0.5); }
-        }
-        
         .result-container {
             text-align: center;
             animation: fadeIn 1s ease;
@@ -1362,12 +1263,475 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
         }
+        
+        /* Блок сотрудничества - полностью переработан */
+        .collaboration-section {
+            padding: 7rem 0;
+            background: linear-gradient(135deg, #1f2430 0%, #2d3447 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .collaboration-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100'%3E%3Ccircle cx='20' cy='20' r='5' fill='white' opacity='0.05'/%3E%3Ccircle cx='80' cy='80' r='8' fill='white' opacity='0.05'/%3E%3Ccircle cx='70' cy='30' r='6' fill='white' opacity='0.05'/%3E%3C/svg%3E");
+            background-size: 300px;
+            z-index: 1;
+        }
+        
+        .collaboration-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, rgba(108, 92, 231, 0.1), rgba(0, 209, 178, 0.1), rgba(108, 92, 231, 0.1));
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .collaboration-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .collaboration-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            font-size: 2.8rem;
+            background: linear-gradient(to right, #ff6b6b, #6c5ce7, #00d1b2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .collaboration-subtitle {
+            text-align: center;
+            margin-bottom: 4rem;
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+        
+        .collaboration-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+        
+        .collaboration-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .collaboration-card.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .collaboration-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .collaboration-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+        }
+        
+        .collaboration-card:hover::before {
+            opacity: 1;
+        }
+        
+        .collaboration-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary), var(--neon-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .collaboration-card:hover .collaboration-icon {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
+        }
+        
+        .collaboration-card h3 {
+            margin-bottom: 1.2rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .collaboration-card p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+        
+        .collaboration-form-container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .collaboration-form {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: 'Nunito', sans-serif;
+            transition: var(--transition);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.3);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-submit {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+        
+        .form-submit .btn {
+            padding: 1rem 3rem;
+            font-size: 1.1rem;
+            background: linear-gradient(45deg, var(--primary), var(--neon-2));
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-submit .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .form-submit .btn:hover::before {
+            left: 100%;
+        }
+        
+        .form-success {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 209, 178, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 209, 178, 0.3);
+            margin-top: 1.5rem;
+            display: none;
+        }
+        
+        .form-success i {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        /* Responsive - полностью переработан */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .menu-toggle {
+                display: flex;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 80%;
+                max-width: 300px;
+                background: white;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: var(--transition);
+                box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
+                z-index: 999;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .search-box {
+                flex-direction: column;
+                border-radius: 16px;
+            }
+            
+            .search-input {
+                width: 100%;
+                padding: 1.2rem;
+            }
+            
+            .search-btn {
+                padding: 1rem;
+                width: 100%;
+            }
+            
+            .cta-content h2 {
+                font-size: 2.2rem;
+            }
+            
+            .cta-content p {
+                font-size: 1.1rem;
+            }
+            
+            .collaboration-form {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 1rem 0;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .auth-buttons {
+                display: none;
+            }
+            
+            .mobile-auth {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .circles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-container {
+                padding: 1.5rem;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .test-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .test-navigation button {
+                width: 100%;
+            }
+            
+            .collaboration-title {
+                font-size: 2.2rem;
+            }
+            
+            .collaboration-card {
+                padding: 2rem;
+            }
+            
+            .collaboration-form-container {
+                padding: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .stat-value {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .filter-btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.85rem;
+            }
+            
+            .circle-content {
+                padding: 1.2rem;
+            }
+            
+            .circle-title {
+                font-size: 1.2rem;
+            }
+            
+            .test-title {
+                font-size: 2rem;
+            }
+            
+            .collaboration-title {
+                font-size: 1.8rem;
+            }
+            
+            .collaboration-card {
+                padding: 1.5rem;
+            }
+            
+            .collaboration-form-container {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Animation classes */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Mobile auth buttons in menu */
+        .mobile-auth {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <div class="loader-wrapper">
-        <div class="loader"></div>
-    </div>
+    
 
     <header>
         <div class="container">
@@ -1376,17 +1740,26 @@
                     <i class="fas fa-child logo-icon"></i>
                     <span>KIDCIRCLE</span>
                 </a>
+                
+                <button class="menu-toggle" id="menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                
                 <nav>
-                    <ul>
-                        <li><a href="#">Главная</a></li>
+                    <ul id="nav-menu">
                         <li><a href="#">Кружки</a></li>
-                        <li><a href="#">Города</a></li>
                         <li><a href="#advice-section">Советы</a></li>
-                        <li><a href="#magic-test">Тест способностей</a></li>
-                        <li><a href="#">О платформе</a></li>
-                        <li><a href="#">Контакты</a></li>
+                         <li><a href="#magic-test">Тест ИИ</a></li>
+                         <li><a href="#collaboration">Сотрудничество</a></li>
+                        <div class="mobile-auth">
+                            <button class="btn btn-outline">Вход</button>
+                            <button class="btn btn-primary">Регистрация</button>
+                        </div>
                     </ul>
                 </nav>
+                
                 <div class="auth-buttons">
                     <button class="btn btn-outline">Вход</button>
                     <button class="btn btn-primary">Регистрация</button>
@@ -1396,18 +1769,17 @@
     </header>
 
     <section class="hero">
-        <div class="particles">
-            <div class="particle" style="top: 20%; left: 10%; width: 20px; height: 20px; background: var(--primary); animation-delay: 0s;"></div>
-            <div class="particle" style="top: 60%; left: 5%; width: 30px; height: 30px; background: var(--secondary); animation-delay: 1s;"></div>
-            <div class="particle" style="top: 40%; right: 15%; width: 25px; height: 25px; background: var(--accent); animation-delay: 2s;"></div>
-            <div class="particle" style="top: 70%; right: 25%; width: 15px; height: 15px; background: var(--primary); animation-delay: 3s;"></div>
-            <div class="particle" style="top: 30%; right: 30%; width: 35px; height: 35px; background: var(--secondary); animation-delay: 4s;"></div>
+        <div class="hero-bg"></div>
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
         </div>
         
         <div class="container">
             <div class="hero-content">
-                <h1>Инвестируйте в будущее <span>вашего ребенка</span></h1>
-                <p>KIDCIRCLE — платформа для поиска и записи в детские кружки вашего города. Найдите идеальные занятия для развития талантов вашего ребенка.</p>
+                <h1>Раскройте таланты <span>вашего ребенка</span></h1>
+                <p>KIDCIRCLE — современная платформа для поиска и записи в детские кружки. Найдите идеальные занятия для развития способностей вашего ребенка.</p>
                 <div class="hero-buttons">
                     <a href="#search" class="btn btn-primary">
                         <i class="fas fa-search"></i>Найти кружки
@@ -1416,30 +1788,21 @@
                         <i class="fas fa-robot"></i>Тест способностей
                     </a>
                 </div>
-            </div>
-            <div class="hero-image">
-                <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#5e72e4" />
-                            <stop offset="100%" stop-color="#7795f8" />
-                        </linearGradient>
-                        <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#ff6b6b" />
-                            <stop offset="100%" stop-color="#ff8e8e" />
-                        </linearGradient>
-                        <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#47b475" />
-                            <stop offset="100%" stop-color="#67c98e" />
-                        </linearGradient>
-                    </defs>
-                    <circle cx="450" cy="250" r="150" fill="url(#grad1)" opacity="0.8"/>
-                    <circle cx="500" cy="200" r="80" fill="url(#grad2)" opacity="0.8"/>
-                    <path d="M300 300 C400 200 500 250 500 350" stroke="url(#grad3)" stroke-width="12" stroke-linecap="round" fill="none" opacity="0.8"/>
-                    <circle cx="350" cy="280" r="40" fill="url(#grad3)" opacity="0.8"/>
-                    <circle cx="250" cy="180" r="30" fill="url(#grad2)" opacity="0.8"/>
-                    <circle cx="200" cy="300" r="50" fill="url(#grad1)" opacity="0.8"/>
-                </svg>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">500+</div>
+                        <div class="stat-label">кружков</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">15K+</div>
+                        <div class="stat-label">детей</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">50+</div>
+                        <div class="stat-label">городов</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1544,111 +1907,9 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="circle-card animate-on-scroll">
-                    <div class="circle-badge">Выбор родителей</div>
-                    <div class="circle-img">Шахматы</div>
-                    <div class="circle-content">
-                        <h3 class="circle-title">Шахматный клуб "Гамбит"</h3>
-                        <div class="circle-info">
-                            <span>6-15 лет</span>
-                            <span class="circle-price">1500₽/мес</span>
-                        </div>
-                        <p class="circle-desc">Развиваем логическое мышление, стратегическое планирование и концентрацию. Участвуем в турнирах и соревнованиях.</p>
-                        <div class="circle-footer">
-                            <div class="circle-rating">
-                                <i class="fas fa-star"></i>
-                                <span>4.9 (105 отзывов)</span>
-                            </div>
-                            <a href="#" class="btn btn-primary">Записаться</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="circle-card animate-on-scroll">
-                    <div class="circle-img">Танцы</div>
-                    <div class="circle-content">
-                        <h3 class="circle-title">Танцевальная студия "Ритм"</h3>
-                        <div class="circle-info">
-                            <span>5-17 лет</span>
-                            <span class="circle-price">2200₽/мес</span>
-                        </div>
-                        <p class="circle-desc">Развиваем пластику, чувство ритма и уверенность в себе через танец. Современные и классические направления.</p>
-                        <div class="circle-footer">
-                            <div class="circle-rating">
-                                <i class="fas fa-star"></i>
-                                <span>4.8 (92 отзывов)</span>
-                            </div>
-                            <a href="#" class="btn btn-primary">Записаться</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="circle-card animate-on-scroll">
-                    <div class="circle-badge">Скидка 10%</div>
-                    <div class="circle-img">Театр</div>
-                    <div class="circle-content">
-                        <h3 class="circle-title">Детский театр "Сцена"</h3>
-                        <div class="circle-info">
-                            <span>7-16 лет</span>
-                            <span class="circle-price">1900₽/мес</span>
-                        </div>
-                        <p class="circle-desc">Развиваем актерское мастерство, речь и уверенность на сцене. Участие в постановках и выступлениях.</p>
-                        <div class="circle-footer">
-                            <div class="circle-rating">
-                                <i class="fas fa-star"></i>
-                                <span>4.7 (78 отзывов)</span>
-                            </div>
-                            <a href="#" class="btn btn-primary">Записаться</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Новая секция: Совет по выбору кружка -->
-    <section id="advice-section" class="advice-section">
-        <div class="container">
-            <div class="section-title animate-on-scroll">
-                <h2>Как выбрать кружок для ребенка</h2>
-                <p>Полезные советы для родителей, которые помогут раскрыть таланты вашего ребенка</p>
             </div>
             
-            <div class="advice-content animate-on-scroll">
-                <p>Выбор кружка для ребенка — это важное решение, которое может повлиять на его развитие и будущие интересы. Правильно подобранное занятие не только разовьет способности, но и укрепит уверенность в себе, научит общению со сверстниками и разовьет важные личностные качества.</p>
-                
-                <h3>Ключевые факторы при выборе кружка</h3>
-                
-                <div class="advice-tips">
-                    <div class="advice-tip">
-                        <h4><i class="fas fa-heart"></i> Интересы ребенка</h4>
-                        <p>Прислушивайтесь к желаниям ребенка. Что ему нравится? Чем он занимается с удовольствием? Выбор должен основываться на его предпочтениях, а не только на ваших ожиданиях.</p>
-                    </div>
-                    
-                    <div class="advice-tip">
-                        <h4><i class="fas fa-user"></i> Возрастные особенности</h4>
-                        <p>Учитывайте возраст ребенка. Для дошкольников лучше выбирать разносторонние развивающие занятия, в то время как школьникам можно предлагать более специализированные кружки.</p>
-                    </div>
-                    
-                    <div class="advice-tip">
-                        <h4><i class="fas fa-clock"></i> Время и нагрузка</h4>
-                        <p>Не перегружайте ребенка. У него должно оставаться время на отдых, игры и выполнение школьных заданий. Оптимально посещать 1-2 кружка в неделю.</p>
-                    </div>
-                    
-                    <div class="advice-tip">
-                        <h4><i class="fas fa-map-marker-alt"></i> Удобство расположения</h4>
-                        <p>Выбирайте кружки недалеко от дома или школы. Длительные поездки утомляют ребенка и отнимают время, которое можно потратить с пользой.</p>
-                    </div>
-                </div>
-                
-                <h3>Как определить склонности ребенка?</h3>
-                <p>Если вы не уверены, к чему у ребенка есть способности, предложите ему попробовать разные направления. Многие кружки предлагают пробные занятия. Также вы можете пройти наш специальный тест, который поможет определить склонности вашего ребенка к различным видам деятельности.</p>
-                
-                <div style="text-align: center; margin-top: 2.5rem;">
-                    <a href="#magic-test" class="btn btn-primary">Пройти тест способностей</a>
-                </div>
-            </div>
+            
         </div>
     </section>
 
@@ -1694,7 +1955,7 @@
         </div>
     </section>
 
-    <!-- Новая секция: Магический тест способностей -->
+    <!-- Magic test section -->
     <section id="magic-test" class="magic-test-section">
         <div class="container">
             <div class="test-container">
@@ -1717,73 +1978,150 @@
             <div class="cta-content">
                 <h2 class="animate-on-scroll">Начните развивать таланты вашего ребенка сегодня!</h2>
                 <p class="animate-on-scroll">Присоединяйтесь к тысячам родителей, которые уже нашли идеальные кружки для своих детей на KIDCIRCLE</p>
-                <a href="#" class="btn btn-light animate-on-scroll">Зарегистрироваться</a>
+                <div class="store-badges animate-on-scroll" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+                    <a href="#" class="store-badge" aria-label="Скачать в App Store" style="display:inline-flex; align-items:center; gap:0.6rem; background:#fff; color:#000; border-radius:12px; padding:0.8rem 1.2rem; box-shadow:0 8px 20px rgba(0,0,0,0.08); text-decoration:none;">
+                        <i class="fab fa-apple" style="font-size:1.6rem;"></i>
+                        <div style="display:flex; flex-direction:column; line-height:1;">
+                            <span style="font-size:0.7rem; opacity:0.7;">Загрузите в</span>
+                            <strong>App Store</strong>
+                        </div>
+                    </a>
+                    <a href="#" class="store-badge" aria-label="Скачать в Google Play" style="display:inline-flex; align-items:center; gap:0.6rem; background:#fff; color:#000; border-radius:12px; padding:0.8rem 1.2rem; box-shadow:0 8px 20px rgba(0,0,0,0.08); text-decoration:none;">
+                        <i class="fab fa-google-play" style="font-size:1.4rem;"></i>
+                        <div style="display:flex; flex-direction:column; line-height:1;">
+                            <span style="font-size:0.7rem; opacity:0.7;">Доступно в</span>
+                            <strong>Google Play</strong>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок сотрудничества - полностью переработан -->
+    <section id="collaboration" class="collaboration-section">
+        <div class="container">
+            <div class="collaboration-content">
+                <h2 class="collaboration-title animate-on-scroll">Станьте нашим партнером</h2>
+                <p class="collaboration-subtitle animate-on-scroll">Присоединяйтесь к платформе KIDCIRCLE и получите доступ к тысячам родителей, ищущих кружки для своих детей</p>
+                
+                <div class="collaboration-grid">
+                    <div class="collaboration-card animate-on-scroll">
+                        <div class="collaboration-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Расширьте аудиторию</h3>
+                        <p>Привлекайте новых клиентов из числа родителей, которые активно ищут кружки для своих детей в вашем городе.</p>
+                    </div>
+                    
+                    <div class="collaboration-card animate-on-scroll">
+                        <div class="collaboration-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Увеличьте доход</h3>
+                        <p>Заполняйте свободные места в группах и увеличивайте прибыль с помощью нашей эффективной системы продвижения.</p>
+                    </div>
+                    
+                    <div class="collaboration-card animate-on-scroll">
+                        <div class="collaboration-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Автоматизация записи</h3>
+                        <p>Используйте современную систему онлайн-записи, управления расписанием и уведомлений для ваших клиентов.</p>
+                    </div>
+                </div>
+                
+                <div class="collaboration-form-container animate-on-scroll">
+                    <h3 class="form-title">Оставьте заявку на сотрудничество</h3>
+                    <form id="collaboration-form" class="collaboration-form">
+                        <div class="form-group">
+                            <label for="orgName">Название организации</label>
+                            <input type="text" id="orgName" name="orgName" required placeholder="Введите название вашей организации">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactPerson">Контактное лицо</label>
+                            <input type="text" id="contactPerson" name="contactPerson" required placeholder="Ваше имя и должность">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="example@mail.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Телефон</label>
+                            <input type="tel" id="phone" name="phone" required placeholder="+7 (XXX) XXX-XX-XX">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="city">Город</label>
+                            <input type="text" id="city" name="city" required placeholder="В каком городе вы находитесь?">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="activity">Направление деятельности</label>
+                            <select id="activity" name="activity" required>
+                                <option value="">Выберите направление</option>
+                                <option value="sport">Спорт</option>
+                                <option value="art">Творчество и искусство</option>
+                                <option value="science">Наука и образование</option>
+                                <option value="music">Музыка</option>
+                                <option value="dance">Танцы</option>
+                                <option value="development">Развитие</option>
+                                <option value="other">Другое</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group full-width">
+                            <label for="message">Расскажите о ваших кружках</label>
+                            <textarea id="message" name="message" placeholder="Опишите ваши кружки, возрастные группы, особенности и т.д."></textarea>
+                        </div>
+                        
+                        <div class="form-submit">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-paper-plane"></i> Отправить заявку
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div id="form-success" class="form-success">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Спасибо за вашу заявку!</h3>
+                        <p>Мы свяжемся с вами в ближайшее время для обсуждения деталей сотрудничества.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column animate-on-scroll">
-                    <h3>KIDCIRCLE</h3>
-                    <p>Платформа для поиска и записи в детские кружки. Инвестиция в будущее вашего ребенка.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-vk"></i></a>
-                        <a href="#"><i class="fab fa-telegram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-column animate-on-scroll">
-                    <h3>Кружки</h3>
-                    <ul>
-                        <li><a href="#">Спортивные секции</a></li>
-                        <li><a href="#">Творческие студии</a></li>
-                        <li><a href="#">Научные кружки</a></li>
-                        <li><a href="#">Музыкальные школы</a></li>
-                        <li><a href="#">Развивающие центры</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column animate-on-scroll">
-                    <h3>Города</h3>
-                    <ul>
-                        <li><a href="#">Москва</a></li>
-                        <li><a href="#">Санкт-Петербург</a></li>
-                        <li><a href="#">Новосибирск</a></li>
-                        <li><a href="#">Екатеринбург</a></li>
-                        <li><a href="#">Все города</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-column animate-on-scroll">
-                    <h3>Контакты</h3>
-                    <ul>
-                        <li><i class="fas fa-envelope"></i> info@kidcircle.ru</li>
-                        <li><i class="fas fa-phone"></i> +7 (800) 123-45-67</li>
-                        <li><i class="fas fa-map-marker-alt"></i> г. Москва, ул. Примерная, 15</li>
-                    </ul>
-                </div>
-            </div>
             
             <div class="copyright">
-                <p>© 2023 KIDCIRCLE — инвестиция в будущее вашего ребенка. Все права защищены.</p>
+                <p>&copy; 2025 KIDCIRCLE. Все права защищены.</p>
             </div>
-        </div>
+
     </footer>
 
     <script>
-        // Анимация загрузки
-        window.addEventListener('load', function() {
-            const loaderWrapper = document.querySelector('.loader-wrapper');
-            setTimeout(function() {
-                loaderWrapper.style.opacity = '0';
-                setTimeout(function() {
-                    loaderWrapper.style.display = 'none';
-                }, 500);
-            }, 1000);
+        // Удалена анимация загрузки
+
+        // Мобильное меню
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        
+        menuToggle.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+
+        // Закрытие меню при клике на ссылку
+        const navLinks = document.querySelectorAll('#nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navMenu.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
         });
 
         // Анимация появления элементов при скролле
@@ -1810,7 +2148,7 @@
             button.addEventListener('click', function() {
                 // Убираем активный класс у всех кнопок
                 filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Добавляем активный класс текущей кнопке
+                // Добавляем активный класс текуной кнопке
                 this.classList.add('active');
                 
                 // Здесь будет реальная фильтрация, в демо просто показываем уведомление
@@ -1839,6 +2177,28 @@
             }
         }
         
+        // Отправка формы сотрудничества
+        const collaborationForm = document.getElementById('collaboration-form');
+        const formSuccess = document.getElementById('form-success');
+        
+        if (collaborationForm) {
+            collaborationForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // В реальном приложении здесь будет отправка данных на сервер
+                // Для демонстрации просто показываем сообщение об успехе
+                setTimeout(() => {
+                    formSuccess.style.display = 'block';
+                    collaborationForm.reset();
+                    
+                    // Прячем сообщение через 5 секунд
+                    setTimeout(() => {
+                        formSuccess.style.display = 'none';
+                    }, 5000);
+                }, 1000);
+            });
+        }
+        
         // Плавная прокрутка
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1850,7 +2210,7 @@
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 100,
+                        top: targetElement.getBoundingClientRect().top + window.pageYOffset - 80,
                         behavior: 'smooth'
                     });
                     // Обновляем hash без скачка страницы и инициализируем тест
@@ -1878,7 +2238,7 @@
                     { text: "Танцевать или двигаться под музыку", category: "dance" },
                     { text: "Играть в подвижные игры, бегать, прыгать", category: "sport" },
                     { text: "Собирать конструктор, головоломки", category: "technical" },
-                    { text: "Наблюдать за природой, животными, растениями", category: "science" }
+                    { text: "Наблюдать за природой, животными, растений", category: "science" }
                 ]
             },
             {
@@ -2029,7 +2389,7 @@
             }
         }
 
-        // Показать результаты
+        // Показать результатов
         function showResults() {
             // Показываем анимацию загрузки "ИИ думает"
             testContainer.innerHTML = `
@@ -2147,20 +2507,7 @@
             }
         }
 
-        // Инициализируем тест при загрузке страницы
-        window.addEventListener('load', function() {
-            // Если мы на странице с тестом, инициализируем его
-            if (window.location.hash === '#magic-test') {
-                setTimeout(initTest, 500);
-            }
-        });
-
-        // Обработка изменения hash для перехода к тесту
-        window.addEventListener('hashchange', function() {
-            if (window.location.hash === '#magic-test') {
-                initTest();
-            }
-        });
+        // Убрана авто-инициализация теста по hash/load
     </script>
 </body>
 </html>
