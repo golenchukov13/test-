@@ -164,21 +164,49 @@
             transform: translateX(-100%);
         }
         
-        /* Главный экран */
+        /* Welcome Section - улучшенный стиль */
         .welcome-section {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
+            padding: 32px 16px 24px 16px;
+            background: linear-gradient(120deg, var(--primary) 0%, var(--neon-2) 100%);
+            border-radius: 24px;
+            box-shadow: 0 6px 24px rgba(108,92,231,0.10);
+            color: #fff;
+            position: relative;
+            overflow: hidden;
         }
-        
+        .welcome-section::after {
+            content: '';
+            position: absolute;
+            right: -40px;
+            top: -40px;
+            width: 120px;
+            height: 120px;
+            background: var(--neon);
+            opacity: 0.12;
+            border-radius: 50%;
+        }
         .welcome-text {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            color: var(--dark);
+            font-size: 2.1rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #fff;
+            text-shadow: 0 2px 12px rgba(76,71,194,0.18);
         }
-        
         .welcome-subtext {
-            color: var(--gray);
-            font-size: 1rem;
+            color: #e2e8f0;
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 0;
+        }
+        @media (max-width: 400px) {
+            .welcome-section {
+                padding: 20px 8px 16px 8px;
+            }
+            .welcome-text {
+                font-size: 1.4rem;
+            }
         }
         
         .search-card {
@@ -724,9 +752,310 @@
                 font-size: 1.5rem;
             }
         }
+
+        /* Стили для экранов онбординга */
+        .onboarding-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-gradient);
+            z-index: 3000;
+            overflow: hidden;
+        }
+        
+        .onboarding-slides {
+            display: flex;
+            width: 500%;
+            height: 100%;
+            transition: transform 0.4s ease;
+        }
+        
+        .onboarding-slide {
+            width: 20%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .onboarding-image {
+            width: 250px;
+            height: 250px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--primary), var(--neon-2));
+            border-radius: 20px;
+            color: white;
+            font-size: 100px;
+        }
+        
+        .onboarding-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .onboarding-text {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 300px;
+        }
+        
+        .onboarding-indicators {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .onboarding-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            transition: var(--transition);
+        }
+        
+        .onboarding-indicator.active {
+            background: var(--primary);
+            width: 24px;
+            border-radius: 4px;
+        }
+        
+        .onboarding-btn {
+            padding: 14px 30px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .onboarding-btn.skip {
+            background: transparent;
+            color: var(--gray);
+            margin-top: 10px;
+        }
+        
+        .onboarding-btn:active {
+            transform: scale(0.98);
+        }
+        
+        /* Форма ввода данных */
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+        
+        .form-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .form-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+        
+        .form-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+        
+        .form-btn:active {
+            transform: scale(0.98);
+        }
+        
+        .code-inputs {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .code-input {
+            width: 50px;
+            height: 60px;
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .timer-text {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+        
+        .resend-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
+    <!-- Экран онбординга -->
+    <div class="onboarding-container" id="onboarding-container">
+        <div class="onboarding-slides" id="onboarding-slides">
+            <!-- Первый экран онбординга -->
+            <div class="onboarding-slide">
+                <div class="onboarding-image">
+                    <i class="fas fa-child"></i>
+                </div>
+                <h2 class="onboarding-title">Добро пожаловать в KIDCIRCLE</h2>
+                <p class="onboarding-text">Платформа для поиска детских кружков и секций в вашем городе</p>
+                <div class="onboarding-indicators">
+                    <div class="onboarding-indicator active"></div>
+                    <div class="onboarding-indicator"></div>
+                    <div class="onboarding-indicator"></div>
+                    <div class="onboarding-indicator"></div>
+                </div>
+                <button class="onboarding-btn" onclick="nextOnboardingSlide(1)">Далее</button>
+                <button class="onboarding-btn skip" onclick="skipOnboarding()">Пропустить</button>
+            </div>
+            
+            <!-- Второй экран онбординга -->
+            <div class="onboarding-slide">
+                <div class="onboarding-image">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h2 class="onboarding-title">Найдите идеальный кружок</h2>
+                <p class="onboarding-text">Мы собрали сотни кружков и секций для детей всех возрастов</p>
+                <div class="onboarding-indicators">
+                    <div class="onboarding-indicator"></div>
+                    <div class="onboarding-indicator active"></div>
+                    <div class="onboarding-indicator"></div>
+                    <div class="onboarding-indicator"></div>
+                </div>
+                <button class="onboarding-btn" onclick="nextOnboardingSlide(2)">Далее</button>
+                <button class="onboarding-btn skip" onclick="skipOnboarding()">Пропустить</button>
+            </div>
+            
+            <!-- Третий экран онбординга -->
+            <div class="onboarding-slide">
+                <div class="onboarding-image">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h2 class="onboarding-title">Тест способностей с ИИ</h2>
+                <p class="onboarding-text">Пройдите тест, и мы подберем кружки, подходящие именно вашему ребенку</p>
+                <div class="onboarding-indicators">
+                    <div class="onboarding-indicator"></div>
+                    <div class="onboarding-indicator"></div>
+                    <div class="onboarding-indicator active"></div>
+                    <div class="onboarding-indicator"></div>
+                </div>
+                <button class="onboarding-btn" onclick="nextOnboardingSlide(3)">Далее</button>
+                <button class="onboarding-btn skip" onclick="skipOnboarding()">Пропустить</button>
+            </div>
+            
+            <!-- Четвертый экран онбординга -->
+            <div class="onboarding-slide">
+                <div class="onboarding-image">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h2 class="onboarding-title">Записывайтесь онлайн</h2>
+                <p class="onboarding-text">Выбирайте подходящее время и записывайтесь на занятия в несколько кликов</p>
+                <div class="onboarding-indicators">
+                    <div class="onboarding-indicator"></div>
+                    <div class="onboarding-indicator"></div>
+                    <div class="onboarding-indicator"></div>
+                    <div class="onboarding-indicator active"></div>
+                </div>
+                <button class="onboarding-btn" onclick="nextOnboardingSlide(4)">Начать</button>
+                <button class="onboarding-btn skip" onclick="skipOnboarding()">Пропустить</button>
+            </div>
+            
+            <!-- Экран ввода данных -->
+            <div class="onboarding-slide">
+                <div class="form-container">
+                    <h2 class="form-title">Расскажите о себе</h2>
+                    <p class="form-subtitle">Чтобы подобрать лучшие кружки для вашего ребенка</p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ваше имя</label>
+                        <input type="text" class="form-input" id="user-name" placeholder="Как вас зовут?">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ваш город</label>
+                        <input type="text" class="form-input" id="user-city" placeholder="В каком городе ищем?">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Номер телефона</label>
+                        <input type="tel" class="form-input" id="user-phone" placeholder="+7 (XXX) XXX-XX-XX">
+                    </div>
+                    
+                    <button class="form-btn" onclick="sendVerificationCode()">Продолжить</button>
+                </div>
+            </div>
+            
+            <!-- Экран подтверждения номера -->
+            <div class="onboarding-slide">
+                <div class="form-container">
+                    <h2 class="form-title">Подтверждение номера</h2>
+                    <p class="form-subtitle">Мы отправили код на номер <span id="phone-number"></span></p>
+                    
+                    <div class="code-inputs">
+                        <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 1)">
+                        <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 2)">
+                        <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 3)">
+                        <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 4)">
+                    </div>
+                    
+                    <p class="timer-text">Отправить код повторно через <span id="timer">59</span> секунд</p>
+                    <a href="#" class="resend-link" id="resend-link" style="display:none;" onclick="resendCode()">Отправить код повторно</a>
+                    
+                    <button class="form-btn" onclick="verifyCode()">Подтвердить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Шапка приложения -->
     <header class="app-header">
         <a href="#" class="logo">
@@ -1117,6 +1446,133 @@
     </div>
 
     <script>
+        // Проверяем, проходил ли пользователь онбординг
+        if (!localStorage.getItem('onboardingCompleted')) {
+            document.getElementById('onboarding-container').style.display = 'block';
+            document.querySelector('.app-header').style.display = 'none';
+            document.querySelector('.bottom-nav').style.display = 'none';
+        }
+
+        // Навигация между экранами онбординга
+        let currentSlide = 0;
+        const totalSlides = 6; // 4 экрана приветствия + форма + подтверждение
+        
+        function nextOnboardingSlide(nextIndex) {
+            const slides = document.getElementById('onboarding-slides');
+            currentSlide = nextIndex;
+            slides.style.transform = `translateX(-${currentSlide * 20}%)`;
+            
+            // Обновляем индикаторы
+            document.querySelectorAll('.onboarding-indicator').forEach((indicator, index) => {
+                if (index === currentSlide && currentSlide < 4) {
+                    indicator.classList.add('active');
+                } else if (currentSlide < 4) {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+        
+        function skipOnboarding() {
+            localStorage.setItem('onboardingCompleted', 'true');
+            document.getElementById('onboarding-container').style.display = 'none';
+            document.querySelector('.app-header').style.display = 'flex';
+            document.querySelector('.bottom-nav').style.display = 'flex';
+        }
+        
+        // Отправка кода подтверждения
+        function sendVerificationCode() {
+            const name = document.getElementById('user-name').value;
+            const city = document.getElementById('user-city').value;
+            const phone = document.getElementById('user-phone').value;
+            
+            if (!name || !city || !phone) {
+                alert('Пожалуйста, заполните все поля');
+                return;
+            }
+            
+            // Сохраняем данные пользователя
+            localStorage.setItem('userName', name);
+            localStorage.setItem('userCity', city);
+            localStorage.setItem('userPhone', phone);
+            
+            // Показываем номер телефона на следующем экране
+            document.getElementById('phone-number').textContent = phone;
+            
+            // Переходим к экрану подтверждения
+            nextOnboardingSlide(5);
+            
+            // Запускаем таймер для повторной отправки
+            startTimer();
+            
+            // Имитируем отправку кода
+            setTimeout(() => {
+                alert('Код подтверждения отправлен! Введите 1234 для тестового входа.');
+            }, 1000);
+        }
+        
+        // Таймер для повторной отправки кода
+        function startTimer() {
+            let timeLeft = 59;
+            const timerElement = document.getElementById('timer');
+            const resendLink = document.getElementById('resend-link');
+            
+            const timerInterval = setInterval(() => {
+                timerElement.textContent = timeLeft;
+                timeLeft--;
+                
+                if (timeLeft < 0) {
+                    clearInterval(timerInterval);
+                    timerElement.parentElement.style.display = 'none';
+                    resendLink.style.display = 'block';
+                }
+            }, 1000);
+        }
+        
+        function resendCode() {
+            document.getElementById('resend-link').style.display = 'none';
+            document.getElementById('timer').parentElement.style.display = 'block';
+            startTimer();
+            
+            // Имитируем повторную отправку кода
+            alert('Код подтверждения отправлен повторно!');
+        }
+        
+        // Переход между полями ввода кода
+        function moveToNext(input, nextIndex) {
+            if (input.value.length > 0) {
+                if (nextIndex <= 4) {
+                    document.querySelectorAll('.code-input')[nextIndex].focus();
+                }
+            }
+        }
+        
+        // Проверка кода подтверждения
+        function verifyCode() {
+            const codeInputs = document.querySelectorAll('.code-input');
+            let code = '';
+            
+            codeInputs.forEach(input => {
+                code += input.value;
+            });
+            
+            // Для демонстрации всегда принимаем код 1234
+            if (code === '1234') {
+                localStorage.setItem('onboardingCompleted', 'true');
+                document.getElementById('onboarding-container').style.display = 'none';
+                document.querySelector('.app-header').style.display = 'flex';
+                document.querySelector('.bottom-nav').style.display = 'flex';
+                
+                // Обновляем имя пользователя в приложении
+                const userName = localStorage.getItem('userName');
+                if (userName) {
+                    document.querySelector('.welcome-text').textContent = `Привет, ${userName}!`;
+                    document.querySelector('.profile-name').textContent = userName;
+                }
+            } else {
+                alert('Неверный код подтверждения. Попробуйте снова. Для теста используйте код 1234');
+            }
+        }
+        
         // Навигация между экранами
         const navItems = document.querySelectorAll('.nav-item');
         const screens = document.querySelectorAll('.screen');
@@ -1155,7 +1611,7 @@
                     { text: "Танцевать или двигаться под музыку", category: "dance" },
                     { text: "Играть в подвижные игры, бегать, прыгать", category: "sport" },
                     { text: "Собирать конструктор, головоломки", category: "science" },
-                    { text: "Наблюдать за природой, животными, растениями", category: "nature" }
+                    { text: "Наблюдать за природой, животными, растений", category: "nature" }
                 ]
             },
             {
@@ -1423,6 +1879,15 @@
         // Инициализация теста при загрузке
         document.addEventListener('DOMContentLoaded', function() {
             initTest();
+            
+            // Если пользователь уже прошел онбординг, обновляем его имя
+            if (localStorage.getItem('onboardingCompleted')) {
+                const userName = localStorage.getItem('userName');
+                if (userName) {
+                    document.querySelector('.welcome-text').textContent = `Привет, ${userName}!`;
+                    document.querySelector('.profile-name').textContent = userName;
+                }
+            }
         });
     </script>
 </body>
