@@ -24,6 +24,8 @@
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --header-height: 60px;
             --nav-height: 70px;
+            --chat-bubble-user: #6c5ce7;
+            --chat-bubble-other: #f0f2f5;
         }
         
         * {
@@ -103,6 +105,22 @@
         .header-icon {
             font-size: 1.3rem;
             color: var(--dark);
+            position: relative;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         /* Навигация */
@@ -521,21 +539,21 @@
         }
         
         .profile-email {
-            color: var (--gray);
+            color: var(--gray);
         }
         
         .profile-menu {
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: var (--card-shadow);
+            box-shadow: var(--card-shadow);
         }
         
         .menu-item {
             display: flex;
             align-items: center;
             padding: 18px 20px;
-            border-bottom: 1px solid var (--light-gray);
+            border-bottom: 1px solid var(--light-gray);
         }
         
         .menu-item:last-child {
@@ -545,7 +563,7 @@
         .menu-icon {
             width: 40px;
             font-size: 1.2rem;
-            color: var (--primary);
+            color: var(--primary);
         }
         
         .menu-text {
@@ -554,7 +572,7 @@
         }
         
         .menu-arrow {
-            color: var (--gray);
+            color: var(--gray);
         }
         
         /* Экран избранного */
@@ -935,14 +953,253 @@
         
         .timer-text {
             text-align: center;
-            color: var (--gray);
+            color: var(--gray);
             margin-bottom: 20px;
         }
         
         .resend-link {
-            color: var (--primary);
+            color: var(--primary);
             text-decoration: none;
             font-weight: 600;
+        }
+
+        /* Стили для экрана чатов (мессенджера) */
+        .chats-container {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            height: calc(100vh - var(--header-height) - var(--nav-height) - 40px);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .chat-back-btn {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-right: 10px;
+        }
+        
+        .chat-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .chat-info-btn {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            margin-bottom: 5px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+            line-height: 1.4;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            color: var(--gray);
+            text-align: right;
+            margin-top: 5px;
+        }
+        
+        .message-in {
+            align-self: flex-start;
+            background: var(--chat-bubble-other);
+            border-top-left-radius: 4px;
+        }
+        
+        .message-out {
+            align-self: flex-end;
+            background: var(--chat-bubble-user);
+            color: white;
+            border-top-right-radius: 4px;
+        }
+        
+        .chat-input-container {
+            padding: 10px 15px;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 24px;
+            font-size: 0.95rem;
+        }
+        
+        .chat-send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+        }
+        
+        /* Стили для списка чатов */
+        .chat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .chat-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+        
+        .chat-card:active {
+            transform: scale(0.98);
+        }
+        
+        .chat-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--neon-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+        
+        .chat-info {
+            flex: 1;
+        }
+        
+        .chat-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .chat-preview {
+            font-size: 0.9rem;
+            color: var(--gray);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .chat-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        
+        .chat-time {
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .chat-unread {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: white;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Стили для экрана уведомлений */
+        .notifications-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .notification-card {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            transition: var(--transition);
+        }
+        
+        .notification-card:active {
+            transform: scale(0.98);
+        }
+        
+        .notification-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        .notification-content {
+            flex: 1;
+        }
+        
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .notification-text {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+        }
+        
+        .notification-time {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .notification-badge-new {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--secondary);
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -1035,9 +1292,11 @@
         <div class="header-actions">
             <a href="#" class="header-icon" id="chat-icon">
                 <i class="fas fa-comments"></i>
+                <span class="notification-badge">3</span>
             </a>
-            <a href="#" class="header-icon">
+            <a href="#" class="header-icon" id="notification-icon">
                 <i class="fas fa-bell"></i>
+                <span class="notification-badge">2</span>
             </a>
         </div>
     </header>
@@ -1402,31 +1661,129 @@
         </div>
 
         <!-- Экран чатов -->
-        <div class="screen" id="chats-screen" style="display:none;">
+        <div class="screen" id="chats-screen">
             <h2 style="margin-bottom: 20px;">Чаты</h2>
             <div class="chat-list">
-                <div class="chat-card">
+                <div class="chat-card" data-chat="news">
                     <div class="chat-avatar"><i class="fas fa-bullhorn"></i></div>
                     <div class="chat-info">
-                        <div class="chat-title">Новости и обновления KIDCIRCLE</div>
-                        <div class="chat-last">Последнее: Новые кружки в вашем городе!</div>
+                        <div class="chat-name">Новости и обновления KIDCIRCLE</div>
+                        <div class="chat-preview">Новые кружки в вашем городе!</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">15:20</div>
+                        <div class="chat-unread">1</div>
                     </div>
                 </div>
-                <div class="chat-card">
+                <div class="chat-card" data-chat="champion">
                     <div class="chat-avatar"><i class="fas fa-futbol"></i></div>
                     <div class="chat-info">
-                        <div class="chat-title">Футбольная академия "Чемпион"</div>
-                        <div class="chat-last">Последнее: Ваше занятие подтверждено!</div>
+                        <div class="chat-name">Футбольная академия "Чемпион"</div>
+                        <div class="chat-preview">Ваше занятие подтверждено!</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">Вчера</div>
+                        <div class="chat-unread">3</div>
                     </div>
                 </div>
-                <div class="chat-card">
+                <div class="chat-card" data-chat="robotics">
                     <div class="chat-avatar"><i class="fas fa-robot"></i></div>
                     <div class="chat-info">
-                        <div class="chat-title">Робототехника для детей</div>
-                        <div class="chat-last">Последнее: Новое расписание занятий</div>
+                        <div class="chat-name">Робототехника для детей</div>
+                        <div class="chat-preview">Новое расписание занятий</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">Пн</div>
                     </div>
                 </div>
-                <!-- Можно добавить больше чатов -->
+                <div class="chat-card" data-chat="art">
+                    <div class="chat-avatar"><i class="fas fa-paint-brush"></i></div>
+                    <div class="chat-info">
+                        <div class="chat-name">Студия рисования "Арт-Класс"</div>
+                        <div class="chat-preview">Спасибо за вашу заявку!</div>
+                    </div>
+                    <div class="chat-meta">
+                        <div class="chat-time">2 нед.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран конкретного чата -->
+        <div class="screen" id="chat-detail-screen">
+            <div class="chats-container">
+                <div class="chat-header">
+                    <a href="#" class="chat-back-btn" id="chat-back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <div class="chat-title" id="chat-title">Чат</div>
+                    <a href="#" class="chat-info-btn">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </div>
+                
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Сообщения будут добавляться через JS -->
+                </div>
+                
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chat-input" placeholder="Введите сообщение...">
+                    <button class="chat-send-btn" id="chat-send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Экран уведомлений -->
+        <div class="screen" id="notifications-screen">
+            <h2 style="margin-bottom: 20px;">Уведомления</h2>
+            <div class="notifications-container">
+                <div class="notification-card">
+                    <div class="notification-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Запись подтверждена</div>
+                        <div class="notification-text">Ваша запись в футбольную академию "Чемпион" подтверждена. Занятие начнется в 15:00 завтра.</div>
+                        <div class="notification-time">Сегодня, 14:30</div>
+                    </div>
+                    <div class="notification-badge-new"></div>
+                </div>
+                
+                <div class="notification-card">
+                    <div class="notification-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Новые рекомендации</div>
+                        <div class="notification-text">Мы подобрали для вас новые кружки на основе ваших интересов.</div>
+                        <div class="notification-time">Вчера, 12:45</div>
+                    </div>
+                    <div class="notification-badge-new"></div>
+                </div>
+                
+                <div class="notification-card">
+                    <div class="notification-icon">
+                        <i class="fas fa-exclamation-circle"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Напоминание об оплате</div>
+                        <div class="notification-text">Не забудьте оплатить занятия в студии рисования "Арт-Класс" до завтра.</div>
+                        <div class="notification-time">2 дня назад</div>
+                    </div>
+                </div>
+                
+                <div class="notification-card">
+                    <div class="notification-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div class="notification-content">
+                        <div class="notification-title">Новые кружки в вашем городе</div>
+                        <div class="notification-text">В вашем городе появились новые кружки для детей. Посмотрите прямо сейчас!</div>
+                        <div class="notification-time">3 дня назад</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1780,7 +2137,7 @@
                     optionsList.appendChild(optionItem);
                 });
                 
-                // Обновляем состояние кнопок
+                // Обновляем состояние кнопки "Назад"
                 prevBtn.style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
                 nextBtn.textContent = currentQuestion === testQuestions.length - 1 ? 'Завершить' : 'Далее';
             }
@@ -1924,18 +2281,184 @@
             }
         });
 
-        // Открытие экрана чатов по клику на значок чата
+        // Данные для чатов
+        const chatData = {
+            'news': {
+                name: 'Новости и обновления KIDCIRCLE',
+                messages: [
+                    { text: 'Добро пожаловать в KIDCIRCLE! Мы будем присылать вам важные уведомления и новости.', time: '14:20', incoming: true },
+                    { text: 'В вашем городе появились 5 новых кружков для детей. Посмотрите их в нашем приложении!', time: '14:25', incoming: true },
+                    { text: 'Спасибо, буду следить за новостями!', time: '14:30', incoming: false }
+                ]
+            },
+            'champion': {
+                name: 'Футбольная академия "Чемпион"',
+                messages: [
+                    { text: 'Здравствуйте! Ваша заявка на пробное занятие получена.', time: '10:15', incoming: true },
+                    { text: 'Отлично! На какое время записано занятие?', time: '10:20', incoming: false },
+                    { text: 'Занятие записано на завтра, 15:00. Не забудьте спортивную форму и сменную обувь.', time: '10:22', incoming: true },
+                    { text: 'Хорошо, спасибо! Будем вовремя.', time: '10:25', incoming: false }
+                ]
+            },
+            'robotics': {
+                name: 'Робототехника для детей',
+                messages: [
+                    { text: 'Приветствуем! Рады сообщить, что у нас изменилось расписание.', time: '13:40', incoming: true },
+                    { text: 'Занятия для вашей возрастной группы теперь проходят по средам в 17:00 и субботам в 12:00.', time: '13:41', incoming: true },
+                    { text: 'Понятно, спасибо за информацию!', time: '13:45', incoming: false }
+                ]
+            },
+            'art': {
+                name: 'Студия рисования "Арт-Класс"',
+                messages: [
+                    { text: 'Благодарим за вашу заявку! Ждем вас на пробном занятии в эту субботу в 11:00.', time: '11:30', incoming: true },
+                    { text: 'Все необходимые материалы мы предоставляем.', time: '11:31', incoming: true },
+                    { text: 'Отлично, жду с нетерпением!', time: '11:35', incoming: false }
+                ]
+            }
+        };
+
+        // Обработчики для иконок в шапке
         const chatIcon = document.getElementById('chat-icon');
+        const notificationIcon = document.getElementById('notification-icon');
+
         chatIcon.addEventListener('click', function(e) {
             e.preventDefault();
+            
+            // Скрываем все экраны
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.remove('active');
-                screen.style.display = 'none';
             });
-            const chatsScreen = document.getElementById('chats-screen');
-            chatsScreen.classList.add('active');
-            chatsScreen.style.display = 'block';
+            
+            // Показываем экран чатов
+            document.getElementById('chats-screen').classList.add('active');
         });
+
+        notificationIcon.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Скрываем все экраны
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Показываем экран уведомлений
+            document.getElementById('notifications-screen').classList.add('active');
+        });
+
+        // Обработчики для чатов
+        const chatCards = document.querySelectorAll('.chat-card');
+        const chatBackBtn = document.getElementById('chat-back-btn');
+        const chatTitle = document.getElementById('chat-title');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const chatSendBtn = document.getElementById('chat-send-btn');
+
+        chatCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const chatId = this.getAttribute('data-chat');
+                const chat = chatData[chatId];
+                
+                // Обновляем заголовок чата
+                chatTitle.textContent = chat.name;
+                
+                // Очищаем сообщения
+                chatMessages.innerHTML = '';
+                
+                // Добавляем сообщения
+                chat.messages.forEach(message => {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message');
+                    messageElement.classList.add(message.incoming ? 'message-in' : 'message-out');
+                    
+                    messageElement.innerHTML = `
+                        <div>${message.text}</div>
+                        <div class="message-time">${message.time}</div>
+                    `;
+                    
+                    chatMessages.appendChild(messageElement);
+                });
+                
+                // Прокручиваем вниз к последним сообщениям
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Скрываем экран списка чатов и показываем экран конкретного чата
+                document.getElementById('chats-screen').classList.remove('active');
+                document.getElementById('chat-detail-screen').classList.add('active');
+            });
+        });
+
+        // Кнопка "Назад" в чате
+        chatBackBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Возвращаемся к списку чатов
+            document.getElementById('chat-detail-screen').classList.remove('active');
+            document.getElementById('chats-screen').classList.add('active');
+        });
+
+        // Отправка сообщения в чате
+        chatSendBtn.addEventListener('click', function() {
+            sendMessage();
+        });
+
+        chatInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const messageText = chatInput.value.trim();
+            if (messageText) {
+                // Получаем текущее время
+                const now = new Date();
+                const time = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+                
+                // Создаем элемент сообщения
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('message');
+                messageElement.classList.add('message-out');
+                
+                messageElement.innerHTML = `
+                    <div>${messageText}</div>
+                    <div class="message-time">${time}</div>
+                `;
+                
+                // Добавляем сообщение в чат
+                chatMessages.appendChild(messageElement);
+                
+                // Очищаем поле ввода
+                chatInput.value = '';
+                
+                // Прокручиваем вниз к новому сообщению
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                // Имитируем ответ через 1-2 секунды
+                setTimeout(() => {
+                    const responses = [
+                        'Спасибо за ваше сообщение!',
+                        'Мы обработаем ваш запрос в ближайшее время.',
+                        'Хорошо, я передам эту информацию нашему менеджеру.',
+                        'Благодарим за обратную связь!'
+                    ];
+                    
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    
+                    const responseElement = document.createElement('div');
+                    responseElement.classList.add('message');
+                    responseElement.classList.add('message-in');
+                    
+                    responseElement.innerHTML = `
+                        <div>${randomResponse}</div>
+                        <div class="message-time">${now.getHours() + ':' + (now.getMinutes() + 1 < 10 ? '0' : '') + (now.getMinutes() + 1)}</div>
+                    `;
+                    
+                    chatMessages.appendChild(responseElement);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 1000 + Math.random() * 1000);
+            }
+        }
     </script>
 </body>
 </html>
