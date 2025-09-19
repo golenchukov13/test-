@@ -164,14 +164,16 @@
             position: relative;
             width: 100%;
             min-height: calc(100vh - var(--header-height) - var(--nav-height));
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
         
         .screen {
-            position: relative;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            min-height: 100%;
+            min-height: calc(100vh - var(--header-height) - var(--nav-height));
             padding: 20px;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
@@ -236,107 +238,114 @@
             }
         }
         
-        .search-card {
-            background: white;
-            border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 20px;
-            box-shadow: var(--card-shadow);
-        }
-        
-        .search-input {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid var(--light-gray);
-            border-radius: 12px;
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-        
-        .filters {
-            display: flex;
-            overflow-x: auto;
-            gap: 10px;
-            padding-bottom: 5px;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .filters::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .filter-btn {
-            padding: 10px 16px;
-            background: var(--light);
-            border: 1px solid var(--light-gray);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            white-space: nowrap;
-        }
-        
-        .filter-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        
-        .categories {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 20px;
-        }
-        
-        .category-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: var(--card-shadow);
-            transition: var(--transition);
-        }
-        
-        .category-card:active {
-            transform: scale(0.97);
-        }
-        
-        .category-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 12px;
-            font-size: 1.4rem;
-            color: var(--primary);
-        }
-        
-        .category-name {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-        
-        .category-count {
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-        
-        /* Экран поиска */
+        /* Стили для поиска на главной */
         .search-header {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            gap: 10px;
         }
         
-        .back-btn {
+        .search-input-container {
+            flex: 1;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 14px 45px 14px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
+            font-size: 1rem;
+            background: white;
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .filter-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 1.2rem;
-            margin-right: 15px;
-            color: var(--dark);
         }
         
+        /* Платные блоки */
+        .promo-blocks {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 5px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .promo-blocks::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .promo-block {
+            min-width: 250px;
+            height: 120px;
+            border-radius: 16px;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--neon-2) 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .promo-block:nth-child(2) {
+            background: linear-gradient(135deg, var(--secondary) 0%, #ff9e9e 100%);
+        }
+        
+        .promo-block:nth-child(3) {
+            background: linear-gradient(135deg, var(--accent) 0%, #00ffd1 100%);
+        }
+        
+        .promo-block:nth-child(4) {
+            background: linear-gradient(135deg, #ffc107 0%, #ffd54f 100%);
+        }
+        
+        .promo-block:nth-child(5) {
+            background: linear-gradient(135deg, #9c27b0 0%, #e040fb 100%);
+        }
+        
+        .promo-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            z-index: 2;
+        }
+        
+        .promo-subtitle {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            z-index: 2;
+        }
+        
+        .promo-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 2rem;
+            opacity: 0.2;
+        }
+        
+        /* Карточки кружков */
         .search-results {
             display: grid;
             gap: 15px;
@@ -426,68 +435,209 @@
             border: none;
         }
         
-        /* Экран теста */
-        .test-container {
+        .search-card {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .filters {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .filters::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .filter-btn {
+            padding: 10px 16px;
+            background: var(--light);
+            border: 1px solid var(--light-gray);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .category-card {
             background: white;
             border-radius: 16px;
             padding: 20px;
+            text-align: center;
             box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+        
+        .category-card:active {
+            transform: scale(0.97);
+        }
+        
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 1.4rem;
+            color: var(--primary);
+        }
+        
+        .category-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .category-count {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        /* Экран поиска */
+        .back-btn {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            color: var(--dark);
+        }
+        
+        /* Экран теста - улучшенный дизайн */
+        .test-container {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
+            position: relative;
+            overflow: hidden;
         }
         
         .test-title {
             text-align: center;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             margin-bottom: 15px;
             color: var(--primary);
+            font-weight: 800;
         }
         
         .test-desc {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             color: var(--gray);
+            font-size: 1rem;
         }
         
         .test-progress {
-            height: 8px;
+            height: 10px;
             background: var(--light-gray);
-            border-radius: 4px;
-            margin-bottom: 20px;
+            border-radius: 5px;
+            margin-bottom: 25px;
             overflow: hidden;
+            position: relative;
         }
         
         .progress-bar {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--neon-2));
-            border-radius: 4px;
+            border-radius: 5px;
             transition: width 0.5s ease;
             width: 0%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background-image: linear-gradient(
+                -45deg, 
+                rgba(255, 255, 255, 0.2) 25%, 
+                transparent 25%, 
+                transparent 50%, 
+                rgba(255, 255, 255, 0.2) 50%, 
+                rgba(255, 255, 255, 0.2) 75%, 
+                transparent 75%, 
+                transparent
+            );
+            z-index: 1;
+            background-size: 20px 20px;
+            animation: move 1s linear infinite;
+            overflow: hidden;
+        }
+        
+        @keyframes move {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 20px 0;
+            }
         }
         
         .question-text {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
+            font-size: 1.2rem;
+            margin-bottom: 25px;
             text-align: center;
             font-weight: 600;
+            line-height: 1.4;
         }
         
         .options-list {
             display: grid;
-            gap: 12px;
-            margin-bottom: 25px;
+            gap: 15px;
+            margin-bottom: 30px;
         }
         
         .option-item {
-            padding: 16px;
+            padding: 18px;
             background: var(--light);
-            border-radius: 12px;
-            border: 1px solid var(--light-gray);
-            transition: var(--transition);
+            border-radius: 15px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
             cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .option-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
         }
         
         .option-item:active {
-            background: #e6e9ff;
+            transform: translateY(0);
+        }
+        
+        .option-item.selected {
+            background: rgba(108, 92, 231, 0.1);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            font-weight: 600;
         }
         
         .test-nav {
@@ -496,12 +646,19 @@
         }
         
         .nav-btn {
-            padding: 12px 20px;
-            border-radius: 20px;
-            font-weight: 600;
+            padding: 14px 25px;
+            border-radius: 25px;
+            font-weight: 700;
             border: none;
             font-size: 1rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .nav-btn:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         
         .nav-btn.prev {
@@ -510,7 +667,7 @@
         }
         
         .nav-btn.next {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--neon-2) 100%);
             color: white;
         }
         
@@ -602,27 +759,29 @@
         /* Стили для экрана результатов теста */
         .results-screen {
             background: white;
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: var(--card-shadow);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             margin-top: 20px;
         }
         
         .results-title {
             text-align: center;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             margin-bottom: 15px;
             color: var(--primary);
+            font-weight: 800;
         }
         
         .result-category {
             display: flex;
             align-items: center;
-            padding: 15px;
+            padding: 20px;
             background: var(--light);
-            border-radius: 12px;
+            border-radius: 15px;
             margin-bottom: 15px;
             transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
         
         .result-category:active {
@@ -630,17 +789,18 @@
         }
         
         .category-match {
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--neon-2) 100%);
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            margin-right: 15px;
-            font-size: 1.1rem;
+            margin-right: 20px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(108, 92, 231, 0.3);
         }
         
         .category-info {
@@ -648,8 +808,9 @@
         }
         
         .category-name {
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 5px;
+            font-size: 1.1rem;
         }
         
         .category-desc {
@@ -657,14 +818,14 @@
             color: var(--gray);
         }
         
-        /* Анимация загрузки ИИ */
+        /* Анимация загрузки ИИ - улучшенная версия */
         .ai-thinking {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -681,19 +842,21 @@
         }
         
         .ai-brain {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
         .ai-brain i {
-            font-size: 80px;
+            font-size: 100px;
             color: var(--primary);
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+            z-index: 2;
+            text-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
         }
         
         .pulse {
@@ -727,24 +890,25 @@
         }
         
         .ai-text {
-            font-size: 1.2rem;
-            font-weight: 600;
+            font-size: 1.4rem;
+            font-weight: 700;
             color: var(--dark);
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         
         .ai-dots {
             display: flex;
-            gap: 5px;
+            gap: 8px;
         }
         
         .ai-dot {
-            width: 10px;
-            height: 10px;
-            background: var(--primary);
+            width: 15px;
+            height: 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--neon-2) 100%);
             border-radius: 50%;
             animation: dot-bounce 1.5s infinite ease-in-out;
+            box-shadow: 0 0 10px rgba(108, 92, 231, 0.3);
         }
         
         .ai-dot:nth-child(2) {
@@ -760,7 +924,36 @@
                 transform: translateY(0);
             }
             50% {
-                transform: translateY(-10px);
+                transform: translateY(-15px);
+            }
+        }
+
+        /* Улучшенная анимация для ИИ - эффект частиц */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--neon-2) 100%);
+            border-radius: 50%;
+            opacity: 0;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(calc(-50vw + 100px)) rotate(360deg);
+                opacity: 0;
             }
         }
         
@@ -777,6 +970,10 @@
             
             .welcome-text {
                 font-size: 1.5rem;
+            }
+            
+            .promo-block {
+                min-width: 220px;
             }
         }
 
@@ -991,6 +1188,8 @@
         .chat-title {
             font-weight: 600;
             font-size: 1.1rem;
+            flex: 1;
+            text-align: center;
         }
         
         .chat-info-btn {
@@ -1106,10 +1305,11 @@
         .chat-name {
             font-weight: 600;
             margin-bottom: 5px;
+            font-size: 1rem;
         }
         
         .chat-preview {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gray);
             white-space: nowrap;
             overflow: hidden;
@@ -1123,7 +1323,7 @@
         }
         
         .chat-time {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--gray);
             margin-bottom: 5px;
         }
@@ -1181,16 +1381,17 @@
         .notification-title {
             font-weight: 600;
             margin-bottom: 5px;
+            font-size: 1rem;
         }
         
         .notification-text {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--gray);
             margin-bottom: 5px;
         }
         
         .notification-time {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--gray);
         }
         
@@ -1200,6 +1401,43 @@
             border-radius: 50%;
             background: var(--secondary);
             margin-top: 5px;
+        }
+
+        /* Новые стили для улучшенного UI */
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .search-filters {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 5px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .search-filters::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-chip {
+            padding: 10px 18px;
+            background: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: var(--transition);
+        }
+
+        .filter-chip.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
         }
     </style>
 </head>
@@ -1306,62 +1544,66 @@
         <!-- Главный экран -->
         <div class="screen active" id="home-screen">
             <div class="welcome-section">
-                <h1 class="welcome-text">Привет, Алексей!</h1>
-                <p class="welcome-subtext">Найди кружки для вашего ребенка</p>
+                <h1 class="welcome-text" id="welcome-text">Найдите кружки для детей</h1>
+                <p class="welcome-subtext">Откройте мир возможностей для вашего ребенка</p>
             </div>
             
-            <div class="search-card">
-                <input type="text" class="search-input" placeholder="Поиск кружков и секций...">
+            <div class="search-header">
+                <div class="search-input-container">
+                    <input type="text" class="search-input" placeholder="Поиск кружков и секций...">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+                <div class="filter-icon">
+                    <i class="fas fa-filter"></i>
+                </div>
+            </div>
+
+            <div class="search-filters">
+                <button class="filter-chip active">Все</button>
+                <button class="filter-chip">Спорт</button>
+                <button class="filter-chip">Творчество</button>
+                <button class="filter-chip">Наука</button>
+                <button class="filter-chip">Музыка</button>
+                <button class="filter-chip">Танцы</button>
+                <button class="filter-chip">Развитие</button>
+            </div>
+            
+            <div class="promo-blocks">
+                <div class="promo-block">
+                    <i class="fas fa-fire promo-icon"></i>
+                    <div class="promo-title">Самые популярные</div>
+                    <div class="promo-subtitle">Топ-10 кружков этого месяца</div>
+                </div>
                 
-                <div class="filters">
-                    <button class="filter-btn active">Все</button>
-                    <button class="filter-btn">Спорт</button>
-                    <button class="filter-btn">Творчество</button>
-                    <button class="filter-btn">Наука</button>
-                    <button class="filter-btn">Музыка</button>
-                    <button class="filter-btn">Танцы</button>
+                <div class="promo-block">
+                    <i class="fas fa-star promo-icon"></i>
+                    <div class="promo-title">Премиум-кружки</div>
+                    <div class="promo-subtitle">Элитные занятия для детей</div>
+                </div>
+                
+                <div class="promo-block">
+                    <i class="fas fa-graduation-cap promo-icon"></i>
+                    <div class="promo-title">Лучшие педагоги</div>
+                    <div class="promo-subtitle">Опытные преподаватели</div>
+                </div>
+                
+                <div class="promo-block">
+                    <i class="fas fa-bolt promo-icon"></i>
+                    <div class="promo-title">Быстрая запись</div>
+                    <div class="promo-subtitle">Запишитесь за 2 минуты</div>
+                </div>
+                
+                <div class="promo-block">
+                    <i class="fas fa-award promo-icon"></i>
+                    <div class="promo-title">Новые кружки</div>
+                    <div class="promo-subtitle">Свежие предложения</div>
                 </div>
             </div>
             
-            <h2 style="margin-bottom: 15px;">Категории</h2>
-            
-            <div class="categories">
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-futbol"></i>
-                    </div>
-                    <h3 class="category-name">Спорт</h3>
-                    <p class="category-count">124 кружка</p>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-paint-brush"></i>
-                    </div>
-                    <h3 class="category-name">Творчество</h3>
-                    <p class="category-count">86 кружков</p>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-flask"></i>
-                    </div>
-                    <h3 class="category-name">Наука</h3>
-                    <p class="category-count">67 кружков</p>
-                </div>
-                
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-music"></i>
-                    </div>
-                    <h3 class="category-name">Музыка</h3>
-                    <p class="category-count">53 кружка</p>
-                </div>
-            </div>
-            
-            <h2 style="margin: 25px 0 15px;">Рекомендуем для вас</h2>
+            <h2 class="section-title">Кружки и секции</h2>
             
             <div class="search-results">
+                <!-- Карточки кружков остаются без изменений -->
                 <div class="result-card">
                     <div class="result-image">
                         Футбол
@@ -1383,9 +1625,75 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="result-card">
+                    <div class="result-image">
+                        Роботы
+                        <div class="result-badge">Новое</div>
+                    </div>
+                    <div class="result-content">
+                        <h3 class="result-title">Робототехника для детей</h3>
+                        <div class="result-info">
+                            <span>8-14 лет</span>
+                            <span class="result-price">2500₽/мес</span>
+                        </div>
+                        <p class="result-desc">Создаем роботов, изучаем программирование и основы механики. Современное оборудование и профессиональные преподаватели.</p>
+                        <div class="result-footer">
+                            <div class="result-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8 (96)</span>
+                            </div>
+                            <button class="result-btn">Записаться</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-image">
+                        Искусство
+                    </div>
+                    <div class="result-content">
+                        <h3 class="result-title">Студия рисования "Арт-Класс"</h3>
+                        <div class="result-info">
+                            <span>5-16 лет</span>
+                            <span class="result-price">1800₽/мес</span>
+                        </div>
+                        <p class="result-desc">Развиваем творческие способности, воображение и чувство прекрасного. Разные техники рисования и работы с материалами.</p>
+                        <div class="result-footer">
+                            <div class="result-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.7 (87)</span>
+                            </div>
+                            <button class="result-btn">Записаться</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-image">
+                        Танцы
+                        <div class="result-badge">Акция</div>
+                    </div>
+                    <div class="result-content">
+                        <h3 class="result-title">Танцевальная студия "Грация"</h3>
+                        <div class="result-info">
+                            <span>4-15 лет</span>
+                            <span class="result-price">2200₽/мес</span>
+                        </div>
+                        <p class="result-desc">Обучение современным и классическим танцевальным направлениям. Участие в конкурсах и выступлениях.</p>
+                        <div class="result-footer">
+                            <div class="result-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8 (112)</span>
+                            </div>
+                            <button class="result-btn">Записаться</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
+        <!-- Остальные экраны остаются без изменений -->
         <!-- Экран поиска -->
         <div class="screen" id="search-screen">
             <div class="search-header">
@@ -1473,8 +1781,9 @@
             </div>
         </div>
         
+        
         <!-- Экран теста -->
-        <div class="screen" id="test-screen">
+         <div class="screen" id="test-screen">
             <h2 class="test-title">Тест способностей с ИИ</h2>
             <p class="test-desc">Пройдите тест, чтобы узнать, какие кружки подходят вашему ребенку</p>
             
@@ -1511,7 +1820,7 @@
         </div>
         
         <!-- Экран избранного -->
-        <div class="screen" id="favorites-screen">
+       <div class="screen" id="favorites-screen">
             <h2 style="margin-bottom: 20px;">Избранное</h2>
             
             <div class="favorites-list">
@@ -1661,7 +1970,7 @@
         </div>
 
         <!-- Экран чатов -->
-        <div class="screen" id="chats-screen">
+       <div class="screen" id="chats-screen">
             <h2 style="margin-bottom: 20px;">Чаты</h2>
             <div class="chat-list">
                 <div class="chat-card" data-chat="news">
@@ -1736,7 +2045,7 @@
         </div>
 
         <!-- Экран уведомлений -->
-        <div class="screen" id="notifications-screen">
+         <div class="screen" id="notifications-screen">
             <h2 style="margin-bottom: 20px;">Уведомления</h2>
             <div class="notifications-container">
                 <div class="notification-card">
@@ -1788,8 +2097,10 @@
         </div>
     </div>
 
+
     <!-- Анимация "ИИ думает" -->
     <div class="ai-thinking" id="ai-thinking">
+        <div class="particles" id="particles-container"></div>
         <div class="ai-brain">
             <i class="fas fa-brain"></i>
             <div class="pulse"></div>
@@ -1984,7 +2295,6 @@
                 // Скрываем все экраны
                 screens.forEach(screen => {
                     screen.classList.remove('active');
-                    screen.classList.remove('left');
                 });
                 
                 // Показываем целевой экран
@@ -2146,6 +2456,7 @@
         // Показ анимации "ИИ думает"
         function showAIThinking() {
             aiThinking.classList.add('active');
+            createParticles();
             
             const messages = [
                 "Анализируем ответы...",
@@ -2166,6 +2477,32 @@
                     calculateResults();
                 }
             }, 1500);
+        }
+
+        // Создание частиц для анимации
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles-container');
+            particlesContainer.innerHTML = '';
+            
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Случайные размеры и позиция
+                const size = Math.random() * 10 + 5;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 2;
+                const duration = Math.random() * 3 + 3;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                
+                particlesContainer.appendChild(particle);
+            }
         }
 
         // Расчет результатов на основе ответов
@@ -2275,48 +2612,11 @@
             if (localStorage.getItem('onboardingCompleted')) {
                 const userName = localStorage.getItem('userName');
                 if (userName) {
-                    document.querySelector('.welcome-text').textContent = `Привет, ${userName}!`;
+                    document.getElementById('welcome-text').textContent = `Привет, ${userName}!`;
                     document.querySelector('.profile-name').textContent = userName;
                 }
             }
         });
-
-        // Данные для чатов
-        const chatData = {
-            'news': {
-                name: 'Новости и обновления KIDCIRCLE',
-                messages: [
-                    { text: 'Добро пожаловать в KIDCIRCLE! Мы будем присылать вам важные уведомления и новости.', time: '14:20', incoming: true },
-                    { text: 'В вашем городе появились 5 новых кружков для детей. Посмотрите их в нашем приложении!', time: '14:25', incoming: true },
-                    { text: 'Спасибо, буду следить за новостями!', time: '14:30', incoming: false }
-                ]
-            },
-            'champion': {
-                name: 'Футбольная академия "Чемпион"',
-                messages: [
-                    { text: 'Здравствуйте! Ваша заявка на пробное занятие получена.', time: '10:15', incoming: true },
-                    { text: 'Отлично! На какое время записано занятие?', time: '10:20', incoming: false },
-                    { text: 'Занятие записано на завтра, 15:00. Не забудьте спортивную форму и сменную обувь.', time: '10:22', incoming: true },
-                    { text: 'Хорошо, спасибо! Будем вовремя.', time: '10:25', incoming: false }
-                ]
-            },
-            'robotics': {
-                name: 'Робототехника для детей',
-                messages: [
-                    { text: 'Приветствуем! Рады сообщить, что у нас изменилось расписание.', time: '13:40', incoming: true },
-                    { text: 'Занятия для вашей возрастной группы теперь проходят по средам в 17:00 и субботам в 12:00.', time: '13:41', incoming: true },
-                    { text: 'Понятно, спасибо за информацию!', time: '13:45', incoming: false }
-                ]
-            },
-            'art': {
-                name: 'Студия рисования "Арт-Класс"',
-                messages: [
-                    { text: 'Благодарим за вашу заявку! Ждем вас на пробном занятии в эту субботу в 11:00.', time: '11:30', incoming: true },
-                    { text: 'Все необходимые материалы мы предоставляем.', time: '11:31', incoming: true },
-                    { text: 'Отлично, жду с нетерпением!', time: '11:35', incoming: false }
-                ]
-            }
-        };
 
         // Обработчики для иконок в шапке
         const chatIcon = document.getElementById('chat-icon');
@@ -2332,6 +2632,9 @@
             
             // Показываем экран чатов
             document.getElementById('chats-screen').classList.add('active');
+            
+            // Обновляем навигацию
+            navItems.forEach(item => item.classList.remove('active'));
         });
 
         notificationIcon.addEventListener('click', function(e) {
@@ -2344,121 +2647,10 @@
             
             // Показываем экран уведомлений
             document.getElementById('notifications-screen').classList.add('active');
-        });
-
-        // Обработчики для чатов
-        const chatCards = document.querySelectorAll('.chat-card');
-        const chatBackBtn = document.getElementById('chat-back-btn');
-        const chatTitle = document.getElementById('chat-title');
-        const chatMessages = document.getElementById('chat-messages');
-        const chatInput = document.getElementById('chat-input');
-        const chatSendBtn = document.getElementById('chat-send-btn');
-
-        chatCards.forEach(card => {
-            card.addEventListener('click', function() {
-                const chatId = this.getAttribute('data-chat');
-                const chat = chatData[chatId];
-                
-                // Обновляем заголовок чата
-                chatTitle.textContent = chat.name;
-                
-                // Очищаем сообщения
-                chatMessages.innerHTML = '';
-                
-                // Добавляем сообщения
-                chat.messages.forEach(message => {
-                    const messageElement = document.createElement('div');
-                    messageElement.classList.add('message');
-                    messageElement.classList.add(message.incoming ? 'message-in' : 'message-out');
-                    
-                    messageElement.innerHTML = `
-                        <div>${message.text}</div>
-                        <div class="message-time">${message.time}</div>
-                    `;
-                    
-                    chatMessages.appendChild(messageElement);
-                });
-                
-                // Прокручиваем вниз к последним сообщениям
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // Скрываем экран списка чатов и показываем экран конкретного чата
-                document.getElementById('chats-screen').classList.remove('active');
-                document.getElementById('chat-detail-screen').classList.add('active');
-            });
-        });
-
-        // Кнопка "Назад" в чате
-        chatBackBtn.addEventListener('click', function(e) {
-            e.preventDefault();
             
-            // Возвращаемся к списку чатов
-            document.getElementById('chat-detail-screen').classList.remove('active');
-            document.getElementById('chats-screen').classList.add('active');
+            // Обновляем навигацию
+            navItems.forEach(item => item.classList.remove('active'));
         });
-
-        // Отправка сообщения в чате
-        chatSendBtn.addEventListener('click', function() {
-            sendMessage();
-        });
-
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
-
-        function sendMessage() {
-            const messageText = chatInput.value.trim();
-            if (messageText) {
-                // Получаем текущее время
-                const now = new Date();
-                const time = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
-                
-                // Создаем элемент сообщения
-                const messageElement = document.createElement('div');
-                messageElement.classList.add('message');
-                messageElement.classList.add('message-out');
-                
-                messageElement.innerHTML = `
-                    <div>${messageText}</div>
-                    <div class="message-time">${time}</div>
-                `;
-                
-                // Добавляем сообщение в чат
-                chatMessages.appendChild(messageElement);
-                
-                // Очищаем поле ввода
-                chatInput.value = '';
-                
-                // Прокручиваем вниз к новому сообщению
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-                
-                // Имитируем ответ через 1-2 секунды
-                setTimeout(() => {
-                    const responses = [
-                        'Спасибо за ваше сообщение!',
-                        'Мы обработаем ваш запрос в ближайшее время.',
-                        'Хорошо, я передам эту информацию нашему менеджеру.',
-                        'Благодарим за обратную связь!'
-                    ];
-                    
-                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-                    
-                    const responseElement = document.createElement('div');
-                    responseElement.classList.add('message');
-                    responseElement.classList.add('message-in');
-                    
-                    responseElement.innerHTML = `
-                        <div>${randomResponse}</div>
-                        <div class="message-time">${now.getHours() + ':' + (now.getMinutes() + 1 < 10 ? '0' : '') + (now.getMinutes() + 1)}</div>
-                    `;
-                    
-                    chatMessages.appendChild(responseElement);
-                    chatMessages.scrollTop = chatMessages.scrollHeight;
-                }, 1000 + Math.random() * 1000);
-            }
-        }
     </script>
 </body>
 </html>
