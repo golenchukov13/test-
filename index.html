@@ -34,7 +34,12 @@
         }
         
         html, body {
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            overflow: hidden;
             background: var(--bg-gradient);
             color: var(--dark);
             line-height: 1.6;
@@ -42,6 +47,10 @@
             overflow-x: hidden;
         }
         
+        *, *:before, *:after {
+            box-sizing: inherit;
+        }
+
         body {
             padding-top: var(--header-height);
             padding-bottom: var(--nav-height);
@@ -512,21 +521,21 @@
         }
         
         .profile-email {
-            color: var(--gray);
+            color: var (--gray);
         }
         
         .profile-menu {
             background: white;
             border-radius: 16px;
             overflow: hidden;
-            box-shadow: var(--card-shadow);
+            box-shadow: var (--card-shadow);
         }
         
         .menu-item {
             display: flex;
             align-items: center;
             padding: 18px 20px;
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid var (--light-gray);
         }
         
         .menu-item:last-child {
@@ -536,7 +545,7 @@
         .menu-icon {
             width: 40px;
             font-size: 1.2rem;
-            color: var(--primary);
+            color: var (--primary);
         }
         
         .menu-text {
@@ -545,7 +554,7 @@
         }
         
         .menu-arrow {
-            color: var(--gray);
+            color: var (--gray);
         }
         
         /* Экран избранного */
@@ -758,8 +767,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             background: var(--bg-gradient);
             z-index: 3000;
             overflow: hidden;
@@ -767,14 +776,14 @@
         
         .onboarding-slides {
             display: flex;
-            width: 500%;
-            height: 100%;
+            width: calc(8 * 100vw);
+            height: 100vh;
             transition: transform 0.4s ease;
         }
         
         .onboarding-slide {
-            width: 20%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -926,12 +935,12 @@
         
         .timer-text {
             text-align: center;
-            color: var(--gray);
+            color: var (--gray);
             margin-bottom: 20px;
         }
         
         .resend-link {
-            color: var(--primary);
+            color: var (--primary);
             text-decoration: none;
             font-weight: 600;
         }
@@ -941,115 +950,75 @@
     <!-- Экран онбординга -->
     <div class="onboarding-container" id="onboarding-container">
         <div class="onboarding-slides" id="onboarding-slides">
-            <!-- Первый экран онбординга -->
-            <div class="onboarding-slide">
-                <div class="onboarding-image">
-                    <i class="fas fa-child"></i>
-                </div>
+            <!-- Первый экран -->
+            <div class="onboarding-slide" id="onboarding-slide-0">
+                <div class="onboarding-image"><i class="fas fa-child"></i></div>
                 <h2 class="onboarding-title">Добро пожаловать в KIDCIRCLE</h2>
                 <p class="onboarding-text">Платформа для поиска детских кружков и секций в вашем городе</p>
-                <div class="onboarding-indicators">
-                    <div class="onboarding-indicator active"></div>
-                    <div class="onboarding-indicator"></div>
-                    <div class="onboarding-indicator"></div>
-                    <div class="onboarding-indicator"></div>
-                </div>
                 <button class="onboarding-btn" onclick="nextOnboardingSlide(1)">Далее</button>
                 <button class="onboarding-btn skip" onclick="skipOnboarding()">Пропустить</button>
             </div>
-            
-            <!-- Второй экран онбординга -->
-            <div class="onboarding-slide">
-                <div class="onboarding-image">
-                    <i class="fas fa-search"></i>
-                </div>
+            <!-- Второй экран -->
+            <div class="onboarding-slide" id="onboarding-slide-1">
+                <div class="onboarding-image"><i class="fas fa-search"></i></div>
                 <h2 class="onboarding-title">Найдите идеальный кружок</h2>
                 <p class="onboarding-text">Мы собрали сотни кружков и секций для детей всех возрастов</p>
-                <div class="onboarding-indicators">
-                    <div class="onboarding-indicator"></div>
-                    <div class="onboarding-indicator active"></div>
-                    <div class="onboarding-indicator"></div>
-                    <div class="onboarding-indicator"></div>
-                </div>
                 <button class="onboarding-btn" onclick="nextOnboardingSlide(2)">Далее</button>
                 <button class="onboarding-btn skip" onclick="skipOnboarding()">Пропустить</button>
             </div>
-            
-            <!-- Третий экран онбординга -->
-            <div class="onboarding-slide">
-                <div class="onboarding-image">
-                    <i class="fas fa-robot"></i>
-                </div>
+            <!-- Третий экран -->
+            <div class="onboarding-slide" id="onboarding-slide-2">
+                <div class="onboarding-image"><i class="fas fa-robot"></i></div>
                 <h2 class="onboarding-title">Тест способностей с ИИ</h2>
-                <p class="onboarding-text">Пройдите тест, и мы подберем кружки, подходящие именно вашему ребенку</p>
-                <div class="onboarding-indicators">
-                    <div class="onboarding-indicator"></div>
-                    <div class="onboarding-indicator"></div>
-                    <div class="onboarding-indicator active"></div>
-                    <div class="onboarding-indicator"></div>
-                </div>
+                <p class="onboarding-text">Пройдите тест, и мы подберем кружки, подходящие вашему ребенку</p>
                 <button class="onboarding-btn" onclick="nextOnboardingSlide(3)">Далее</button>
                 <button class="onboarding-btn skip" onclick="skipOnboarding()">Пропустить</button>
             </div>
-            
-            <!-- Четвертый экран онбординга -->
-            <div class="onboarding-slide">
-                <div class="onboarding-image">
-                    <i class="fas fa-calendar-check"></i>
-                </div>
+            <!-- Четвертый экран -->
+            <div class="onboarding-slide" id="onboarding-slide-3">
+                <div class="onboarding-image"><i class="fas fa-calendar-check"></i></div>
                 <h2 class="onboarding-title">Записывайтесь онлайн</h2>
                 <p class="onboarding-text">Выбирайте подходящее время и записывайтесь на занятия в несколько кликов</p>
-                <div class="onboarding-indicators">
-                    <div class="onboarding-indicator"></div>
-                    <div class="onboarding-indicator"></div>
-                    <div class="onboarding-indicator"></div>
-                    <div class="onboarding-indicator active"></div>
-                </div>
-                <button class="onboarding-btn" onclick="nextOnboardingSlide(4)">Начать</button>
+                <button class="onboarding-btn" onclick="nextOnboardingSlide(4)">Далее</button>
                 <button class="onboarding-btn skip" onclick="skipOnboarding()">Пропустить</button>
             </div>
-            
-            <!-- Экран ввода данных -->
-            <div class="onboarding-slide">
+            <!-- Экран ввода имени -->
+            <div class="onboarding-slide" id="onboarding-slide-4">
                 <div class="form-container">
-                    <h2 class="form-title">Расскажите о себе</h2>
-                    <p class="form-subtitle">Чтобы подобрать лучшие кружки для вашего ребенка</p>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Ваше имя</label>
-                        <input type="text" class="form-input" id="user-name" placeholder="Как вас зовут?">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Ваш город</label>
-                        <input type="text" class="form-input" id="user-city" placeholder="В каком городе ищем?">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Номер телефона</label>
-                        <input type="tel" class="form-input" id="user-phone" placeholder="+7 (XXX) XXX-XX-XX">
-                    </div>
-                    
+                    <h2 class="form-title">Ваше имя</h2>
+                    <input type="text" class="form-input" id="user-name" placeholder="Как вас зовут?">
+                    <button class="form-btn" onclick="nextOnboardingSlide(5)">Далее</button>
+                </div>
+            </div>
+            <!-- Экран ввода города -->
+            <div class="onboarding-slide" id="onboarding-slide-5">
+                <div class="form-container">
+                    <h2 class="form-title">Ваш город</h2>
+                    <input type="text" class="form-input" id="user-city" placeholder="В каком городе ищем?">
+                    <button class="form-btn" onclick="nextOnboardingSlide(6)">Далее</button>
+                </div>
+            </div>
+            <!-- Экран ввода телефона -->
+            <div class="onboarding-slide" id="onboarding-slide-6">
+                <div class="form-container">
+                    <h2 class="form-title">Номер телефона</h2>
+                    <input type="tel" class="form-input" id="user-phone" placeholder="+7 (XXX) XXX-XX-XX">
                     <button class="form-btn" onclick="sendVerificationCode()">Продолжить</button>
                 </div>
             </div>
-            
             <!-- Экран подтверждения номера -->
-            <div class="onboarding-slide">
+            <div class="onboarding-slide" id="onboarding-slide-7">
                 <div class="form-container">
                     <h2 class="form-title">Подтверждение номера</h2>
                     <p class="form-subtitle">Мы отправили код на номер <span id="phone-number"></span></p>
-                    
                     <div class="code-inputs">
                         <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 1)">
                         <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 2)">
                         <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 3)">
                         <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 4)">
                     </div>
-                    
                     <p class="timer-text">Отправить код повторно через <span id="timer">59</span> секунд</p>
                     <a href="#" class="resend-link" id="resend-link" style="display:none;" onclick="resendCode()">Отправить код повторно</a>
-                    
                     <button class="form-btn" onclick="verifyCode()">Подтвердить</button>
                 </div>
             </div>
@@ -1064,8 +1033,8 @@
         </a>
         
         <div class="header-actions">
-            <a href="#" class="header-icon">
-                <i class="fas fa-search"></i>
+            <a href="#" class="header-icon" id="chat-icon">
+                <i class="fas fa-comments"></i>
             </a>
             <a href="#" class="header-icon">
                 <i class="fas fa-bell"></i>
@@ -1330,6 +1299,34 @@
                 </div>
             </div>
         </div>
+
+        <!-- Экран "Мои записи" -->
+        <div class="screen" id="records-screen">
+            <h2 style="margin-bottom: 20px;">Мои записи</h2>
+            <div class="favorites-list">
+                <div class="result-card">
+                    <div class="result-image">
+                        Футбол
+                    </div>
+                    <div class="result-content">
+                        <h3 class="result-title">Футбольная академия "Чемпион"</h3>
+                        <div class="result-info">
+                            <span>7-12 лет</span>
+                            <span class="result-price">2000₽/мес</span>
+                        </div>
+                        <p class="result-desc">Профессиональные тренировки по футболу для детей.</p>
+                        <div class="result-footer">
+                            <div class="result-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (128)</span>
+                            </div>
+                            <button class="result-btn">Подробнее</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Можно добавить больше записей -->
+            </div>
+        </div>
         
         <!-- Экран профиля -->
         <div class="screen" id="profile-screen">
@@ -1403,6 +1400,35 @@
                 </div>
             </div>
         </div>
+
+        <!-- Экран чатов -->
+        <div class="screen" id="chats-screen" style="display:none;">
+            <h2 style="margin-bottom: 20px;">Чаты</h2>
+            <div class="chat-list">
+                <div class="chat-card">
+                    <div class="chat-avatar"><i class="fas fa-bullhorn"></i></div>
+                    <div class="chat-info">
+                        <div class="chat-title">Новости и обновления KIDCIRCLE</div>
+                        <div class="chat-last">Последнее: Новые кружки в вашем городе!</div>
+                    </div>
+                </div>
+                <div class="chat-card">
+                    <div class="chat-avatar"><i class="fas fa-futbol"></i></div>
+                    <div class="chat-info">
+                        <div class="chat-title">Футбольная академия "Чемпион"</div>
+                        <div class="chat-last">Последнее: Ваше занятие подтверждено!</div>
+                    </div>
+                </div>
+                <div class="chat-card">
+                    <div class="chat-avatar"><i class="fas fa-robot"></i></div>
+                    <div class="chat-info">
+                        <div class="chat-title">Робототехника для детей</div>
+                        <div class="chat-last">Последнее: Новое расписание занятий</div>
+                    </div>
+                </div>
+                <!-- Можно добавить больше чатов -->
+            </div>
+        </div>
     </div>
 
     <!-- Анимация "ИИ думает" -->
@@ -1427,17 +1453,17 @@
             <i class="fas fa-home nav-icon"></i>
             <span>Главная</span>
         </a>
-        <a href="#" class="nav-item" data-screen="search-screen">
-            <i class="fas fa-search nav-icon"></i>
-            <span>Поиск</span>
+        <a href="#" class="nav-item" data-screen="favorites-screen">
+            <i class="fas fa-heart nav-icon"></i>
+            <span>Избранное</span>
         </a>
         <a href="#" class="nav-item" data-screen="test-screen">
             <i class="fas fa-robot nav-icon"></i>
             <span>Тест</span>
         </a>
-        <a href="#" class="nav-item" data-screen="favorites-screen">
-            <i class="fas fa-heart nav-icon"></i>
-            <span>Избранное</span>
+        <a href="#" class="nav-item" data-screen="records-screen">
+            <i class="fas fa-history nav-icon"></i>
+            <span>Записи</span>
         </a>
         <a href="#" class="nav-item" data-screen="profile-screen">
             <i class="fas fa-user nav-icon"></i>
@@ -1448,6 +1474,7 @@
     <script>
         // Проверяем, проходил ли пользователь онбординг
         if (!localStorage.getItem('onboardingCompleted')) {
+            document.body.style.overflow = 'hidden';
             document.getElementById('onboarding-container').style.display = 'block';
             document.querySelector('.app-header').style.display = 'none';
             document.querySelector('.bottom-nav').style.display = 'none';
@@ -1455,21 +1482,26 @@
 
         // Навигация между экранами онбординга
         let currentSlide = 0;
-        const totalSlides = 6; // 4 экрана приветствия + форма + подтверждение
-        
+        const totalSlides = 8; // 4 приветствия + имя + город + телефон + подтверждение
         function nextOnboardingSlide(nextIndex) {
-            const slides = document.getElementById('onboarding-slides');
+            // Сохраняем данные на соответствующих шагах
+            if (currentSlide === 4) {
+                const name = document.getElementById('user-name').value;
+                if (!name) { alert('Введите имя'); return; }
+                localStorage.setItem('userName', name);
+            }
+            if (currentSlide === 5) {
+                const city = document.getElementById('user-city').value;
+                if (!city) { alert('Введите город'); return; }
+                localStorage.setItem('userCity', city);
+            }
+            if (currentSlide === 6) {
+                const phone = document.getElementById('user-phone').value;
+                if (!phone) { alert('Введите номер телефона'); return; }
+                localStorage.setItem('userPhone', phone);
+            }
             currentSlide = nextIndex;
-            slides.style.transform = `translateX(-${currentSlide * 20}%)`;
-            
-            // Обновляем индикаторы
-            document.querySelectorAll('.onboarding-indicator').forEach((indicator, index) => {
-                if (index === currentSlide && currentSlide < 4) {
-                    indicator.classList.add('active');
-                } else if (currentSlide < 4) {
-                    indicator.classList.remove('active');
-                }
-            });
+            document.getElementById('onboarding-slides').style.transform = `translateX(-${currentSlide * 12.5}%)`;
         }
         
         function skipOnboarding() {
@@ -1477,6 +1509,7 @@
             document.getElementById('onboarding-container').style.display = 'none';
             document.querySelector('.app-header').style.display = 'flex';
             document.querySelector('.bottom-nav').style.display = 'flex';
+            document.body.style.overflow = 'auto';
         }
         
         // Отправка кода подтверждения
@@ -1499,7 +1532,7 @@
             document.getElementById('phone-number').textContent = phone;
             
             // Переходим к экрану подтверждения
-            nextOnboardingSlide(5);
+            nextOnboardingSlide(7);
             
             // Запускаем таймер для повторной отправки
             startTimer();
@@ -1561,6 +1594,7 @@
                 document.getElementById('onboarding-container').style.display = 'none';
                 document.querySelector('.app-header').style.display = 'flex';
                 document.querySelector('.bottom-nav').style.display = 'flex';
+                document.body.style.overflow = 'auto';
                 
                 // Обновляем имя пользователя в приложении
                 const userName = localStorage.getItem('userName');
@@ -1888,6 +1922,19 @@
                     document.querySelector('.profile-name').textContent = userName;
                 }
             }
+        });
+
+        // Открытие экрана чатов по клику на значок чата
+        const chatIcon = document.getElementById('chat-icon');
+        chatIcon.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+                screen.style.display = 'none';
+            });
+            const chatsScreen = document.getElementById('chats-screen');
+            chatsScreen.classList.add('active');
+            chatsScreen.style.display = 'block';
         });
     </script>
 </body>
