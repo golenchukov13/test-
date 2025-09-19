@@ -2,11 +2,9 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KIDCIRCLE - инвестиция в будущее вашего ребенка</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>KIDCIRCLE - Детские кружки и секции</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -18,19 +16,25 @@
             --dark: #1f2430;
             --gray: #8a93a6;
             --light-gray: #e2e8f0;
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --neon: #00fff0;
             --neon-2: #a56eff;
             --bg-gradient: linear-gradient(135deg, #f5f7ff 0%, #e5e9ff 100%);
+            --surface: rgba(255, 255, 255, 0.95);
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --header-height: 60px;
+            --nav-height: 70px;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
         
-        body {
+        html, body {
+            height: 100%;
             background: var(--bg-gradient);
             color: var(--dark);
             line-height: 1.6;
@@ -38,34 +42,33 @@
             overflow-x: hidden;
         }
         
+        body {
+            padding-top: var(--header-height);
+            padding-bottom: var(--nav-height);
+            min-height: 100vh;
+        }
+        
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
         }
         
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        
-        /* Новый стиль навигации */
-        header {
-            background: rgba(255, 255, 255, 0.95);
+        /* Header */
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background: var(--surface);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
-        }
-        
-        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            padding: 0 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            z-index: 1000;
         }
         
         .logo {
@@ -73,2159 +76,1074 @@
             align-items: center;
             gap: 0.5rem;
             font-weight: 800;
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             color: var(--primary);
             text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .logo:hover {
-            transform: scale(1.05);
         }
         
         .logo-icon {
             color: var(--secondary);
-            font-size: 2rem;
+            font-size: 1.6rem;
         }
         
-        /* Мобильное меню */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            justify-content: space-around;
-            width: 2rem;
-            height: 2rem;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            z-index: 10;
-        }
-        
-        .menu-toggle span {
-            width: 2rem;
-            height: 0.25rem;
-            background: var(--primary);
-            border-radius: 10px;
-            transition: all 0.3s linear;
-            position: relative;
-            transform-origin: 1px;
-        }
-        
-        nav ul {
+        .header-actions {
             display: flex;
-            list-style: none;
-            gap: 2rem;
-            align-items: center;
+            gap: 15px;
         }
         
-        nav a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            transition: var(--transition);
-            position: relative;
-            padding: 0.5rem 0;
-            font-size: 1rem;
-        }
-        
-        nav a:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--secondary), var(--primary));
-            transition: width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-radius: 10px;
-        }
-        
-        nav a:hover {
-            color: var(--primary);
-        }
-        
-        nav a:hover:after {
-            width: 100%;
-        }
-        
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .btn {
-            padding: 0.8rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1rem;
-            border: none;
-            outline: none;
-        }
-        
-        .btn-outline {
-            border: 2px solid var(--primary);
-            color: var(--primary);
-            background: transparent;
-        }
-        
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(94, 114, 228, 0.2);
-        }
-        
-        .btn-primary {
-            background: linear-gradient(90deg, var(--primary), var(--neon-2));
-            color: white;
-            border: 2px solid transparent;
-            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.25);
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(90deg, var(--primary-dark), var(--primary));
-            transform: translateY(-3px);
-            box-shadow: 0 15px 25px rgba(108, 92, 231, 0.35);
-        }
-        
-        /* Hero section - полностью переработан */
-        .hero {
-            padding: 5rem 0 6rem;
-            position: relative;
-            overflow: hidden;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-        }
-        
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            right: -10%;
-            width: 70%;
-            height: 140%;
-            background: linear-gradient(45deg, rgba(108, 92, 231, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
-            transform: rotate(15deg);
-            border-radius: 30px;
-        }
-        
-        .hero-bg::after {
-            content: '';
-            position: absolute;
-            bottom: -20%;
-            left: -10%;
-            width: 60%;
-            height: 120%;
-            background: linear-gradient(45deg, rgba(0, 209, 178, 0.1) 0%, rgba(165, 110, 255, 0.1) 100%);
-            transform: rotate(-15deg);
-            border-radius: 30px;
-        }
-        
-        .hero-content {
-            max-width: 650px;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark);
-            line-height: 1.2;
-            animation: fadeInUp 1s ease;
-        }
-        
-        .hero h1 span {
-            color: var(--primary);
-            position: relative;
-            display: inline-block;
-        }
-        
-        .hero h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 15px;
-            background: rgba(94, 114, 228, 0.15);
-            z-index: -1;
-            border-radius: 5px;
-        }
-        
-        .hero p {
+        .header-icon {
             font-size: 1.3rem;
-            margin-bottom: 2.5rem;
-            color: var(--gray);
-            animation: fadeInUp 1s ease 0.2s forwards;
-            opacity: 0;
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            animation: fadeInUp 1s ease 0.4s forwards;
-            opacity: 0;
-        }
-        
-        .hero-stats {
-            display: flex;
-            gap: 2rem;
-            margin-top: 3rem;
-            animation: fadeInUp 1s ease 0.6s forwards;
-            opacity: 0;
-        }
-        
-        .stat-item {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--primary);
-            line-height: 1;
-        }
-        
-        .stat-label {
-            font-size: 1rem;
-            color: var(--gray);
-        }
-        
-        /* Floating elements animation */
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            pointer-events: none;
-        }
-        
-        .floating-element {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.5;
-            animation: float 8s ease-in-out infinite;
-            filter: blur(2px);
-        }
-        
-        .floating-element:nth-child(1) {
-            width: 80px;
-            height: 80px;
-            background: var(--primary);
-            top: 20%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-        
-        .floating-element:nth-child(2) {
-            width: 60px;
-            height: 60px;
-            background: var(--secondary);
-            top: 60%;
-            left: 5%;
-            animation-delay: 1s;
-        }
-        
-        .floating-element:nth-child(3) {
-            width: 40px;
-            height: 40px;
-            background: var(--accent);
-            top: 40%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-        
-        /* Search section - улучшенный */
-        .search-section {
-            padding: 4rem 0;
-            background: white;
-            position: relative;
-            z-index: 5;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
             color: var(--dark);
         }
         
-        .section-title h2 {
-            font-size: 2.5rem;
-            margin-bottom: 0.8rem;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 4px;
-            background: var(--primary);
-            border-radius: 2px;
-        }
-        
-        .section-title p {
-            color: var(--gray);
-            max-width: 600px;
-            margin: 1.5rem auto 0;
-            font-size: 1.1rem;
-        }
-        
-        .search-box {
+        /* Навигация */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background: var(--surface);
             display: flex;
-            max-width: 700px;
-            margin: 0 auto;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            border-radius: 50px;
-            overflow: hidden;
-            transition: var(--transition);
-            border: 2px solid transparent;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 900;
         }
         
-        .search-box:focus-within {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border-color: var(--primary);
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: var(--gray);
+            font-size: 0.75rem;
+            transition: var(--transition);
+            flex: 1;
+        }
+        
+        .nav-item.active {
+            color: var(--primary);
+        }
+        
+        .nav-icon {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+        
+        /* Контейнер экранов */
+        .app-screens {
+            position: relative;
+            width: 100%;
+            min-height: calc(100vh - var(--header-height) - var(--nav-height));
+            overflow: hidden;
+        }
+        
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 100%;
+            padding: 20px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            transition: transform 0.4s ease, opacity 0.4s ease;
+            opacity: 0;
+            transform: translateX(100%);
+            display: none;
+        }
+        
+        .screen.active {
+            opacity: 1;
+            transform: translateX(0);
+            display: block;
+        }
+        
+        .screen.left {
+            transform: translateX(-100%);
+        }
+        
+        /* Главный экран */
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .welcome-text {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .welcome-subtext {
+            color: var(--gray);
+            font-size: 1rem;
+        }
+        
+        .search-card {
+            background: white;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: var(--card-shadow);
         }
         
         .search-input {
-            flex: 1;
-            padding: 1.3rem 1.8rem;
-            border: none;
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--light-gray);
+            border-radius: 12px;
             font-size: 1rem;
-            background: white;
-            outline: none;
-            font-family: 'Nunito', sans-serif;
-        }
-        
-        .search-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0 2.2rem;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-        
-        .search-btn:hover {
-            background: var(--primary-dark);
+            margin-bottom: 15px;
         }
         
         .filters {
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin-top: 2.5rem;
+            overflow-x: auto;
+            gap: 10px;
+            padding-bottom: 5px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .filters::-webkit-scrollbar {
+            display: none;
         }
         
         .filter-btn {
-            background: white;
+            padding: 10px 16px;
+            background: var(--light);
             border: 1px solid var(--light-gray);
-            padding: 0.8rem 1.6rem;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            font-size: 0.95rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
         
-        .filter-btn:hover, .filter-btn.active {
+        .filter-btn.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
-            box-shadow: 0 8px 15px rgba(94, 114, 228, 0.25);
-            transform: translateY(-3px);
         }
         
-        /* Circles grid - полностью переработан */
-        .circles-section {
-            padding: 5rem 0;
-            background: #f9fafc;
-        }
-        
-        .circles-grid {
+        .categories {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
         }
         
-        .circle-card {
+        .category-card {
             background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--card-shadow);
             transition: var(--transition);
+        }
+        
+        .category-card:active {
+            transform: scale(0.97);
+        }
+        
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light);
+            border-radius: 50%;
             display: flex;
-            flex-direction: column;
-            position: relative;
-            opacity: 0;
-            transform: translateY(30px);
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 1.4rem;
+            color: var(--primary);
         }
         
-        .circle-card.animate {
-            opacity: 1;
-            transform: translateY(0);
+        .category-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 5px;
         }
         
-        .circle-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        .category-count {
+            font-size: 0.8rem;
+            color: var(--gray);
         }
         
-        .circle-img {
-            height: 200px;
+        /* Экран поиска */
+        .search-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .back-btn {
+            font-size: 1.2rem;
+            margin-right: 15px;
+            color: var(--dark);
+        }
+        
+        .search-results {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .result-image {
+            height: 160px;
             background: linear-gradient(120deg, #5e72e4 0%, #9c7be4 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
-            font-size: 1.8rem;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .circle-img::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100'%3E%3Ccircle cx='70' cy='30' r='10' fill='white' opacity='0.1'/%3E%3Ccircle cx='20' cy='70' r='15' fill='white' opacity='0.1'/%3E%3C/svg%3E");
-        }
-        
-        .circle-img::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transition: var(--transition);
-        }
-        
-        .circle-card:hover .circle-img::after {
-            opacity: 1;
-        }
-        
-        .circle-content {
-            padding: 1.8rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .circle-title {
             font-size: 1.4rem;
-            margin-bottom: 0.8rem;
-            color: var(--dark);
-            transition: var(--transition);
+            position: relative;
         }
         
-        .circle-card:hover .circle-title {
-            color: var(--primary);
-        }
-        
-        .circle-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-            color: var(--gray);
-        }
-        
-        .circle-price {
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.3rem;
-        }
-        
-        .circle-desc {
-            margin-bottom: 1.8rem;
-            color: #555;
-            flex-grow: 1;
-            line-height: 1.7;
-        }
-        
-        .circle-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: auto;
-        }
-        
-        .circle-rating {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            color: #f1c40f;
-            font-weight: 600;
-        }
-        
-        .circle-badge {
+        .result-badge {
             position: absolute;
             top: 15px;
             right: 15px;
             background: var(--secondary);
             color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 50px;
+            padding: 5px 10px;
+            border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 700;
-            z-index: 2;
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
         }
         
-        /* Features section - улучшенный */
-        .features {
-            padding: 6rem 0;
-            background: var(--light);
-            position: relative;
-            overflow: hidden;
+        .result-content {
+            padding: 15px;
         }
         
-        .features::before {
-            content: '';
-            position: absolute;
-            bottom: -10%;
-            left: -10%;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, rgba(94, 114, 228, 0.1) 0%, rgba(255, 107, 107, 0.1) 100%);
-            z-index: 0;
+        .result-title {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
         }
         
-        .features::after {
-            content: '';
-            position: absolute;
-            top: -10%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, rgba(71, 180, 117, 0.1) 0%, rgba(94, 114, 228, 0.1) 100%);
-            z-index: 0;
+        .result-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--gray);
         }
         
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            position: relative;
-            z-index: 1;
+        .result-price {
+            color: var(--accent);
+            font-weight: bold;
         }
         
-        .feature {
-            text-align: center;
-            padding: 2.5rem 2rem;
+        .result-desc {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .result-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .result-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #f1c40f;
+            font-size: 0.9rem;
+        }
+        
+        .result-btn {
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: none;
+        }
+        
+        /* Экран теста */
+        .test-container {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-            transition: var(--transition);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .feature.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .feature:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
-        }
-        
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--light);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.8rem;
-            font-size: 2rem;
-            color: var(--primary);
-            transition: var(--transition);
-            position: relative;
-        }
-        
-        .feature:hover .feature-icon {
-            background: var(--primary);
-            color: white;
-            transform: rotateY(180deg);
-        }
-        
-        .feature h3 {
-            margin-bottom: 1.2rem;
-            color: var(--dark);
-            font-size: 1.3rem;
-        }
-        
-        .feature p {
-            color: var(--gray);
-            line-height: 1.7;
-        }
-        
-        /* CTA section - улучшенный */
-        .cta-section {
-            padding: 7rem 0;
-            background: linear-gradient(120deg, var(--primary) 0%, #7795f8 100%);
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100'%3E%3Ccircle cx='20' cy='20' r='5' fill='white' opacity='0.1'/%3E%3Ccircle cx='80' cy='80' r='8' fill='white' opacity='0.1'/%3E%3Ccircle cx='70' cy='30' r='6' fill='white' opacity='0.1'/%3E%3C/svg%3E");
-            background-size: 300px;
-            z-index: 1;
-        }
-        
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .cta-content h2 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-        
-        .cta-content p {
-            margin-bottom: 2.5rem;
-            font-size: 1.3rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .btn-light {
-            background: white;
-            color: var(--primary);
-            border: 2px solid white;
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-        }
-        
-        .btn-light:hover {
-            background: transparent;
-            color: white;
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(255, 255, 255, 0.2);
-        }
-        
-        /* Footer - улучшенный */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 5rem 0 2rem;
-            position: relative;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 4rem;
-        }
-        
-        .footer-column h3 {
-            margin-bottom: 1.8rem;
-            position: relative;
-            padding-bottom: 0.8rem;
-            font-size: 1.3rem;
-        }
-        
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--secondary);
-            border-radius: 2px;
-        }
-        
-        .footer-column ul {
-            list-style: none;
-        }
-        
-        .footer-column li {
-            margin-bottom: 0.9rem;
-            transition: var(--transition);
-        }
-        
-        .footer-column li:hover {
-            transform: translateX(5px);
-        }
-        
-        .footer-column a {
-            color: #cbd5e0;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-        
-        .footer-column a:hover {
-            color: white;
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-        
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 45px;
-            height: 45px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: var(--transition);
-            font-size: 1.2rem;
-        }
-        
-        .social-links a:hover {
-            background: var(--primary);
-            transform: translateY(-5px);
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 2.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #a0aec0;
-            font-size: 0.95rem;
-        }
-        
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes float {
-            0% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
-            }
-            100% {
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                box-shadow: 0 10px 20px rgba(94, 114, 228, 0.2);
-            }
-            50% {
-                transform: scale(1.05);
-                box-shadow: 0 15px 30px rgba(94, 114, 228, 0.3);
-            }
-            100% {
-                transform: scale(1);
-                box-shadow: 0 10px 20px rgba(94, 114, 228, 0.2);
-            }
-        }
-        
-        /* Particle background for hero */
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
-        
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.3;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        /* Magic test section - полностью переработан */
-        .magic-test-section {
-            padding: 6rem 0;
-            background: linear-gradient(135deg, #0b1020, #141a3a 40%, #0b1020 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .magic-test-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(800px 300px at 20% -10%, rgba(0, 255, 240, 0.12), transparent 60%),
-                        radial-gradient(600px 300px at 80% 110%, rgba(165, 110, 255, 0.12), transparent 60%);
-            z-index: 1;
-        }
-
-        .magic-test-section::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(120deg, rgba(0,255,240,0.08), rgba(165,110,255,0.08), rgba(0,255,240,0.08));
-            background-size: 200% 200%;
-            animation: auroraShift 10s ease-in-out infinite;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        @keyframes auroraShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .test-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255,255,255,0.06) inset;
-            position: relative;
-            z-index: 2;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-        }
-
-        .test-container::before {
-            content: '';
-            position: absolute;
-            inset: -1px;
-            border-radius: 20px;
-            padding: 1px;
-            background: linear-gradient(120deg, rgba(0,255,240,0.6), rgba(165,110,255,0.6));
-            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            z-index: -1;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            margin-top: 20px;
         }
         
         .test-title {
             text-align: center;
-            margin-bottom: 2rem;
-            font-size: 2.5rem;
-            background: linear-gradient(to right, #00fff0, #7c4dff, #00d1b2);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
         }
         
-        .test-title i {
-            margin-right: 0.5rem;
-            color: #ffcc00;
-            text-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
-        }
-        
-        .test-description {
+        .test-desc {
             text-align: center;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-        
-        .question-container {
-            margin-bottom: 2rem;
-        }
-        
-        .question-text {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            text-align: center;
-        }
-        
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-        
-        .option-item {
-            background: rgba(255, 255, 255, 0.12);
-            padding: 1.5rem;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255,255,255,0.12);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-        }
-        
-        .option-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05));
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .option-item:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-6px);
-            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
-        }
-        
-        .option-item:hover::before {
-            opacity: 1;
-        }
-        
-        .option-item.selected {
-            background: rgba(255, 255, 255, 0.28);
-            border-color: var(--neon);
-            box-shadow: 0 0 0 2px rgba(0,255,240,0.25) inset, 0 8px 24px rgba(0,0,0,0.35), 0 0 22px rgba(0,255,240,0.35);
-            transform: translateY(-3px);
-        }
-
-        .option-item.selected::after {
-            content: '\f00c';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            top: 10px;
-            right: 12px;
-            color: var(--neon);
-            text-shadow: 0 0 8px rgba(0,255,240,0.6);
-        }
-        
-        .test-navigation {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
+            margin-bottom: 20px;
+            color: var(--gray);
         }
         
         .test-progress {
-            height: 10px;
-            background: rgba(255, 255, 255, 0.18);
-            border-radius: 5px;
-            margin-bottom: 1.5rem;
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            margin-bottom: 20px;
             overflow: hidden;
-            position: relative;
         }
         
         .progress-bar {
             height: 100%;
-            background: linear-gradient(90deg, #00fff0, #7c4dff, #00d1b2);
-            border-radius: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--neon-2));
+            border-radius: 4px;
             transition: width 0.5s ease;
             width: 0%;
-            position: relative;
-            box-shadow: 0 0 16px rgba(124, 77, 255, 0.45);
-            background-size: 200% 200%;
-            animation: auroraShift 6s ease-in-out infinite;
         }
         
-        /* Анимации для результатов */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .result-container {
+        .question-text {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
             text-align: center;
-            animation: fadeIn 1s ease;
+            font-weight: 600;
         }
         
-        .result-icon {
-            font-size: 5rem;
-            color: var(--neon);
-            margin-bottom: 1.5rem;
-            animation: pulse 2s infinite;
-            text-shadow: 0 0 20px rgba(0, 255, 240, 0.6);
-        }
-        
-        .result-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #00fff0, #7c4dff, #00d1b2);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .result-description {
-            margin-bottom: 2rem;
-            line-height: 1.7;
-            font-size: 1.1rem;
-        }
-        
-        .result-recommendations {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            margin-top: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .result-recommendations h4 {
-            margin-bottom: 1.5rem;
-            color: var(--neon);
-            font-size: 1.3rem;
-        }
-        
-        .recommendation-list {
+        .options-list {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            list-style: none;
+            gap: 12px;
+            margin-bottom: 25px;
         }
         
-        .recommendation-list li {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1rem;
-            border-radius: 10px;
-            transition: all 0.3s ease;
+        .option-item {
+            padding: 16px;
+            background: var(--light);
+            border-radius: 12px;
+            border: 1px solid var(--light-gray);
+            transition: var(--transition);
+            cursor: pointer;
         }
         
-        .recommendation-list li:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-3px);
+        .option-item:active {
+            background: #e6e9ff;
         }
         
-        .restart-test {
-            margin-top: 2rem;
-            background: rgba(255, 255, 255, 0.2);
+        .test-nav {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .nav-btn {
+            padding: 12px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        
+        .nav-btn.prev {
+            background: var(--light);
+            color: var(--dark);
+        }
+        
+        .nav-btn.next {
+            background: var(--primary);
             color: white;
-            border: 2px solid white;
-            padding: 1rem 2rem;
+        }
+        
+        /* Экран профиля */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--neon-2));
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+        }
+        
+        .profile-name {
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+        
+        .profile-email {
+            color: var(--gray);
+        }
+        
+        .profile-menu {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+        
+        .menu-icon {
+            width: 40px;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        
+        .menu-text {
+            flex: 1;
+            font-size: 1rem;
+        }
+        
+        .menu-arrow {
+            color: var(--gray);
+        }
+        
+        /* Экран избранного */
+        .favorites-list {
+            display: grid;
+            gap: 15px;
+        }
+        
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* Улучшения для iOS */
+        input, textarea, select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 0;
+        }
+        
+        /* Стили для экрана результатов теста */
+        .results-screen {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            margin-top: 20px;
+        }
+        
+        .results-title {
+            text-align: center;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .result-category {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: var(--light);
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+        }
+        
+        .result-category:active {
+            transform: scale(0.98);
+        }
+        
+        .category-match {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
             font-size: 1.1rem;
         }
         
-        .restart-test:hover {
-            background: white;
-            color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+        .category-info {
+            flex: 1;
         }
         
-        /* Магические эффекты */
-        .magic-particle {
+        .category-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .category-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        /* Анимация загрузки ИИ */
+        .ai-thinking {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease;
+        }
+        
+        .ai-thinking.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .ai-brain {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .ai-brain i {
+            font-size: 80px;
+            color: var(--primary);
             position: absolute;
-            background: white;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
             border-radius: 50%;
             opacity: 0;
-            pointer-events: none;
-            z-index: 1;
+            transform: scale(0);
+            animation: pulse 2s infinite;
         }
         
-        @keyframes magic {
+        .pulse:nth-child(2) {
+            animation-delay: 0.7s;
+        }
+        
+        .pulse:nth-child(3) {
+            animation-delay: 1.4s;
+        }
+        
+        @keyframes pulse {
             0% {
-                opacity: 1;
-                transform: translate(0, 0) scale(0);
+                transform: scale(0);
+                opacity: 0.8;
             }
             100% {
-                opacity: 0;
-                transform: translate(var(--tx), var(--ty)) scale(1);
-            }
-        }
-        
-        .ai-thinking {
-            text-align: center;
-            padding: 3rem;
-        }
-        
-        .ai-loader {
-            display: inline-block;
-            position: relative;
-            width: 80px;
-            height: 80px;
-            margin-bottom: 2rem;
-        }
-        
-        .ai-loader div {
-            position: absolute;
-            border: 4px solid #ffcc00;
-            opacity: 1;
-            border-radius: 50%;
-            animation: ai-loader 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
-        }
-        
-        .ai-loader div:nth-child(2) {
-            animation-delay: -0.5s;
-        }
-        
-        @keyframes ai-loader {
-            0% {
-                top: 36px;
-                left: 36px;
-                width: 0;
-                height: 0;
-                opacity: 1;
-            }
-            100% {
-                top: 0px;
-                left: 0px;
-                width: 72px;
-                height: 72px;
+                transform: scale(1.5);
                 opacity: 0;
             }
         }
         
         .ai-text {
             font-size: 1.2rem;
-            opacity: 0.9;
+            font-weight: 600;
+            color: var(--dark);
+            text-align: center;
+            margin-bottom: 20px;
         }
         
-        .ai-text span {
-            display: inline-block;
-            animation: blink 1.5s infinite;
+        .ai-dots {
+            display: flex;
+            gap: 5px;
         }
         
-        .ai-text span:nth-child(2) {
+        .ai-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: dot-bounce 1.5s infinite ease-in-out;
+        }
+        
+        .ai-dot:nth-child(2) {
             animation-delay: 0.2s;
         }
         
-        .ai-text span:nth-child(3) {
+        .ai-dot:nth-child(3) {
             animation-delay: 0.4s;
         }
         
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        @keyframes dot-bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
         }
         
-        /* Блок сотрудничества - полностью переработан */
-        .collaboration-section {
-            padding: 7rem 0;
-            background: linear-gradient(135deg, #1f2430 0%, #2d3447 100%);
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .collaboration-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' width='100' height='100'%3E%3Ccircle cx='20' cy='20' r='5' fill='white' opacity='0.05'/%3E%3Ccircle cx='80' cy='80' r='8' fill='white' opacity='0.05'/%3E%3Ccircle cx='70' cy='30' r='6' fill='white' opacity='0.05'/%3E%3C/svg%3E");
-            background-size: 300px;
-            z-index: 1;
-        }
-        
-        .collaboration-section::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(45deg, rgba(108, 92, 231, 0.1), rgba(0, 209, 178, 0.1), rgba(108, 92, 231, 0.1));
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .collaboration-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .collaboration-title {
-            text-align: center;
-            margin-bottom: 1rem;
-            font-size: 2.8rem;
-            background: linear-gradient(to right, #ff6b6b, #6c5ce7, #00d1b2);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .collaboration-subtitle {
-            text-align: center;
-            margin-bottom: 4rem;
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0.9;
-        }
-        
-        .collaboration-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 4rem;
-        }
-        
-        .collaboration-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        
-        .collaboration-card.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .collaboration-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
-            z-index: 1;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .collaboration-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
-        }
-        
-        .collaboration-card:hover::before {
-            opacity: 1;
-        }
-        
-        .collaboration-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(45deg, var(--primary), var(--neon-2));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            color: white;
-            transition: var(--transition);
-        }
-        
-        .collaboration-card:hover .collaboration-icon {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 10px 25px rgba(108, 92, 231, 0.4);
-        }
-        
-        .collaboration-card h3 {
-            margin-bottom: 1.2rem;
-            font-size: 1.5rem;
-            color: white;
-        }
-        
-        .collaboration-card p {
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.6;
-        }
-        
-        .collaboration-form-container {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
-        }
-        
-        .form-title {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            font-size: 1.8rem;
-        }
-        
-        .collaboration-form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1rem;
-        }
-        
-        .form-group.full-width {
-            grid-column: 1 / -1;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: white;
-        }
-        
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 1rem 1.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-family: 'Nunito', sans-serif;
-            transition: var(--transition);
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus {
-            outline: none;
+        .option-item.selected {
+            background: #e6e9ff;
             border-color: var(--primary);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.3);
         }
-        
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .form-submit {
-            grid-column: 1 / -1;
-            display: flex;
-            justify-content: center;
-            margin-top: 1rem;
-        }
-        
-        .form-submit .btn {
-            padding: 1rem 3rem;
-            font-size: 1.1rem;
-            background: linear-gradient(45deg, var(--primary), var(--neon-2));
-            border: none;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .form-submit .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: 0.5s;
-        }
-        
-        .form-submit .btn:hover::before {
-            left: 100%;
-        }
-        
-        .form-success {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(0, 209, 178, 0.1);
-            border-radius: 10px;
-            border: 1px solid rgba(0, 209, 178, 0.3);
-            margin-top: 1.5rem;
-            display: none;
-        }
-        
-        .form-success i {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-            display: block;
-        }
-        
-        /* Responsive - полностью переработан */
-        @media (max-width: 1200px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .menu-toggle {
-                display: flex;
-            }
-            
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                height: 100vh;
-                width: 80%;
-                max-width: 300px;
-                background: white;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: var(--transition);
-                box-shadow: -5px 0 25px rgba(0, 0, 0, 0.1);
-                z-index: 999;
-            }
-            
-            nav ul.active {
-                right: 0;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .hero-stats {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .search-box {
-                flex-direction: column;
-                border-radius: 16px;
-            }
-            
-            .search-input {
-                width: 100%;
-                padding: 1.2rem;
-            }
-            
-            .search-btn {
-                padding: 1rem;
-                width: 100%;
-            }
-            
-            .cta-content h2 {
-                font-size: 2.2rem;
-            }
-            
-            .cta-content p {
-                font-size: 1.1rem;
-            }
-            
-            .collaboration-form {
+
+        /* Адаптация для очень маленьких экранов */
+        @media (max-width: 350px) {
+            .categories {
                 grid-template-columns: 1fr;
             }
-        }
-        
-        @media (max-width: 768px) {
-            .header-content {
-                padding: 1rem 0;
-            }
             
-            .logo {
+            .welcome-text {
                 font-size: 1.5rem;
             }
-            
-            .auth-buttons {
-                display: none;
-            }
-            
-            .mobile-auth {
-                display: flex;
-                flex-direction: column;
-                gap: 1rem;
-                margin-top: 2rem;
-            }
-            
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero-buttons .btn {
-                width: 100%;
-                text-align: center;
-                justify-content: center;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            
-            .circles-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .test-container {
-                padding: 1.5rem;
-            }
-            
-            .options-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .test-navigation {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .test-navigation button {
-                width: 100%;
-            }
-            
-            .collaboration-title {
-                font-size: 2.2rem;
-            }
-            
-            .collaboration-card {
-                padding: 2rem;
-            }
-            
-            .collaboration-form-container {
-                padding: 2rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .stat-value {
-                font-size: 2rem;
-            }
-            
-            .section-title h2 {
-                font-size: 1.8rem;
-            }
-            
-            .filter-btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.85rem;
-            }
-            
-            .circle-content {
-                padding: 1.2rem;
-            }
-            
-            .circle-title {
-                font-size: 1.2rem;
-            }
-            
-            .test-title {
-                font-size: 2rem;
-            }
-            
-            .collaboration-title {
-                font-size: 1.8rem;
-            }
-            
-            .collaboration-card {
-                padding: 1.5rem;
-            }
-            
-            .collaboration-form-container {
-                padding: 1.5rem;
-            }
-        }
-        
-        /* Animation classes */
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-        
-        .animate-on-scroll.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        /* Mobile auth buttons in menu */
-        .mobile-auth {
-            display: none;
         }
     </style>
 </head>
 <body>
-    
-
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">
-                    <i class="fas fa-child logo-icon"></i>
-                    <span>KIDCIRCLE</span>
-                </a>
-                
-                <button class="menu-toggle" id="menu-toggle">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                
-                <nav>
-                    <ul id="nav-menu">
-                        <li><a href="#">Кружки</a></li>
-                        <li><a href="#advice-section">Советы</a></li>
-                         <li><a href="#magic-test">Тест ИИ</a></li>
-                         <li><a href="#collaboration">Сотрудничество</a></li>
-                        <div class="mobile-auth">
-                            <button class="btn btn-outline">Вход</button>
-                            <button class="btn btn-primary">Регистрация</button>
-                        </div>
-                    </ul>
-                </nav>
-                
-                <div class="auth-buttons">
-                    <button class="btn btn-outline">Вход</button>
-                    <button class="btn btn-primary">Регистрация</button>
-                </div>
-            </div>
+    <!-- Шапка приложения -->
+    <header class="app-header">
+        <a href="#" class="logo">
+            <i class="fas fa-child logo-icon"></i>
+            <span>KIDCIRCLE</span>
+        </a>
+        
+        <div class="header-actions">
+            <a href="#" class="header-icon">
+                <i class="fas fa-search"></i>
+            </a>
+            <a href="#" class="header-icon">
+                <i class="fas fa-bell"></i>
+            </a>
         </div>
     </header>
-
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="floating-elements">
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
+    
+    <!-- Контейнер для экранов приложения -->
+    <div class="app-screens">
+        <!-- Главный экран -->
+        <div class="screen active" id="home-screen">
+            <div class="welcome-section">
+                <h1 class="welcome-text">Привет, Алексей!</h1>
+                <p class="welcome-subtext">Найди кружки для вашего ребенка</p>
+            </div>
+            
+            <div class="search-card">
+                <input type="text" class="search-input" placeholder="Поиск кружков и секций...">
+                
+                <div class="filters">
+                    <button class="filter-btn active">Все</button>
+                    <button class="filter-btn">Спорт</button>
+                    <button class="filter-btn">Творчество</button>
+                    <button class="filter-btn">Наука</button>
+                    <button class="filter-btn">Музыка</button>
+                    <button class="filter-btn">Танцы</button>
+                </div>
+            </div>
+            
+            <h2 style="margin-bottom: 15px;">Категории</h2>
+            
+            <div class="categories">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <h3 class="category-name">Спорт</h3>
+                    <p class="category-count">124 кружка</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3 class="category-name">Творчество</h3>
+                    <p class="category-count">86 кружков</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 class="category-name">Наука</h3>
+                    <p class="category-count">67 кружков</p>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h3 class="category-name">Музыка</h3>
+                    <p class="category-count">53 кружка</p>
+                </div>
+            </div>
+            
+            <h2 style="margin: 25px 0 15px;">Рекомендуем для вас</h2>
+            
+            <div class="search-results">
+                <div class="result-card">
+                    <div class="result-image">
+                        Футбол
+                        <div class="result-badge">Популярно</div>
+                    </div>
+                    <div class="result-content">
+                        <h3 class="result-title">Футбольная академия "Чемпион"</h3>
+                        <div class="result-info">
+                            <span>7-12 лет</span>
+                            <span class="result-price">2000₽/мес</span>
+                        </div>
+                        <p class="result-desc">Профессиональные тренировки по футболу для детей. Развиваем физическую форму, координацию и командный дух.</p>
+                        <div class="result-footer">
+                            <div class="result-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (128)</span>
+                            </div>
+                            <button class="result-btn">Записаться</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
-        <div class="container">
-            <div class="hero-content">
-                <h1>Раскройте таланты <span>вашего ребенка</span></h1>
-                <p>KIDCIRCLE — современная платформа для поиска и записи в детские кружки. Найдите идеальные занятия для развития способностей вашего ребенка.</p>
-                <div class="hero-buttons">
-                    <a href="#search" class="btn btn-primary">
-                        <i class="fas fa-search"></i>Найти кружки
-                    </a>
-                    <a href="#magic-test" class="btn btn-outline">
-                        <i class="fas fa-robot"></i>Тест способностей
-                    </a>
-                </div>
-                
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-value">500+</div>
-                        <div class="stat-label">кружков</div>
+        <!-- Экран поиска -->
+        <div class="screen" id="search-screen">
+            <div class="search-header">
+                <a href="#" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <input type="text" class="search-input" placeholder="Поиск кружков и секций...">
+            </div>
+            
+            <div class="filters">
+                <button class="filter-btn active">Все</button>
+                <button class="filter-btn">Спорт</button>
+                <button class="filter-btn">Творчество</button>
+                <button class="filter-btn">Наука</button>
+                <button class="filter-btn">Музыка</button>
+                <button class="filter-btn">Танцы</button>
+                <button class="filter-btn">Развитие</button>
+            </div>
+            
+            <div class="search-results">
+                <div class="result-card">
+                    <div class="result-image">
+                        Футбол
+                        <div class="result-badge">Популярно</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-value">15K+</div>
-                        <div class="stat-label">детей</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">50+</div>
-                        <div class="stat-label">городов</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="search" class="search-section">
-        <div class="container">
-            <div class="section-title animate-on-scroll">
-                <h2>Найдите кружки в вашем городе</h2>
-                <p>Отфильтруйте кружки по категориям или воспользуйтесь поиском</p>
-            </div>
-            <div class="search-box animate-on-scroll">
-                <input type="text" class="search-input" placeholder="Введите название кружка, город или категорию...">
-                <button class="search-btn">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            <div class="filters animate-on-scroll">
-                <button class="filter-btn active">
-                    <i class="fas fa-star"></i>Все категории
-                </button>
-                <button class="filter-btn">
-                    <i class="fas fa-futbol"></i>Спорт
-                </button>
-                <button class="filter-btn">
-                    <i class="fas fa-paint-brush"></i>Творчество
-                </button>
-                <button class="filter-btn">
-                    <i class="fas fa-flask"></i>Наука
-                </button>
-                <button class="filter-btn">
-                    <i class="fas fa-music"></i>Музыка
-                </button>
-                <button class="filter-btn">
-                    <i class="fas fa-dice"></i>Развитие
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section class="circles-section">
-        <div class="container">
-            <div class="section-title animate-on-scroll">
-                <h2>Популярные кружки</h2>
-                <p>Самые востребованные детские кружки на нашей платформе</p>
-            </div>
-            <div class="circles-grid">
-                <div class="circle-card animate-on-scroll">
-                    <div class="circle-badge">Популярно</div>
-                    <div class="circle-img">Футбол</div>
-                    <div class="circle-content">
-                        <h3 class="circle-title">Футбольная академия "Чемпион"</h3>
-                        <div class="circle-info">
+                    <div class="result-content">
+                        <h3 class="result-title">Футбольная академия "Чемпион"</h3>
+                        <div class="result-info">
                             <span>7-12 лет</span>
-                            <span class="circle-price">2000₽/мес</span>
+                            <span class="result-price">2000₽/мес</span>
                         </div>
-                        <p class="circle-desc">Профессиональные тренировки по футболу для детей. Развиваем физическую форму, координацию и командный дух.</p>
-                        <div class="circle-footer">
-                            <div class="circle-rating">
+                        <p class="result-desc">Профессиональные тренировки по футболу для детей. Развиваем физическую форму, координацию и командный дух.</p>
+                        <div class="result-footer">
+                            <div class="result-rating">
                                 <i class="fas fa-star"></i>
-                                <span>4.9 (128 отзывов)</span>
+                                <span>4.9 (128)</span>
                             </div>
-                            <a href="#" class="btn btn-primary">Записаться</a>
+                            <button class="result-btn">Записаться</button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="circle-card animate-on-scroll">
-                    <div class="circle-badge">Новое</div>
-                    <div class="circle-img">Роботы</div>
-                    <div class="circle-content">
-                        <h3 class="circle-title">Робототехника для детей</h3>
-                        <div class="circle-info">
+                <div class="result-card">
+                    <div class="result-image">
+                        Роботы
+                        <div class="result-badge">Новое</div>
+                    </div>
+                    <div class="result-content">
+                        <h3 class="result-title">Робототехника для детей</h3>
+                        <div class="result-info">
                             <span>8-14 лет</span>
-                            <span class="circle-price">2500₽/мес</span>
+                            <span class="result-price">2500₽/мес</span>
                         </div>
-                        <p class="circle-desc">Создаем роботов, изучаем программирование и основы механики. Современное оборудование и профессиональные преподаватели.</p>
-                        <div class="circle-footer">
-                            <div class="circle-rating">
+                        <p class="result-desc">Создаем роботов, изучаем программирование и основы механики. Современное оборудование и профессиональные преподаватели.</p>
+                        <div class="result-footer">
+                            <div class="result-rating">
                                 <i class="fas fa-star"></i>
-                                <span>4.8 (96 отзывов)</span>
+                                <span>4.8 (96)</span>
                             </div>
-                            <a href="#" class="btn btn-primary">Записаться</a>
+                            <button class="result-btn">Записаться</button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="circle-card animate-on-scroll">
-                    <div class="circle-img">Искусство</div>
-                    <div class="circle-content">
-                        <h3 class="circle-title">Студия рисования "Арт-Класс"</h3>
-                        <div class="circle-info">
+                <div class="result-card">
+                    <div class="result-image">
+                        Искусство
+                    </div>
+                    <div class="result-content">
+                        <h3 class="result-title">Студия рисования "Арт-Класс"</h3>
+                        <div class="result-info">
                             <span>5-16 лет</span>
-                            <span class="circle-price">1800₽/мес</span>
+                            <span class="result-price">1800₽/мес</span>
                         </div>
-                        <p class="circle-desc">Развиваем творческие способности, воображение и чувство прекрасного. Разные техники рисования и работы с материалами.</p>
-                        <div class="circle-footer">
-                            <div class="circle-rating">
+                        <p class="result-desc">Развиваем творческие способности, воображение и чувство прекрасного. Разные техники рисования и работы с материалами.</p>
+                        <div class="result-footer">
+                            <div class="result-rating">
                                 <i class="fas fa-star"></i>
-                                <span>4.7 (87 отзывов)</span>
+                                <span>4.7 (87)</span>
                             </div>
-                            <a href="#" class="btn btn-primary">Записаться</a>
+                            <button class="result-btn">Записаться</button>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
         </div>
-    </section>
-
-    <section class="features">
-        <div class="container">
-            <div class="section-title animate-on-scroll">
-                <h2>Почему выбирают KIDCIRCLE</h2>
-                <p>Платформа, которая делает поиск и запись в кружки простыми и удобными</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature animate-on-scroll">
-                    <div class="feature-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <h3>Кружки вашего города</h3>
-                    <p>База кружков и секций из разных городов с актуальной информацией</p>
-                </div>
-                
-                <div class="feature animate-on-scroll">
-                    <div class="feature-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <h3>Умный поиск</h3>
-                    <p>Фильтры по возрасту, цене, расположению и направлениям</p>
-                </div>
-                
-                <div class="feature animate-on-scroll">
-                    <div class="feature-icon">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <h3>Реальные отзывы</h3>
-                    <p>Честные отзывы родителей о кружках и преподавателях</p>
-                </div>
-                
-                <div class="feature animate-on-scroll">
-                    <div class="feature-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <h3>Онлайн-запись</h3>
-                    <p>Запишитесь в выбранный кружок прямо на сайте без лишних звонков</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Magic test section -->
-    <section id="magic-test" class="magic-test-section">
-        <div class="container">
+        
+        <!-- Экран теста -->
+        <div class="screen" id="test-screen">
+            <h2 class="test-title">Тест способностей с ИИ</h2>
+            <p class="test-desc">Пройдите тест, чтобы узнать, какие кружки подходят вашему ребенку</p>
+            
             <div class="test-container">
-                <h2 class="test-title"><i class="fas fa-robot"></i> Тест способностей с ИИ</h2>
-                <p class="test-description">Пройдите этот тест вместе с ребенком, и наш искусственный интеллект определит, к каким видам деятельности у него наибольшие склонности!</p>
-                
                 <div class="test-progress">
-                    <div class="progress-bar" id="progress-bar"></div>
+                    <div class="progress-bar" id="progress-bar" style="width: 20%"></div>
                 </div>
                 
-                <div id="test-content">
-                    <!-- Контент теста будет генерироваться JavaScript -->
+                <div class="question-text" id="question-text">Что больше всего нравится делать вашему ребенку в свободное время?</div>
+                
+                <div class="options-list" id="options-list">
+                    <!-- Варианты ответов будут добавляться через JS -->
+                </div>
+                
+                <div class="test-nav">
+                    <button class="nav-btn prev" id="prev-btn">Назад</button>
+                    <button class="nav-btn next" id="next-btn">Далее</button>
                 </div>
             </div>
         </div>
-    </section>
 
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="animate-on-scroll">Начните развивать таланты вашего ребенка сегодня!</h2>
-                <p class="animate-on-scroll">Присоединяйтесь к тысячам родителей, которые уже нашли идеальные кружки для своих детей на KIDCIRCLE</p>
-                <div class="store-badges animate-on-scroll" style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
-                    <a href="#" class="store-badge" aria-label="Скачать в App Store" style="display:inline-flex; align-items:center; gap:0.6rem; background:#fff; color:#000; border-radius:12px; padding:0.8rem 1.2rem; box-shadow:0 8px 20px rgba(0,0,0,0.08); text-decoration:none;">
-                        <i class="fab fa-apple" style="font-size:1.6rem;"></i>
-                        <div style="display:flex; flex-direction:column; line-height:1;">
-                            <span style="font-size:0.7rem; opacity:0.7;">Загрузите в</span>
-                            <strong>App Store</strong>
-                        </div>
-                    </a>
-                    <a href="#" class="store-badge" aria-label="Скачать в Google Play" style="display:inline-flex; align-items:center; gap:0.6rem; background:#fff; color:#000; border-radius:12px; padding:0.8rem 1.2rem; box-shadow:0 8px 20px rgba(0,0,0,0.08); text-decoration:none;">
-                        <i class="fab fa-google-play" style="font-size:1.4rem;"></i>
-                        <div style="display:flex; flex-direction:column; line-height:1;">
-                            <span style="font-size:0.7rem; opacity:0.7;">Доступно в</span>
-                            <strong>Google Play</strong>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Блок сотрудничества - полностью переработан -->
-    <section id="collaboration" class="collaboration-section">
-        <div class="container">
-            <div class="collaboration-content">
-                <h2 class="collaboration-title animate-on-scroll">Станьте нашим партнером</h2>
-                <p class="collaboration-subtitle animate-on-scroll">Присоединяйтесь к платформе KIDCIRCLE и получите доступ к тысячам родителей, ищущих кружки для своих детей</p>
-                
-                <div class="collaboration-grid">
-                    <div class="collaboration-card animate-on-scroll">
-                        <div class="collaboration-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <h3>Расширьте аудиторию</h3>
-                        <p>Привлекайте новых клиентов из числа родителей, которые активно ищут кружки для своих детей в вашем городе.</p>
-                    </div>
-                    
-                    <div class="collaboration-card animate-on-scroll">
-                        <div class="collaboration-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Увеличьте доход</h3>
-                        <p>Заполняйте свободные места в группах и увеличивайте прибыль с помощью нашей эффективной системы продвижения.</p>
-                    </div>
-                    
-                    <div class="collaboration-card animate-on-scroll">
-                        <div class="collaboration-icon">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <h3>Автоматизация записи</h3>
-                        <p>Используйте современную систему онлайн-записи, управления расписанием и уведомлений для ваших клиентов.</p>
-                    </div>
-                </div>
-                
-                <div class="collaboration-form-container animate-on-scroll">
-                    <h3 class="form-title">Оставьте заявку на сотрудничество</h3>
-                    <form id="collaboration-form" class="collaboration-form">
-                        <div class="form-group">
-                            <label for="orgName">Название организации</label>
-                            <input type="text" id="orgName" name="orgName" required placeholder="Введите название вашей организации">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="contactPerson">Контактное лицо</label>
-                            <input type="text" id="contactPerson" name="contactPerson" required placeholder="Ваше имя и должность">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required placeholder="example@mail.com">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone">Телефон</label>
-                            <input type="tel" id="phone" name="phone" required placeholder="+7 (XXX) XXX-XX-XX">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="city">Город</label>
-                            <input type="text" id="city" name="city" required placeholder="В каком городе вы находитесь?">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="activity">Направление деятельности</label>
-                            <select id="activity" name="activity" required>
-                                <option value="">Выберите направление</option>
-                                <option value="sport">Спорт</option>
-                                <option value="art">Творчество и искусство</option>
-                                <option value="science">Наука и образование</option>
-                                <option value="music">Музыка</option>
-                                <option value="dance">Танцы</option>
-                                <option value="development">Развитие</option>
-                                <option value="other">Другое</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="message">Расскажите о ваших кружках</label>
-                            <textarea id="message" name="message" placeholder="Опишите ваши кружки, возрастные группы, особенности и т.д."></textarea>
-                        </div>
-                        
-                        <div class="form-submit">
-                            <button type="submit" class="btn">
-                                <i class="fas fa-paper-plane"></i> Отправить заявку
-                            </button>
-                        </div>
-                    </form>
-                    
-                    <div id="form-success" class="form-success">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>Спасибо за вашу заявку!</h3>
-                        <p>Мы свяжемся с вами в ближайшее время для обсуждения деталей сотрудничества.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer>
+        <!-- Экран результатов теста -->
+        <div class="screen" id="results-screen">
+            <h2 class="test-title">Результаты теста</h2>
+            <p class="test-desc">На основе ответов мы подобрали подходящие кружки</p>
             
-            <div class="copyright">
-                <p>&copy; 2025 KIDCIRCLE. Все права защищены.</p>
+            <div class="results-screen" id="results-container">
+                <!-- Результаты будут добавляться через JS -->
             </div>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="nav-btn next" id="back-to-test" style="background: var(--light); color: var(--dark);">Пройти тест снова</button>
+            </div>
+        </div>
+        
+        <!-- Экран избранного -->
+        <div class="screen" id="favorites-screen">
+            <h2 style="margin-bottom: 20px;">Избранное</h2>
+            
+            <div class="favorites-list">
+                <div class="result-card">
+                    <div class="result-image">
+                        Футбол
+                    </div>
+                    <div class="result-content">
+                        <h3 class="result-title">Футбольная академия "Чемпион"</h3>
+                        <div class="result-info">
+                            <span>7-12 лет</span>
+                            <span class="result-price">2000₽/мес</span>
+                        </div>
+                        <p class="result-desc">Профессиональные тренировки по футболу для детей.</p>
+                        <div class="result-footer">
+                            <div class="result-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.9 (128)</span>
+                            </div>
+                            <button class="result-btn">Записаться</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card">
+                    <div class="result-image">
+                        Роботы
+                    </div>
+                    <div class="result-content">
+                        <h3 class="result-title">Робототехника для детей</h3>
+                        <div class="result-info">
+                            <span>8-14 лет</span>
+                            <span class="result-price">2500₽/мес</span>
+                        </div>
+                        <p class="result-desc">Создаем роботов, изучаем программирование и основы механики.</p>
+                        <div class="result-footer">
+                            <div class="result-rating">
+                                <i class="fas fa-star"></i>
+                                <span>4.8 (96)</span>
+                            </div>
+                            <button class="result-btn">Записаться</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Экран профиля -->
+        <div class="screen" id="profile-screen">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="profile-name">Алексей Петров</h2>
+                <p class="profile-email">alexey@example.com</p>
+            </div>
+            
+            <div class="profile-menu">
+                <div class="menu-item">
+                    <div class="menu-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="menu-text">Мой профиль</div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="menu-text">Избранное</div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="menu-text">История записей</div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="menu-text">Настройки</div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="menu-text">Помощь</div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                
+                <div class="menu-item">
+                    <div class="menu-icon">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </div>
+                    <div class="menu-text">Выйти</div>
+                    <div class="menu-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    </footer>
+    <!-- Анимация "ИИ думает" -->
+    <div class="ai-thinking" id="ai-thinking">
+        <div class="ai-brain">
+            <i class="fas fa-brain"></i>
+            <div class="pulse"></div>
+            <div class="pulse"></div>
+            <div class="pulse"></div>
+        </div>
+        <div class="ai-text" id="ai-status">Анализируем ответы...</div>
+        <div class="ai-dots">
+            <div class="ai-dot"></div>
+            <div class="ai-dot"></div>
+            <div class="ai-dot"></div>
+        </div>
+    </div>
+    
+    <!-- Нижняя навигация -->
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active" data-screen="home-screen">
+            <i class="fas fa-home nav-icon"></i>
+            <span>Главная</span>
+        </a>
+        <a href="#" class="nav-item" data-screen="search-screen">
+            <i class="fas fa-search nav-icon"></i>
+            <span>Поиск</span>
+        </a>
+        <a href="#" class="nav-item" data-screen="test-screen">
+            <i class="fas fa-robot nav-icon"></i>
+            <span>Тест</span>
+        </a>
+        <a href="#" class="nav-item" data-screen="favorites-screen">
+            <i class="fas fa-heart nav-icon"></i>
+            <span>Избранное</span>
+        </a>
+        <a href="#" class="nav-item" data-screen="profile-screen">
+            <i class="fas fa-user nav-icon"></i>
+            <span>Профиль</span>
+        </a>
+    </div>
 
     <script>
-        // Удалена анимация загрузки
-
-        // Мобильное меню
-        const menuToggle = document.getElementById('menu-toggle');
-        const navMenu = document.getElementById('nav-menu');
+        // Навигация между экранами
+        const navItems = document.querySelectorAll('.nav-item');
+        const screens = document.querySelectorAll('.screen');
         
-        menuToggle.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            menuToggle.classList.toggle('active');
-        });
-
-        // Закрытие меню при клике на ссылку
-        const navLinks = document.querySelectorAll('#nav-menu a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                navMenu.classList.remove('active');
-                menuToggle.classList.remove('active');
-            });
-        });
-
-        // Анимация появления элементов при скролле
-        function checkScroll() {
-            const elements = document.querySelectorAll('.animate-on-scroll');
-            
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const screenPosition = window.innerHeight / 1.3;
+        navItems.forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
                 
-                if (elementPosition < screenPosition) {
-                    element.classList.add('animated');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('load', checkScroll);
-
-        // Фильтрация кружков
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Убираем активный класс у всех кнопок
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-                // Добавляем активный класс текуной кнопке
+                // Убираем активный класс у всех пунктов меню
+                navItems.forEach(navItem => navItem.classList.remove('active'));
+                
+                // Добавляем активный класс текущему пункту
                 this.classList.add('active');
                 
-                // Здесь будет реальная фильтрация, в демо просто показываем уведомление
-                const filterValue = this.textContent.trim();
-                alert('Фильтр: ' + filterValue + '. В реальном приложении здесь будет фильтрация кружков.');
-            });
-        });
-        
-        // Поиск кружков
-        const searchInput = document.querySelector('.search-input');
-        const searchBtn = document.querySelector('.search-btn');
-        
-        searchBtn.addEventListener('click', performSearch);
-        searchInput.addEventListener('keyup', function(e) {
-            if (e.key === 'Enter') {
-                performSearch();
-            }
-        });
-        
-        function performSearch() {
-            const searchText = searchInput.value.trim();
-            if (searchText.length > 2) {
-                alert('Поиск: ' + searchText + '. В реальном приложении здесь будет поиск по кружкам.');
-            } else if (searchText.length > 0) {
-                alert('Введите минимум 3 символа для поиска');
-            }
-        }
-        
-        // Отправка формы сотрудничества
-        const collaborationForm = document.getElementById('collaboration-form');
-        const formSuccess = document.getElementById('form-success');
-        
-        if (collaborationForm) {
-            collaborationForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+                // Получаем целевой экран
+                const targetScreenId = this.getAttribute('data-screen');
                 
-                // В реальном приложении здесь будет отправка данных на сервер
-                // Для демонстрации просто показываем сообщение об успехе
-                setTimeout(() => {
-                    formSuccess.style.display = 'block';
-                    collaborationForm.reset();
-                    
-                    // Прячем сообщение через 5 секунд
-                    setTimeout(() => {
-                        formSuccess.style.display = 'none';
-                    }, 5000);
-                }, 1000);
-            });
-        }
-        
-        // Плавная прокрутка
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
+                // Скрываем все экраны
+                screens.forEach(screen => {
+                    screen.classList.remove('active');
+                    screen.classList.remove('left');
+                });
                 
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.getBoundingClientRect().top + window.pageYOffset - 80,
-                        behavior: 'smooth'
-                    });
-                    // Обновляем hash без скачка страницы и инициализируем тест
-                    if (history.replaceState) {
-                        history.replaceState(null, '', targetId);
-                    } else {
-                        window.location.hash = targetId;
-                    }
-                    if (targetId === '#magic-test') {
-                        // Небольшая задержка, чтобы дождаться скролла
-                        setTimeout(() => {
-                            initTest();
-                        }, 200);
-                    }
-                }
+                // Показываем целевой экран
+                const targetScreen = document.getElementById(targetScreenId);
+                targetScreen.classList.add('active');
             });
         });
         
@@ -2237,277 +1155,276 @@
                     { text: "Рисовать, лепить, делать поделки", category: "creative" },
                     { text: "Танцевать или двигаться под музыку", category: "dance" },
                     { text: "Играть в подвижные игры, бегать, прыгать", category: "sport" },
-                    { text: "Собирать конструктор, головоломки", category: "technical" },
-                    { text: "Наблюдать за природой, животными, растений", category: "science" }
+                    { text: "Собирать конструктор, головоломки", category: "science" },
+                    { text: "Наблюдать за природой, животными, растениями", category: "nature" }
                 ]
             },
             {
                 question: "Как ваш ребенок проявляет себя в компании других детей?",
                 options: [
                     { text: "Организует игры и предлагает идеи", category: "leader" },
-                    { text: "Внимательно слушает и наблюдает", category: "analytical" },
+                    { text: "Внимательно слушает и наблюдает", category: "thoughtful" },
                     { text: "Старается всех рассмешить и развеселить", category: "creative" },
                     { text: "Быстро находит общий язык со всеми", category: "social" },
-                    { text: "Предпочитает играть один или с одним другом", category: "individual" }
+                    { text: "Предпочитает играть один или с одним другом", category: "focused" }
                 ]
             },
             {
                 question: "Что лучше всего получается у вашего ребенка?",
                 options: [
-                    { text: "Запоминать и рассказывать истории", category: "humanitarian" },
+                    { text: "Запоминать и рассказывать истории", category: "humanities" },
                     { text: "Быстро бегать, лазить, быть ловким", category: "sport" },
                     { text: "Находить нестандартные решения проблем", category: "creative" },
-                    { text: "Считать, замечать закономерности", category: "technical" },
+                    { text: "Считать, замечать закономерности", category: "science" },
                     { text: "Проявлять заботу о других", category: "social" }
                 ]
             },
             {
-                question: "Какой тип занятий привлекает вашего ребенка?",
+                question: "Какой тип занятий вызывает наибольший интерес у ребенка?",
                 options: [
                     { text: "Музыка, пение, игра на инструментах", category: "music" },
-                    { text: "Эксперименты, опыты, исследования", category: "science" },
                     { text: "Спортивные игры и соревнования", category: "sport" },
-                    { text: "Театр, выступления перед публикой", category: "acting" },
-                    { text: "Шахматы, стратегические игры", category: "strategic" }
+                    { text: "Эксперименты, исследования, опыты", category: "science" },
+                    { text: "Рукоделие, создание вещей своими руками", category: "creative" },
+                    { text: "Уход за животными, растениями", category: "nature" }
                 ]
             },
             {
-                question: "Как ваш ребенок реагирует на новые вызовы?",
+                question: "Как ребенок реагирует на новые вызовы?",
                 options: [
-                    { text: "С энтузиазмом, сразу включается", category: "active" },
-                    { text: "Осторожно, сначала наблюдает", category: "cautious" },
-                    { text: "Просит помощи и объяснений", category: "social" },
-                    { text: "Анализирует и продумывает план", category: "analytical" },
-                    { text: "Проявляет творческий подход", category: "creative" }
+                    { text: "С энтузиазмом, сразу пробует", category: "active" },
+                    { text: "Сначала наблюдает, анализирует", category: "thoughtful" },
+                    { text: "Проявляет осторожность, но потом пробует", category: "cautious" },
+                    { text: "Придумывает свой подход к решению", category: "creative" },
+                    { text: "Просит помощи у других", category: "social" }
                 ]
             }
         ];
 
-        // Результаты теста
-        const testResults = {
+        // Категории кружков и их описание
+        const categories = {
             creative: {
-                title: "Творческие способности",
-                description: "Ваш ребенок обладает ярко выраженными творческими способностями! Ему подойдут кружки, связанные с искусством, рукоделием и самовыражением.",
-                activities: ["Рисование", "Лепка", "Театральная студия", "Фотография", "Декоративно-прикладное искусство"]
-            },
-            dance: {
-                title: "Танцевальные способности",
-                description: "У вашего ребенка отличное чувство ритма и пластика! Танцевальные кружки помогут развить эти природные данные.",
-                activities: ["Бальные танцы", "Народные танцы", "Современная хореография", "Балет", "Хип-хоп"]
+                name: "Творчество",
+                description: "Рисование, лепка, рукоделие и другие виды творческой деятельности",
+                match: 0
             },
             sport: {
-                title: "Спортивные способности",
-                description: "Ваш ребенок активен и энергичен! Спортивные секции помогут направить его энергию в productive русло и укрепить здоровье.",
-                activities: ["Футбол", "Гимнастика", "Боевые искусства", "Плавание", "Легкая атлетика"]
-            },
-            technical: {
-                title: "Технические способности",
-                description: "Ваш ребенок имеет аналитический склад ума и интересуется техникой! Технические кружки помогут развить эти способности.",
-                activities: ["Робототехника", "Программирование", "Моделирование", "Электроника", "Авиамоделирование"]
+                name: "Спорт",
+                description: "Активные виды спорта, танцы, гимнастика и физическое развитие",
+                match: 0
             },
             science: {
-                title: "Научно-исследовательские способности",
-                description: "Ваш ребенок проявляет интерес к природе и исследованиям! Научные кружки удовлетворят его любознательность.",
-                activities: ["Юный натуралист", "Химическая лаборатория", "Астрономия", "Экология", "Математический кружок"]
+                name: "Наука",
+                description: "Программирование, робототехника, эксперименты и исследования",
+                match: 0
             },
             music: {
-                title: "Музыкальные способности",
-                description: "У вашего ребенка хороший музыкальный слух и чувство ритма! Музыкальные занятия помогут развить его талант.",
-                activities: ["Фортепиано", "Гитара", "Вокал", "Скрипка", "Хоровое пение"]
+                name: "Музыка",
+                description: "Пение, игра на музыкальных инструментах, развитие слуха",
+                match: 0
+            },
+            nature: {
+                name: "Природа",
+                description: "Экология, биология, уход за растениями и животными",
+                match: 0
+            },
+            social: {
+                name: "Социальные",
+                description: "Кружки общения, театральные студии, развитие коммуникативных навыков",
+                match: 0
             }
         };
 
-        // Переменные для отслеживания состояния теста
         let currentQuestion = 0;
         let userAnswers = [];
-        const testContainer = document.getElementById('test-content');
         const progressBar = document.getElementById('progress-bar');
+        const questionText = document.getElementById('question-text');
+        const optionsList = document.getElementById('options-list');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const aiThinking = document.getElementById('ai-thinking');
+        const aiStatus = document.getElementById('ai-status');
+        const resultsContainer = document.getElementById('results-container');
+        const backToTestBtn = document.getElementById('back-to-test');
 
         // Инициализация теста
         function initTest() {
-            showQuestion(0);
-        }
-
-        // Показать вопрос
-        function showQuestion(index) {
-            if (index >= testQuestions.length) {
-                showResults();
-                return;
-            }
-
-            const question = testQuestions[index];
-            let optionsHTML = '';
-            
-            question.options.forEach((option, i) => {
-                optionsHTML += `
-                    <div class="option-item" onclick="selectOption(${i})">
-                        ${option.text}
-                    </div>
-                `;
-            });
-
-            testContainer.innerHTML = `
-                <div class="question-container">
-                    <div class="question-text">${question.question}</div>
-                    <div class="options-grid">${optionsHTML}</div>
-                </div>
-                <div class="test-navigation">
-                    ${index > 0 ? `<button class="btn btn-outline" onclick="prevQuestion()"><i class="fas fa-arrow-left"></i> Назад</button>` : `<div></div>`}
-                    <button class="btn btn-primary" onclick="nextQuestion()" id="next-btn" disabled>${index === testQuestions.length - 1 ? 'Узнать результат' : 'Далее <i class="fas fa-arrow-right"></i>'}</button>
-                </div>
-            `;
-
-            // Обновляем прогресс бар
-            progressBar.style.width = `${((index + 1) / testQuestions.length) * 100}%`;
-        }
-
-        // Выбор варианта ответа
-        function selectOption(index) {
-            const options = document.querySelectorAll('.option-item');
-            options.forEach(option => option.classList.remove('selected'));
-            options[index].classList.add('selected');
-            
-            document.getElementById('next-btn').disabled = false;
-            userAnswers[currentQuestion] = testQuestions[currentQuestion].options[index].category;
-        }
-
-        // Следующий вопрос
-        function nextQuestion() {
-            if (currentQuestion < testQuestions.length - 1) {
-                currentQuestion++;
-                showQuestion(currentQuestion);
-            } else {
-                showResults();
-            }
-        }
-
-        // Предыдущий вопрос
-        function prevQuestion() {
-            if (currentQuestion > 0) {
-                currentQuestion--;
-                showQuestion(currentQuestion);
-            }
-        }
-
-        // Показать результатов
-        function showResults() {
-            // Показываем анимацию загрузки "ИИ думает"
-            testContainer.innerHTML = `
-                <div class="ai-thinking">
-                    <div class="ai-loader"><div></div><div></div></div>
-                    <div class="ai-text">Искусственный интеллект анализирует ответы<span>.</span><span>.</span><span>.</span></div>
-                </div>
-            `;
-            
-            // Имитируем "думание" ИИ
-            setTimeout(() => {
-                // Подсчет результатов
-                const resultCounts = {};
-                userAnswers.forEach(answer => {
-                    resultCounts[answer] = (resultCounts[answer] || 0) + 1;
-                });
-                
-                // Определение наиболее частого результата
-                let maxCategory = '';
-                let maxCount = 0;
-                
-                for (const category in resultCounts) {
-                    if (resultCounts[category] > maxCount) {
-                        maxCount = resultCounts[category];
-                        maxCategory = category;
-                    }
-                }
-                
-                // Если не удалось определить категорию, используем первую
-                if (!maxCategory) {
-                    maxCategory = 'creative';
-                }
-                
-                const result = testResults[maxCategory];
-                
-                // Создаем HTML для результатов
-                let activitiesHTML = '';
-                result.activities.forEach(activity => {
-                    activitiesHTML += `<li>${activity}</li>`;
-                });
-                
-                testContainer.innerHTML = `
-                    <div class="result-container">
-                        <div class="result-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <h3 class="result-title">Результат теста</h3>
-                        <h2 class="result-title">${result.title}</h2>
-                        <p class="result-description">${result.description}</p>
-                        
-                        <div class="result-recommendations">
-                            <h4>Рекомендуемые кружки:</h4>
-                            <ul class="recommendation-list">
-                                ${activitiesHTML}
-                            </ul>
-                        </div>
-                        
-                        <button class="btn restart-test" onclick="restartTest()"><i class="fas fa-redo"></i> Пройти тест еще раз</button>
-                    </div>
-                `;
-                
-                progressBar.style.width = '100%';
-                createMagicParticles();
-            }, 2500);
-        }
-
-        // Перезапуск теста
-        function restartTest() {
             currentQuestion = 0;
             userAnswers = [];
-            showQuestion(0);
+            updateTest();
         }
 
-        // Создание магических частиц для эффекта
-        function createMagicParticles() {
-            const testSection = document.querySelector('.magic-test-section');
-            
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('magic-particle');
+        // Обновление отображения теста
+        function updateTest() {
+            if (currentQuestion < testQuestions.length) {
+                const question = testQuestions[currentQuestion];
                 
-                // Случайный размер от 3 до 8px
-                const size = Math.random() * 5 + 3;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
+                // Обновляем прогресс
+                progressBar.style.width = `${((currentQuestion + 1) / testQuestions.length) * 100}%`;
                 
-                // Случайная позиция
-                const x = Math.random() * 100;
-                const y = Math.random() * 100;
-                particle.style.left = `${x}%`;
-                particle.style.top = `${y}%`;
+                // Обновляем текст вопроса
+                questionText.textContent = question.question;
                 
-                // Случайное направление движения
-                const tx = (Math.random() - 0.5) * 100;
-                const ty = (Math.random() - 0.5) * 100;
-                particle.style.setProperty('--tx', `${tx}px`);
-                particle.style.setProperty('--ty', `${ty}px`);
+                // Очищаем варианты ответов
+                optionsList.innerHTML = '';
                 
-                // Случайная задержка анимации
-                const delay = Math.random() * 2;
-                particle.style.animationDelay = `${delay}s`;
+                // Добавляем варианты ответов
+                question.options.forEach((option, index) => {
+                    const optionItem = document.createElement('div');
+                    optionItem.classList.add('option-item');
+                    if (userAnswers[currentQuestion] === index) {
+                        optionItem.classList.add('selected');
+                    }
+                    optionItem.textContent = option.text;
+                    
+                    optionItem.addEventListener('click', function() {
+                        // Снимаем выделение со всех вариантов
+                        document.querySelectorAll('.option-item').forEach(item => {
+                            item.classList.remove('selected');
+                        });
+                        // Выделяем выбранный вариант
+                        this.classList.add('selected');
+                        // Сохраняем ответ
+                        userAnswers[currentQuestion] = index;
+                    });
+                    
+                    optionsList.appendChild(optionItem);
+                });
                 
-                // Добавляем частицу в секцию
-                testSection.appendChild(particle);
-                
-                // Запускаем анимацию
-                setTimeout(() => {
-                    particle.style.animation = `magic 2s ease-in-out ${delay}s forwards`;
-                }, 100);
-                
-                // Удаляем частицу после анимации
-                setTimeout(() => {
-                    particle.remove();
-                }, 2000 + delay * 1000);
+                // Обновляем состояние кнопок
+                prevBtn.style.visibility = currentQuestion === 0 ? 'hidden' : 'visible';
+                nextBtn.textContent = currentQuestion === testQuestions.length - 1 ? 'Завершить' : 'Далее';
             }
         }
 
-        // Убрана авто-инициализация теста по hash/load
+        // Показ анимации "ИИ думает"
+        function showAIThinking() {
+            aiThinking.classList.add('active');
+            
+            const messages = [
+                "Анализируем ответы...",
+                "Сопоставляем с интересами...",
+                "Подбираем кружки...",
+                "Почти готово!"
+            ];
+            
+            let messageIndex = 0;
+            aiStatus.textContent = messages[messageIndex];
+            
+            const messageInterval = setInterval(() => {
+                messageIndex++;
+                if (messageIndex < messages.length) {
+                    aiStatus.textContent = messages[messageIndex];
+                } else {
+                    clearInterval(messageInterval);
+                    calculateResults();
+                }
+            }, 1500);
+        }
+
+        // Расчет результатов на основе ответов
+        function calculateResults() {
+            // Сбрасываем счетчики категорий
+            Object.keys(categories).forEach(key => {
+                categories[key].match = 0;
+            });
+            
+            // Подсчитываем совпадения
+            userAnswers.forEach((answerIndex, questionIndex) => {
+                if (answerIndex !== undefined) {
+                    const category = testQuestions[questionIndex].options[answerIndex].category;
+                    if (categories[category]) {
+                        categories[category].match += 1;
+                    }
+                }
+            });
+            
+            // Сортируем категории по релевантности
+            const sortedCategories = Object.entries(categories)
+                .filter(([key, value]) => value.match > 0)
+                .sort((a, b) => b[1].match - a[1].match);
+            
+            // Показываем результаты
+            showResults(sortedCategories);
+        }
+
+        // Показ результатов теста
+        function showResults(sortedCategories) {
+            // Скрываем анимацию ИИ
+            aiThinking.classList.remove('active');
+            
+            // Очищаем контейнер результатов
+            resultsContainer.innerHTML = '';
+            
+            if (sortedCategories.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <p>Недостаточно данных для рекомендации. Попробуйте ответить на все вопросы.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Добавляем результаты
+            sortedCategories.forEach(([key, category]) => {
+                const matchPercent = Math.round((category.match / testQuestions.length) * 100);
+                
+                const resultElement = document.createElement('div');
+                resultElement.classList.add('result-category');
+                resultElement.innerHTML = `
+                    <div class="category-match">${matchPercent}%</div>
+                    <div class="category-info">
+                        <div class="category-name">${category.name}</div>
+                        <div class="category-desc">${category.description}</div>
+                    </div>
+                `;
+                
+                resultsContainer.appendChild(resultElement);
+            });
+            
+            // Показываем экран результатов
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById('results-screen').classList.add('active');
+        }
+
+        // Обработчики событий для кнопок навигации теста
+        nextBtn.addEventListener('click', function() {
+            if (userAnswers[currentQuestion] === undefined) {
+                alert('Пожалуйста, выберите ответ');
+                return;
+            }
+            
+            if (currentQuestion < testQuestions.length - 1) {
+                currentQuestion++;
+                updateTest();
+            } else {
+                // Завершение теста - показываем анимацию ИИ
+                showAIThinking();
+            }
+        });
+
+        prevBtn.addEventListener('click', function() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                updateTest();
+            }
+        });
+
+        backToTestBtn.addEventListener('click', function() {
+            // Возврат к тесту
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById('test-screen').classList.add('active');
+            initTest();
+        });
+
+        // Инициализация теста при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            initTest();
+        });
     </script>
 </body>
 </html>
