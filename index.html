@@ -493,7 +493,7 @@
             cursor: pointer;
         }
         
-        /* Экран теста - улучшенный дизайн */
+        /* Экран теста - улучшенный дизайн с иконками */
         .test-container {
             background: white;
             border-radius: 20px;
@@ -585,7 +585,7 @@
         }
         
         .option-item {
-            padding: 18px;
+            padding: 18px 18px 18px 60px;
             background: var(--light);
             border-radius: 15px;
             border: 2px solid transparent;
@@ -610,6 +610,21 @@
             border-color: var(--primary);
             color: var(--primary-dark);
             font-weight: 600;
+        }
+        
+        .option-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
         }
         
         .test-nav {
@@ -800,14 +815,14 @@
             color: var(--gray);
         }
         
-        /* Анимация загрузки ИИ - улучшенная версия */
+        /* Анимация загрузки ИИ - улучшенная версия с черным фоном */
         .ai-thinking {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.98);
+            background: #000;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -832,20 +847,20 @@
         
         .ai-brain i {
             font-size: 100px;
-            color: var(--primary);
+            color: var(--neon);
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 2;
-            text-shadow: 0 0 20px rgba(108, 92, 231, 0.5);
+            text-shadow: 0 0 20px rgba(0, 255, 240, 0.5);
         }
         
         .pulse {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: var(--primary);
+            background: var(--neon);
             border-radius: 50%;
             opacity: 0;
             transform: scale(0);
@@ -874,7 +889,7 @@
         .ai-text {
             font-size: 1.4rem;
             font-weight: 700;
-            color: var(--dark);
+            color: white;
             text-align: center;
             margin-bottom: 30px;
         }
@@ -887,10 +902,10 @@
         .ai-dot {
             width: 15px;
             height: 15px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--neon-2) 100%);
+            background: var(--neon);
             border-radius: 50%;
             animation: dot-bounce 1.5s infinite ease-in-out;
-            box-shadow: 0 0 10px rgba(108, 92, 231, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 240, 0.3);
         }
         
         .ai-dot:nth-child(2) {
@@ -910,7 +925,7 @@
             }
         }
 
-        /* Улучшенная анимация для ИИ - эффект частиц */
+        /* Улучшенная анимация для ИИ - эффект частиц (летящих от центра к наблюдателю) */
         .particles {
             position: absolute;
             top: 0;
@@ -919,19 +934,20 @@
             height: 100%;
             overflow: hidden;
             z-index: 1;
+            perspective: 1000px;
         }
         
         .particle {
             position: absolute;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--neon-2) 100%);
+            background: linear-gradient(135deg, var(--neon) 0%, var(--neon-2) 100%);
             border-radius: 50%;
             opacity: 0;
-            animation: float 6s infinite linear;
+            animation: fly 6s infinite linear;
         }
         
-        @keyframes float {
+        @keyframes fly {
             0% {
-                transform: translateY(100vh) translateX(0) rotate(0);
+                transform: translateZ(-1000px) translateY(0) translateX(0) scale(0.5);
                 opacity: 0;
             }
             10% {
@@ -941,9 +957,48 @@
                 opacity: 1;
             }
             100% {
-                transform: translateY(-100vh) translateX(calc(-50vw + 100px)) rotate(360deg);
+                transform: translateZ(1000px) translateY(calc(-50vh + 100px)) translateX(calc(-50vw + 100px)) scale(1.5);
                 opacity: 0;
             }
+        }
+
+        @keyframes flyParticle {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            80% {
+                opacity: 1;
+                transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(0.7);
+            }
+        }
+
+        /* Анимация для лучшего результата */
+        @keyframes pulseTopResult {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(74, 134, 232, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(74, 134, 232, 0);
+            }
+        }
+
+        .top-result {
+            animation: pulseTopResult 2s infinite;
+            border-left: 4px solid #4a86e8;
+        }
+
+        /* Изменение цвета мозга и пульсации на синий */
+        .ai-brain i {
+            color: #4a86e8; /* Синий цвет для мозга */
+        }
+
+        .pulse {
+            background: #4a86e8; /* Синий цвет для пульсации */
         }
 
         /* Адаптация для очень маленьких экранов */
@@ -958,6 +1013,16 @@
             
             .promo-block {
                 min-width: 220px;
+            }
+            
+            .option-item {
+                padding-left: 50px;
+            }
+            
+            .option-icon {
+                left: 12px;
+                width: 25px;
+                height: 25px;
             }
         }
 
@@ -1134,7 +1199,7 @@
         
         .timer-text {
             text-align: center;
-            color: var (--gray);
+            color: var(--gray);
             margin-bottom: 20px;
         }
         
@@ -1180,7 +1245,7 @@
         
         .chat-info-btn {
             font-size: 1.2rem;
-            color: var(--dark);
+            color: var (--dark);
             cursor: pointer;
         }
         
@@ -1234,7 +1299,7 @@
         .chat-input {
             flex: 1;
             padding: 12px 15px;
-            border: 1px solid var(--light-gray);
+            border: 1px solid var (--light-gray);
             border-radius: 24px;
             font-size: 0.95rem;
         }
@@ -1355,7 +1420,7 @@
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background: var(--light);
+            background: var (--light);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -2054,7 +2119,7 @@
                     <div class="result-content">
                         <h3 class="result-title">Студия рисования "Арт-Класс"</h3>
                         <div class="result-info"><span>5-16 лет</span><span class="result-price">1800₽/мес</span></div>
-                        <p class="result-desc">Развиваем творческие способности, воображение и чувство прекрасного. Разные техники рисования и работы с материалами.</p>
+                        <p class="result-desc">Развиваем творческие способности, воображение и чувство прекрасного. Разные техники рисования и работы с материалов.</p>
                         <div class="result-footer"><div class="result-rating"><i class="fas fa-star"></i><span>4.7 (87)</span></div><button class="result-btn">Записаться</button></div>
                     </div>
                 </div>
@@ -2089,8 +2154,8 @@
         </div>
         
         
-        <!-- Экран теста -->
-         <div class="screen" id="test-screen">
+        <!-- Экран теста с иконками -->
+        <div class="screen" id="test-screen">
             <h2 class="test-title">Тест способностей с ИИ</h2>
             <p class="test-desc">Пройдите тест, чтобы узнать, какие кружки подходят вашему ребенку</p>
             
@@ -2117,13 +2182,7 @@
             <h2 class="test-title">Результаты теста</h2>
             <p class="test-desc">На основе ответов мы подобрали подходящие кружки</p>
             
-            <div class="results-screen" id="results-container">
-                <!-- Результаты будут добавляться через JS -->
-            </div>
-            
-            <div style="text-align: center; margin-top: 20px;">
-                <button class="nav-btn next" id="back-to-test" style="background: var(--light); color: var(--dark);">Пройти тест снова</button>
-            </div>
+            <div class="results-screen" id="results-container"></div>
         </div>
         
         <!-- Экран избранного -->
@@ -2160,7 +2219,7 @@
                         <h3 class="result-title">Робототехника для детей</h3>
                         <div class="result-info">
                             <span>8-14 лет</span>
-                            <span class="result-price">2500₽/мес</span>
+                            <span class="result-price">2500₽/meс</span>
                         </div>
                         <p class="result-desc">Создаем роботов, изучаем программирование и основы механики.</p>
                         <div class="result-footer">
@@ -2353,182 +2412,73 @@
             </div>
         </div>
         
-        <!-- Экран оплаты -->
-        <div class="screen" id="pay-screen">
+        <!-- Экран оплаты (скроллится) -->
+        <div class="screen" id="pay-screen" style="overflow-y:auto;">
             <h2 class="section-title">Оплата кружков</h2>
-            
             <div class="cart-items">
                 <div class="cart-item">
-                    <div class="cart-item-image">
-                        <i class="fas fa-futbol"></i>
-                    </div>
+                    <div class="cart-item-image"><i class="fas fa-futbol"></i></div>
                     <div class="cart-item-info">
                         <div class="cart-item-title">Футбольная академия "Чемпион"</div>
                         <div class="cart-item-price">2000₽/мес</div>
                     </div>
-                    <div class="cart-item-remove">
-                        <i class="fas fa-times"></i>
-                    </div>
+                    <div class="cart-item-remove"><i class="fas fa-times"></i></div>
                 </div>
-                
                 <div class="cart-item">
-                    <div class="cart-item-image">
-                        <i class="fas fa-robot"></i>
-                    </div>
+                    <div class="cart-item-image"><i class="fas fa-robot"></i></div>
                     <div class="cart-item-info">
                         <div class="cart-item-title">Робототехника для детей</div>
                         <div class="cart-item-price">2500₽/мес</div>
                     </div>
-                    <div class="cart-item-remove">
-                        <i class="fas fa-times"></i>
-                    </div>
+                    <div class="cart-item-remove"><i class="fas fa-times"></i></div>
                 </div>
             </div>
-            
             <div class="payment-container">
-                <h3>Способы оплаты</h3>
-                <div class="payment-methods">
+                <h3 style="text-align:center; margin-bottom:18px; font-weight:700; color:var(--primary);">Выберите способ оплаты</h3>
+                <div class="payment-methods" style="justify-content:center; gap:30px;">
                     <div class="payment-method active" data-method="card">
                         <i class="fas fa-credit-card"></i>
-                        <div>Карта</div>
+                        <div style="margin-top:8px; font-weight:600;">Банковская карта</div>
                     </div>
-                    <div class="payment-method" data-method="apple">
-                        <i class="fab fa-apple-pay"></i>
-                        <div>Apple Pay</div>
-                    </div>
-                    <div class="payment-method" data-method="google">
-                        <i class="fab fa-google-pay"></i>
-                        <div>Google Pay</div>
+                    <div class="payment-method" data-method="sbp">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/SBP_logo.svg" alt="СБП" style="width:32px; height:32px; margin-bottom:8px;">
+                        <div style="font-weight:600;">СБП (Система быстрых платежей)</div>
                     </div>
                 </div>
-                
-                <div class="payment-form">
+                <div class="payment-form" style="margin-top:30px;">
                     <div class="form-group">
-                        <label class="form-label">Номер карты</label>
-                        <input type="text" class="form-input" placeholder="1234 5678 9012 3456">
+                        <label class="form-label" for="card-number">Номер карта</label>
+                        <input class="form-input" id="card-number" type="text" placeholder="0000 0000 0000 0000">
                     </div>
-                    
                     <div class="form-row">
                         <div class="form-field">
-                            <label class="form-label">Срок действия</label>
-                            <input type="text" class="form-input" placeholder="ММ/ГГ">
+                            <label class="form-label" for="card-expiry">Срок действия</label>
+                            <input class="form-input" id="card-expiry" type="text" placeholder="MM/YY">
                         </div>
                         <div class="form-field">
-                            <label class="form-label">CVV/CVC</label>
-                            <input type="text" class="form-input" placeholder="123">
+                            <label class="form-label" for="card-cvc">CVC</label>
+                            <input class="form-input" id="card-cvc" type="text" placeholder="CVC">
                         </div>
                     </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label">Имя владельца карты</label>
-                        <input type="text" class="form-input" placeholder="IVAN IVANOV">
-                    </div>
                 </div>
-                
                 <div class="payment-summary">
-                    <div class="summary-item">
-                        <span>Футбольная академия "Чемпион"</span>
-                        <span>2000₽</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Робототехника для детей</span>
-                        <span>2500₽</span>
-                    </div>
-                    <div class="summary-item">
-                        <span>Скидка</span>
-                        <span style="color: var(--accent);">-500₽</span>
-                    </div>
-                    <div class="summary-total">
-                        <span>Итого</span>
-                        <span>4000₽</span>
-                    </div>
+                    <div class="summary-item"><span>Футбольная академия</span><span>2000₽</span></div>
+                    <div class="summary-item"><span>Робототехника</span><span>2500₽</span></div>
+                    <div class="summary-total"><span>Итого</span><span>4500₽</span></div>
                 </div>
-                
                 <button class="pay-button">Оплатить</button>
+                <div style="text-align:center; margin-top:18px; color:var(--gray); font-size:0.95rem;">Безопасная оплата. Данные карты не сохраняются.</div>
             </div>
         </div>
     </div>
 
-    <div class="screen" id="search-page-screen">
-        <div class="search-header search-page-header">
-            <div class="search-input-container search-page-input-container">
-                <input type="text" class="search-input search-page-input" placeholder="Поиск кружков и секций...">
-                <i class="fas fa-search search-icon search-page-icon"></i>
-            </div>
-            <div class="filter-icon search-page-filter">
-                <i class="fas fa-filter"></i>
-            </div>
-        </div>
-        <div class="category-section">
-            <div class="category-header">
-                <h3>Спортивные секции</h3>
-            </div>
-            <div class="search-results">
-                <!-- Пример карточки кружка -->
-                <div class="result-card">
-                    <div class="result-image">Футбол<div class="result-badge">Популярно</div></div>
-                    <div class="result-content">
-                        <h3 class="result-title">Футбольная академия "Чемпион"</h3>
-                        <div class="result-info"><span>7-12 лет</span><span class="result-price">2000₽/мес</span></div>
-                        <p class="result-desc">Профессиональные тренировки по футболу для детей. Развиваем физическую форму, координацию и командный дух.</p>
-                        <div class="result-footer">
-                            <div class="result-rating"><i class="fas fa-star"></i><span>4.9 (128)</span></div>
-                            <button class="result-btn">Записаться</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- ...другие кружки... -->
-            </div>
-        </div>
-        <div class="category-section">
-            <div class="category-header">
-                <h3>Творческие кружки</h3>
-            </div>
-            <div class="search-results">
-                <div class="result-card">
-                    <div class="result-image">Искусство</div>
-                    <div class="result-content">
-                        <h3 class="result-title">Студия рисования "Арт-Класс"</h3>
-                        <div class="result-info"><span>5-16 лет</span><span class="result-price">1800₽/мес</span></div>
-                        <p class="result-desc">Развиваем творческие способности, воображение и чувство прекрасного. Разные техники рисования и работы с материалами.</p>
-                        <div class="result-footer">
-                            <div class="result-rating"><i class="fas fa-star"></i><span>4.7 (87)</span></div>
-                            <button class="result-btn">Записаться</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- ...другие кружки... -->
-            </div>
-        </div>
-        <div class="category-section">
-            <div class="category-header">
-                <h3>Научные кружки</h3>
-            </div>
-            <div class="search-results">
-                <div class="result-card">
-                    <div class="result-image">Роботы<div class="result-badge">Новое</div></div>
-                    <div class="result-content">
-                        <h3 class="result-title">Робототехника для детей</h3>
-                        <div class="result-info"><span>8-14 лет</span><span class="result-price">2500₽/мес</span></div>
-                        <p class="result-desc">Создаем роботов, изучаем программирование и основы механики. Современное оборудование и профессиональные преподаватели.</p>
-                        <div class="result-footer">
-                            <div class="result-rating"><i class="fas fa-star"></i><span>4.8 (96)</span></div>
-                            <button class="result-btn">Записаться</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- ...другие кружки... -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Анимация "ИИ думает" -->
+    <!-- Анимация "ИИ думает" с черным фоном и эффектом частиц -->
     <div class="ai-thinking" id="ai-thinking">
         <div class="particles" id="particles-container"></div>
         <div class="ai-brain">
             <i class="fas fa-brain"></i>
             <div class="pulse"></div>
-            <div class="pulse"></div>
+            <div classpulse"></div>
             <div class="pulse"></div>
         </div>
         <div class="ai-text" id="ai-status">Анализируем ответы...</div>
@@ -2758,51 +2708,51 @@
             {
                 question: "Что больше всего нравится делать вашему ребенку в свободное время?",
                 options: [
-                    { text: "Рисовать, лепить, делать поделки", category: "creative" },
-                    { text: "Танцевать или двигаться под музыку", category: "dance" },
-                    { text: "Играть в подвижные игры, бегать, прыгать", category: "sport" },
-                    { text: "Собирать конструктор, головоломки", category: "science" },
-                    { text: "Наблюдать за природой, животными, растений", category: "nature" }
+                    { text: "Рисовать, лепить, делать поделки", category: "creative", icon: "fas fa-paint-brush" },
+                    { text: "Танцевать или двигаться под музыку", category: "dance", icon: "fas fa-music" },
+                    { text: "Играть в подвижные игры, бегать, прыгать", category: "sport", icon: "fas fa-running" },
+                    { text: "Собирать конструктор, головоломки", category: "science", icon: "fas fa-puzzle-piece" },
+                    { text: "Наблюдать за природой, животными, растений", category: "nature", icon: "fas fa-leaf" }
                 ]
             },
             {
                 question: "Как ваш ребенок проявляет себя в компании других детей?",
                 options: [
-                    { text: "Организует игры и предлагает идеи", category: "leader" },
-                    { text: "Внимательно слушает и наблюдает", category: "thoughtful" },
-                    { text: "Старается всех рассмешить и развеселить", category: "creative" },
-                    { text: "Быстро находит общий язык со всеми", category: "social" },
-                    { text: "Предпочитает играть один или с одним другом", category: "focused" }
+                    { text: "Организует игры и предлагает идеи", category: "leader", icon: "fas fa-crown" },
+                    { text: "Внимательно слушает и наблюдает", category: "thoughtful", icon: "fas fa-binoculars" },
+                    { text: "Старается всех рассмешить и развеселить", category: "creative", icon: "fas fa-laugh" },
+                    { text: "Быстро находит общий язык со всеми", category: "social", icon: "fas fa-users" },
+                    { text: "Предпочитает играть один или с одним другом", category: "focused", icon: "fas fa-user" }
                 ]
             },
             {
                 question: "Что лучше всего получается у вашего ребенка?",
                 options: [
-                    { text: "Запоминать и рассказывать истории", category: "humanities" },
-                    { text: "Быстро бегать, лазить, быть ловким", category: "sport" },
-                    { text: "Находить нестандартные решения проблем", category: "creative" },
-                    { text: "Считать, замечать закономерности", category: "science" },
-                    { text: "Проявлять заботу о других", category: "social" }
+                    { text: "Запоминать и рассказывать истории", category: "humanities", icon: "fas fa-book" },
+                    { text: "Быстро бегать, лазить, быть ловким", category: "sport", icon: "fas fa-trophy" },
+                    { text: "Находить нестандартные решения проблем", category: "creative", icon: "fas fa-lightbulb" },
+                    { text: "Считать, замечать закономерности", category: "science", icon: "fas fa-calculator" },
+                    { text: "Проявлять заботу о других", category: "social", icon: "fas fa-hands-helping" }
                 ]
             },
             {
                 question: "Какой тип занятий вызывает наибольший интерес у ребенка?",
                 options: [
-                    { text: "Музыка, пение, игра на инструментах", category: "music" },
-                    { text: "Спортивные игры и соревнования", category: "sport" },
-                    { text: "Эксперименты, исследования, опыты", category: "science" },
-                    { text: "Рукоделие, создание вещей своими руками", category: "creative" },
-                    { text: "Уход за животными, растениями", category: "nature" }
+                    { text: "Музыка, пение, игра на инструментах", category: "music", icon: "fas fa-music" },
+                    { text: "Спортивные игры и соревнования", category: "sport", icon: "fas fa-futbol" },
+                    { text: "Эксперименты, исследования, опыты", category: "science", icon: "fas fa-flask" },
+                    { text: "Рукоделие, создание вещей своими руками", category: "creative", icon: "fas fa-paint-brush" },
+                    { text: "Уход за животными, растениями", category: "nature", icon: "fas fa-seedling" }
                 ]
             },
             {
                 question: "Как ребенок реагирует на новые вызовы?",
                 options: [
-                    { text: "С энтузиазмом, сразу пробует", category: "active" },
-                    { text: "Сначала наблюдает, анализирует", category: "thoughtful" },
-                    { text: "Проявляет осторожность, но потом пробует", category: "cautious" },
-                    { text: "Придумывает свой подход к решению", category: "creative" },
-                    { text: "Просит помощи у других", category: "social" }
+                    { text: "С энтузиазмом, сразу пробует", category: "active", icon: "fas fa-bolt" },
+                    { text: "Сначала наблюдает, анализирует", category: "thoughtful", icon: "fas fa-search" },
+                    { text: "Проявляет осторожность, но потом пробует", category: "cautious", icon: "fas fa-shield-alt" },
+                    { text: "Придумывает свой подход к решению", category: "creative", icon: "fas fa-brain" },
+                    { text: "Просит помощи у других", category: "social", icon: "fas fa-hands-helping" }
                 ]
             }
         ];
@@ -2838,6 +2788,36 @@
                 name: "Социальные",
                 description: "Кружки общения, театральные студии, развитие коммуникативных навыков",
                 match: 0
+            },
+            leader: {
+                name: "Лидерство",
+                description: "Кружки, развивающие лидерские качества и организаторские способности",
+                match: 0
+            },
+            thoughtful: {
+                name: "Аналитика",
+                description: "Кружки, развивающие аналитическое мышление и наблюдательность",
+                match: 0
+            },
+            active: {
+                name: "Активность",
+                description: "Кружки для активных детей, которые любят движение",
+                match: 0
+            },
+            cautious: {
+                name: "Осторожность",
+                description: "Кружки, где важны аккуратность и внимательность",
+                match: 0
+            },
+            humanities: {
+                name: "Гуманитарные",
+                description: "Литература, языки, история и другие гуманитарные направления",
+                match: 0
+            },
+            dance: {
+                name: "Танцы",
+                description: "Различные танцевальные направления и хореография",
+                match: 0
             }
         };
 
@@ -2851,7 +2831,6 @@
         const aiThinking = document.getElementById('ai-thinking');
         const aiStatus = document.getElementById('ai-status');
         const resultsContainer = document.getElementById('results-container');
-        const backToTestBtn = document.getElementById('back-to-test');
 
         // Инициализация теста
         function initTest() {
@@ -2874,14 +2853,24 @@
                 // Очищаем варианты ответов
                 optionsList.innerHTML = '';
                 
-                // Добавляем варианты ответов
+                // Добавляем варианты ответов с иконками
                 question.options.forEach((option, index) => {
                     const optionItem = document.createElement('div');
                     optionItem.classList.add('option-item');
                     if (userAnswers[currentQuestion] === index) {
                         optionItem.classList.add('selected');
                     }
-                    optionItem.textContent = option.text;
+                    
+                    // Добавляем иконку
+                    const optionIcon = document.createElement('div');
+                    optionIcon.classList.add('option-icon');
+                    optionIcon.innerHTML = `<i class="${option.icon}"></i>`;
+                    optionItem.appendChild(optionIcon);
+                    
+                    // Добавляем текст
+                    const optionText = document.createElement('span');
+                    optionText.textContent = option.text;
+                    optionItem.appendChild(optionText);
                     
                     optionItem.addEventListener('click', function() {
                         // Снимаем выделение со всех вариантов
@@ -2904,7 +2893,7 @@
         }
 
         // Показ анимации "ИИ думает"
-       function showAIThinking() {
+        function showAIThinking() {
             aiThinking.classList.add('active');
             createParticles();
             
@@ -2931,27 +2920,33 @@
             }, 1500);
         }
 
-        // Создание частиц для анимации
+        // Создание частиц для анимации (летящих от центра к наблюдателю)
         function createParticles() {
             const particlesContainer = document.getElementById('particles-container');
             particlesContainer.innerHTML = '';
-            
-            for (let i = 0; i < 20; i++) {
+            const w = window.innerWidth;
+            const h = window.innerHeight;
+            for (let i = 0; i < 120; i++) {
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
-                
-                // Случайные параметры
-                const size = Math.random() * 10 + 5;
-                const posX = Math.random() * 100;
-                const delay = Math.random() * 5;
-                const duration = Math.random() * 3 + 3;
-                
+                const size = Math.random() * 7 + 3;
+                const angle = Math.random() * Math.PI * 2;
+                // Дальность увеличена, чтобы частицы разлетались по всему экрану
+                const distance = Math.random() * Math.max(w, h) * 0.7 + Math.max(w, h) * 0.3;
+                const x = Math.cos(angle) * distance;
+                const y = Math.sin(angle) * distance;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
-                particle.style.left = `${posX}%`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                
+                particle.style.left = '50%';
+                particle.style.top = '50%';
+                particle.style.opacity = Math.random() * 0.7 + 0.3;
+                particle.style.position = 'absolute';
+                particle.style.transform = 'translate(-50%, -50%)';
+                // Анимация дольше, чтобы эффект был плавным и не обрывался
+                particle.style.animation = `flyParticle 6.5s linear forwards`;
+                particle.style.setProperty('--x', `${x}px`);
+                particle.style.setProperty('--y', `${y}px`);
+                particle.style.animationDelay = `${Math.random() * 2}s`;
                 particlesContainer.appendChild(particle);
             }
         }
@@ -2982,34 +2977,55 @@
             showResults(sortedCategories);
         }
 
-        // Показ результатов теста
+        // Показ результатов теста с улучшенной анимацией
         function showResults(sortedCategories) {
             // Скрываем анимацию ИИ
             aiThinking.classList.remove('active');
-            
-            // Очищаем контейнер результатов
             resultsContainer.innerHTML = '';
             
             if (sortedCategories.length === 0) {
-                resultsContainer.innerHTML = `
-                    <div style="text-align: center; padding: 20px;">
-                        <p>Недостаточно данных для рекомендации. Попробуйте ответить на все вопросы.</p>
-                    </div>
-                `;
+                resultsContainer.innerHTML = `<div style="text-align: center; padding: 20px;"><p>Недостаточно данных для рекомендации. Попробуйте ответить на все вопросы.</p></div>`;
                 return;
             }
             
-            // Добавляем результаты
-            sortedCategories.forEach(([key, category]) => {
-                const matchPercent = Math.round((category.match / testQuestions.length) * 100);
-                
-                const resultElement = document.createElement('div');
+            // Считаем проценты и корректируем до 100
+            let totalMatches = sortedCategories.reduce((sum, [key, cat]) => sum + cat.match, 0);
+            let percentArr = sortedCategories.map(([key, cat]) => ({ key, percent: Math.round((cat.match / totalMatches) * 100) }));
+            let percentSum = percentArr.reduce((sum, item) => sum + item.percent, 0);
+            
+            if (percentSum !== 100) {
+                // Корректируем максимальный процент
+                let maxItem = percentArr.reduce((max, item) => item.percent > max.percent ? item : max, percentArr[0]);
+                maxItem.percent += 100 - percentSum;
+            }
+            
+            // Находим максимальный процент
+            let maxPercent = Math.max(...percentArr.map(item => item.percent));
+            
+            // Используем Set для отслеживания уже добавленных кружков
+            const addedClubs = new Set();
+            
+            percentArr.forEach((item, idx) => {
+                let cat = categories[item.key];
+                let resultElement = document.createElement('div');
                 resultElement.classList.add('result-category');
+                
+                if (item.percent === maxPercent) {
+                    resultElement.classList.add('top-result');
+                }
+                
+                // Получаем список кружков без дубликатов
+                const clubList = getClubListByCategory(item.key, addedClubs);
+                
                 resultElement.innerHTML = `
-                    <div class="category-match">${matchPercent}%</div>
+                    <div class="category-match">${item.percent}%</div>
                     <div class="category-info">
-                        <div class="category-name">${category.name}</div>
-                        <div class="category-desc">${category.description}</div>
+                        <div class="category-name">${cat.name}</div>
+                        <div class="category-desc">${cat.description}</div>
+                        ${item.percent === maxPercent ? `
+                            <div style='margin-top:10px;'><b>Лучший результат!</b><br>Рекомендуем кружки по теме:</div>
+                            <ul>${clubList}</ul>
+                        ` : ''}
                     </div>
                 `;
                 
@@ -3021,6 +3037,44 @@
                 screen.classList.remove('active');
             });
             document.getElementById('results-screen').classList.add('active');
+        }
+
+        // Получить список кружков по категории без дубликатов
+        function getClubListByCategory(categoryKey, addedClubs) {
+            let clubs = [];
+            
+            document.querySelectorAll('.result-card').forEach(card => {
+                let title = card.querySelector('.result-title');
+                if (title && title.textContent) {
+                    const clubName = title.textContent.trim();
+                    
+                    if (!addedClubs.has(clubName)) {
+                        if (categoryKey === 'sport' && clubName.toLowerCase().includes('футбол')) {
+                            clubs.push(`<li>${clubName}</li>`);
+                            addedClubs.add(clubName);
+                        }
+                        if (categoryKey === 'science' && clubName.toLowerCase().includes('робототехника')) {
+                            clubs.push(`<li>${clubName}</li>`);
+                            addedClubs.add(clubName);
+                        }
+                        if (categoryKey === 'creative' && clubName.toLowerCase().includes('арт')) {
+                            clubs.push(`<li>${clubName}</li>`);
+                            addedClubs.add(clubName);
+                        }
+                        if (categoryKey === 'music' && clubName.toLowerCase().includes('музыка')) {
+                            clubs.push(`<li>${clubName}</li>`);
+                            addedClubs.add(clubName);
+                        }
+                        if (categoryKey === 'dance' && clubName.toLowerCase().includes('танц')) {
+                            clubs.push(`<li>${clubName}</li>`);
+                            addedClubs.add(clubName);
+                        }
+                    }
+                }
+            });
+            
+            if (clubs.length === 0) return '<li>Нет кружков по этой теме</li>';
+            return clubs.join('');
         }
 
         // Обработчики событий для кнопок навигации теста
@@ -3044,15 +3098,6 @@
                 currentQuestion--;
                 updateTest();
             }
-        });
-
-        backToTestBtn.addEventListener('click', function() {
-            // Возврат к тесту
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.getElementById('test-screen').classList.add('active');
-            initTest();
         });
 
         // Инициализация теста при загрузке
