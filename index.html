@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KIDCIRCLE - Детские кружки и секции</title>
+    <title>KIDCIRCLE - Полезная информация для родителей</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
@@ -106,6 +106,7 @@
             font-size: 1.3rem;
             color: var(--dark);
             position: relative;
+            cursor: pointer;
         }
         
         .notification-badge {
@@ -148,6 +149,7 @@
             font-size: 0.75rem;
             transition: var(--transition);
             flex: 1;
+            cursor: pointer;
         }
         
         .nav-item.active {
@@ -194,41 +196,6 @@
         }
         
         /* Welcome Section - улучшенный стиль */
-        .welcome-section {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 32px 16px 24px 16px;
-            background: linear-gradient(120deg, var(--primary) 0%, var(--neon-2) 100%);
-            border-radius: 24px;
-            box-shadow: 0 6px 24px rgba(108,92,231,0.10);
-            color: #fff;
-            position: relative;
-            overflow: hidden;
-        }
-        .welcome-section::after {
-            content: '';
-            position: absolute;
-            right: -40px;
-            top: -40px;
-            width: 120px;
-            height: 120px;
-            background: var(--neon);
-            opacity: 0.12;
-            border-radius: 50%;
-        }
-        .welcome-text {
-            font-size: 2.1rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            color: #fff;
-            text-shadow: 0 2px 12px rgba(76,71,194,0.18);
-        }
-        .welcome-subtext {
-            color: #e2e8f0;
-            font-size: 1.15rem;
-            font-weight: 500;
-            margin-bottom: 0;
-        }
         @media (max-width: 400px) {
             .welcome-section {
                 padding: 20px 8px 16px 8px;
@@ -278,6 +245,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
+            cursor: pointer;
         }
         
         /* Платные блоки */
@@ -433,6 +401,7 @@
             font-size: 0.9rem;
             font-weight: 600;
             border: none;
+            cursor: pointer;
         }
         
         .search-card {
@@ -462,6 +431,7 @@
             border-radius: 20px;
             font-size: 0.9rem;
             white-space: nowrap;
+            cursor: pointer;
         }
         
         .filter-btn.active {
@@ -484,6 +454,7 @@
             text-align: center;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
+            cursor: pointer;
         }
         
         .category-card:active {
@@ -519,6 +490,7 @@
             font-size: 1.2rem;
             margin-right: 15px;
             color: var(--dark);
+            cursor: pointer;
         }
         
         /* Экран теста - улучшенный дизайн */
@@ -672,34 +644,43 @@
         }
         
         /* Экран профиля */
-        .profile-header {
-            text-align: center;
-            margin-bottom: 25px;
+        .profile-block {
+            background: var(--surface);
+            border-radius: 18px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+            padding: 32px 24px 24px 24px;
+            margin: 24px 16px 24px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        
-        .profile-avatar {
-            width: 100px;
-            height: 100px;
+        .profile-avatar-large {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background: linear-gradient(45deg, var(--primary), var(--neon-2));
-            margin: 0 auto 15px;
+            background: var(--primary);
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
-            color: white;
+            margin-bottom: 16px;
         }
-        
-        .profile-name {
-            font-size: 1.4rem;
-            margin-bottom: 5px;
+        .profile-details-block {
+            text-align: center;
         }
-        
-        .profile-email {
+        .profile-details-block .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .profile-details-block .profile-phone,
+        .profile-details-block .profile-city {
             color: var(--gray);
+            font-size: 1rem;
+            margin-bottom: 4px;
         }
-        
-        .profile-menu {
+        .profile-menu-new {
             background: white;
             border-radius: 16px;
             overflow: hidden;
@@ -711,6 +692,7 @@
             align-items: center;
             padding: 18px 20px;
             border-bottom: 1px solid var(--light-gray);
+            cursor: pointer;
         }
         
         .menu-item:last-child {
@@ -867,7 +849,7 @@
             border-radius: 50%;
             opacity: 0;
             transform: scale(0);
-            animation: pulse 2s infinite;
+            animation: pulse 2s infinite linear;
         }
         
         .pulse:nth-child(2) {
@@ -944,22 +926,24 @@
             background: linear-gradient(135deg, var(--primary) 0%, var(--neon-2) 100%);
             border-radius: 50%;
             opacity: 0;
+            animation: float 6s infinite linear;
         }
         
         @keyframes float {
             0% {
-                transform: translateY(0) translateX(0) rotate(0);
+                transform: translateY(100vh) translateX(0) rotate(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
                 opacity: 1;
             }
             100% {
                 transform: translateY(-100vh) translateX(calc(-50vw + 100px)) rotate(360deg);
                 opacity: 0;
             }
-        }
-        
-        .option-item.selected {
-            background: #e6e9ff;
-            border-color: var(--primary);
         }
 
         /* Адаптация для очень маленьких экранов */
@@ -1150,7 +1134,7 @@
         
         .timer-text {
             text-align: center;
-            color: var(--gray);
+            color: var (--gray);
             margin-bottom: 20px;
         }
         
@@ -1158,6 +1142,7 @@
             color: var(--primary);
             text-decoration: none;
             font-weight: 600;
+            cursor: pointer;
         }
 
         /* Стили для экрана чатов (мессенджера) */
@@ -1183,6 +1168,7 @@
             font-size: 1.2rem;
             color: var(--dark);
             margin-right: 10px;
+            cursor: pointer;
         }
         
         .chat-title {
@@ -1195,6 +1181,7 @@
         .chat-info-btn {
             font-size: 1.2rem;
             color: var(--dark);
+            cursor: pointer;
         }
         
         .chat-messages {
@@ -1262,6 +1249,7 @@
             align-items: center;
             justify-content: center;
             border: none;
+            cursor: pointer;
         }
         
         /* Стили для списка чатов */
@@ -1279,6 +1267,7 @@
             border-radius: 16px;
             box-shadow: var(--card-shadow);
             transition: var(--transition);
+            cursor: pointer;
         }
         
         .chat-card:active {
@@ -1432,9 +1421,335 @@
             font-size: 0.9rem;
             white-space: nowrap;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .filter-chip.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Стили для экрана оплаты */
+        .payment-container {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method {
+            flex: 1;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .payment-method.active {
+            border-color: var(--primary);
+            background-color: rgba(108, 92, 231, 0.05);
+        }
+
+        .payment-method i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .payment-form {
+            margin-top: 20px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-field {
+            flex: 1;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .payment-summary {
+            background: var(--light);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .pay-button {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .pay-button:active {
+            transform: scale(0.98);
+        }
+
+        .cart-items {
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 10px;
+        }
+
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            background: linear-gradient(45deg, var(--primary), var(--neon-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin-right: 15px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .cart-item-remove {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Новые стили для информационного контента */
+        .stories-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 5px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        .stories-container::-webkit-scrollbar {
+            display: none;
+        }
+        .story-item {
+            min-width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+        .story-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--neon-2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        .story-avatar.has-new::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            right: 2px;
+            width: 16px;
+            height: 16px;
+            background: var(--secondary);
+            border: 2px solid white;
+            border-radius: 50%;
+        }
+        .story-name {
+            font-size: 0.75rem;
+            text-align: center;
+            color: var(--dark);
+        }
+        .content-section {
+            margin-bottom: 30px;
+        }
+        .article-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        .article-card:active {
+            transform: scale(0.98);
+        }
+        .article-image {
+            height: 180px;
+            background: linear-gradient(120deg, #5e72e4 0%, #9c7be4 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.4rem;
+            position: relative;
+        }
+        .article-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .article-content {
+            padding: 20px;
+        }
+        .article-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .article-excerpt {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: var (--gray);
+        }
+        .article-date {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .article-views {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .article-promo {
+            background: rgba(108, 92, 231, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid var(--primary);
+        }
+        .promo-heading {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .promo-description {
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+        .promo-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .category-filters {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 5px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        .category-filters::-webkit-scrollbar {
+            display: none;
+        }
+        .category-filter {
+            padding: 10px 18px;
+            background: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .category-filter.active {
             background: var(--primary);
             color: white;
             border-color: var(--primary);
@@ -1480,37 +1795,36 @@
             <!-- Экран ввода имени -->
             <div class="onboarding-slide" id="onboarding-slide-4">
                 <div class="form-container">
-                    <h2 class="form-title">Ваше имя</h2>
-                    <input type="text" class="form-input" id="user-name" placeholder="Как вас зовут?">
+                    <label for="user-name" class="form-label">Ваше имя</label>
+                    <input type="text" id="user-name" class="form-input" placeholder="Введите имя" value="">
                     <button class="form-btn" onclick="nextOnboardingSlide(5)">Далее</button>
                 </div>
             </div>
             <!-- Экран ввода города -->
             <div class="onboarding-slide" id="onboarding-slide-5">
                 <div class="form-container">
-                    <h2 class="form-title">Ваш город</h2>
-                    <input type="text" class="form-input" id="user-city" placeholder="В каком городе ищем?">
+                    <label for="user-city" class="form-label">Ваш город</label>
+                    <input type="text" id="user-city" class="form-input" placeholder="Введите город" value="">
                     <button class="form-btn" onclick="nextOnboardingSlide(6)">Далее</button>
                 </div>
             </div>
             <!-- Экран ввода телефона -->
             <div class="onboarding-slide" id="onboarding-slide-6">
                 <div class="form-container">
-                    <h2 class="form-title">Номер телефона</h2>
-                    <input type="tel" class="form-input" id="user-phone" placeholder="+7 (XXX) XXX-XX-XX">
-                    <button class="form-btn" onclick="sendVerificationCode()">Продолжить</button>
+                    <label for="user-phone" class="form-label">Телефон</label>
+                    <input type="tel" id="user-phone" class="form-input" placeholder="+7 (___) ___-__-__" value="">
+                    <button class="form-btn" onclick="sendVerificationCode()">Получить код</button>
                 </div>
             </div>
             <!-- Экран подтверждения номера -->
             <div class="onboarding-slide" id="onboarding-slide-7">
                 <div class="form-container">
-                    <h2 class="form-title">Подтверждение номера</h2>
-                    <p class="form-subtitle">Мы отправили код на номер <span id="phone-number"></span></p>
+                    <p>Введите код, отправленный на номер <span id="phone-number"></span></p>
                     <div class="code-inputs">
-                        <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 1)">
-                        <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 2)">
-                        <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 3)">
-                        <input type="text" class="code-input" maxlength="1" oninput="moveToNext(this, 4)">
+                        <input type="text" maxlength="1" class="code-input" oninput="moveToNext(this, 1)">
+                        <input type="text" maxlength="1" class="code-input" oninput="moveToNext(this, 2)">
+                        <input type="text" maxlength="1" class="code-input" oninput="moveToNext(this, 3)">
+                        <input type="text" maxlength="1" class="code-input" oninput="moveToNext(this, 4)">
                     </div>
                     <p class="timer-text">Отправить код повторно через <span id="timer">59</span> секунд</p>
                     <a href="#" class="resend-link" id="resend-link" style="display:none;" onclick="resendCode()">Отправить код повторно</a>
@@ -1526,15 +1840,12 @@
             <i class="fas fa-child logo-icon"></i>
             <span>KIDCIRCLE</span>
         </a>
-        
         <div class="header-actions">
-            <a href="#" class="header-icon" id="chat-icon">
-                <i class="fas fa-comments"></i>
-                <span class="notification-badge">3</span>
+            <a href="#" class="header-icon" id="search-icon">
+                <i class="fas fa-search"></i>
             </a>
-            <a href="#" class="header-icon" id="notification-icon">
-                <i class="fas fa-bell"></i>
-                <span class="notification-badge">2</span>
+            <a href="#" class="header-icon" id="profile-icon">
+                <i class="fas fa-user"></i>
             </a>
         </div>
     </header>
@@ -1543,11 +1854,163 @@
     <div class="app-screens">
         <!-- Главный экран -->
         <div class="screen active" id="home-screen">
-            <div class="welcome-section">
-                <h1 class="welcome-text" id="welcome-text">Найдите кружки для детей</h1>
-                <p class="welcome-subtext">Откройте мир возможностей для вашего ребенка</p>
+            <div class="stories-container">
+                <div class="story-item">
+                    <div class="story-avatar has-new">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="story-name">Новое</div>
+                </div>
+                <div class="story-item">
+                    <div class="story-avatar">
+                        <i class="fas fa-child"></i>
+                    </div>
+                    <div class="story-name">Развитие</div>
+                </div>
+                <div class="story-item">
+                    <div class="story-avatar">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="story-name">Обучение</div>
+                </div>
+                <div class="story-item">
+                    <div class="story-avatar">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="story-name">Здоровье</div>
+                </div>
+                <div class="story-item">
+                    <div class="story-avatar">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="story-name">Социализация</div>
+                </div>
+                <div class="story-item">
+                    <div class="story-avatar">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div class="story-name">Творчество</div>
+                </div>
             </div>
-            
+            <div class="promo-blocks">
+                <div class="promo-block">
+                    <div class="promo-title">Топ кружки</div>
+                    <div class="promo-subtitle">Лучшие секции для развития талантов</div>
+                    <div class="promo-icon"><i class="fas fa-trophy"></i></div>
+                </div>
+                <div class="promo-block">
+                    <div class="promo-title">Популярное</div>
+                    <div class="promo-subtitle">Самые востребованные кружки города</div>
+                    <div class="promo-icon"><i class="fas fa-fire"></i></div>
+                </div>
+                <div class="promo-block">
+                    <div class="promo-title">Для малышей</div>
+                    <div class="promo-subtitle">Кружки для детей 3-6 лет</div>
+                    <div class="promo-icon"><i class="fas fa-baby"></i></div>
+                </div>
+                <div class="promo-block">
+                    <div class="promo-title">Для школьников</div>
+                    <div class="promo-subtitle">Секции для детей 7-14 лет</div>
+                    <div class="promo-icon"><i class="fas fa-graduation-cap"></i></div>
+                </div>
+            </div>
+            <div class="category-filters">
+                <button class="category-filter active">Все темы</button>
+                <button class="category-filter">Советы</button>
+                <button class="category-filter">Образование</button>
+                <button class="category-filter">Здоровье</button>
+                <button class="category-filter">Досуг</button>
+                <button class="category-filter">Психология</button>
+            </div>
+            <div class="content-section">
+                <h2 class="section-title">Популярные статьи</h2>
+                <div class="article-card">
+                    <div class="article-image">
+                        Как выбрать кружок
+                        <div class="article-badge">Совет</div>
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">Как выбрать кружок для ребенка: 7 важных критериев</h3>
+                        <p class="article-excerpt">Узнайте, на что обратить внимание при выборе секции для вашего ребенка, чтобы занятия приносили радость и пользу.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i class="far fa-clock"></i> 2 дня назад</span>
+                            <span class="article-views"><i class="far fa-eye"></i> 1.4K</span>
+                        </div>
+                        <div class="article-promo">
+                            <div class="promo-heading"><i class="fas fa-lightbulb"></i> Рекомендуем</div>
+                            <p class="promo-description">Воспользуйтесь нашим ИИ-тестом для подбора идеального кружка именно для вашего ребенка!</p>
+                            <a href="#" class="promo-link" onclick="showScreen('test-screen')">Пройти тест</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-image">
+                        Топ-5 кружков
+                        <div class="article-badge">Обзор</div>
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">Топ-5 развивающих кружков для детей 5-7 лет</h3>
+                        <p class="article-excerpt">Мы собрали лучшие кружки для дошкольников, которые помогут развить таланты и подготовить к школе.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i class="far fa-clock"></i> 5 дней назад</span>
+                            <span class="article-views"><i class="far fa-eye"></i> 2.8K</span>
+                        </div>
+                        <div class="article-promo">
+                            <div class="promo-heading"><i class="fas fa-graduation-cap"></i> Для дошкольников</div>
+                            <p class="promo-description">В "Академии маленьких гениев" специальные программы подготовки к школе с игровыми элементами.</p>
+                            <a href="#" class="promo-link">Узнать больше</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-section">
+                <h2 class="section-title">Советы родителям</h2>
+                <div class="article-card">
+                    <div class="article-image">
+                        Баланс учебы
+                        <div class="article-badge">Психология</div>
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">Как совмещать школу и дополнительные занятия без стресса</h3>
+                        <p class="article-excerpt">Практические рекомендации по составлению расписания, которое не перегрузит ребенка и оставит время на отдых.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i class="far fa-clock"></i> 1 неделю назад</span>
+                            <span class="article-views"><i class="far fa-eye"></i> 3.5K</span>
+                        </div>
+                        <div class="article-promo">
+                            <div class="promo-heading"><i class="fas fa-balance-scale"></i> Сбалансированное расписание</div>
+                            <p class="promo-description">Наши партнеры-кружки помогают составить индивидуальное расписание с учетом нагрузки в школе.</p>
+                            <a href="#" class="promo-link">Посмотреть варианты</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-section">
+                <h2 class="section-title">Истории успеха</h2>
+                <div class="article-card">
+                    <div class="article-image">
+                        Успех в робототехнике
+                        <div class="article-badge">Вдохновение</div>
+                    </div>
+                    <div class="article-content">
+                        <h3 class="article-title">Как 10-летний Миша стал призером всероссийского конкурса по робототехнике</h3>
+                        <p class="article-excerpt">История мальчика, который начал с простых конструкторов и теперь программирует сложных роботов.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i class="far fa-clock"></i> 2 недели назад</span>
+                            <span class="article-views"><i class="far fa-eye"></i> 5.2K</span>
+                        </div>
+                        <div class="article-promo">
+                            <div class="promo-heading"><i class="fas fa-robot"></i> Начните свой путь</div>
+                            <p class="promo-description">Запишитесь на пробное занятие по робототехнике и посмотрите, как загораются глаза вашего ребенка!</p>
+                            <a href="#" class="promo-link">Записаться на пробное</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Экран поиска -->
+        <div class="screen" id="search-screen">
             <div class="search-header">
                 <div class="search-input-container">
                     <input type="text" class="search-input" placeholder="Поиск кружков и секций...">
@@ -1557,7 +2020,6 @@
                     <i class="fas fa-filter"></i>
                 </div>
             </div>
-
             <div class="search-filters">
                 <button class="filter-chip active">Все</button>
                 <button class="filter-chip">Спорт</button>
@@ -1567,215 +2029,60 @@
                 <button class="filter-chip">Танцы</button>
                 <button class="filter-chip">Развитие</button>
             </div>
-            
-            <div class="promo-blocks">
-                <div class="promo-block">
-                    <i class="fas fa-fire promo-icon"></i>
-                    <div class="promo-title">Самые популярные</div>
-                    <div class="promo-subtitle">Топ-10 кружков этого месяца</div>
-                </div>
-                
-                <div class="promo-block">
-                    <i class="fas fa-star promo-icon"></i>
-                    <div class="promo-title">Премиум-кружки</div>
-                    <div class="promo-subtitle">Элитные занятия для детей</div>
-                </div>
-                
-                <div class="promo-block">
-                    <i class="fas fa-graduation-cap promo-icon"></i>
-                    <div class="promo-title">Лучшие педагоги</div>
-                    <div class="promo-subtitle">Опытные преподаватели</div>
-                </div>
-                
-                <div class="promo-block">
-                    <i class="fas fa-bolt promo-icon"></i>
-                    <div class="promo-title">Быстрая запись</div>
-                    <div class="promo-subtitle">Запишитесь за 2 минуты</div>
-                </div>
-                
-                <div class="promo-block">
-                    <i class="fas fa-award promo-icon"></i>
-                    <div class="promo-title">Новые кружки</div>
-                    <div class="promo-subtitle">Свежие предложения</div>
-                </div>
-            </div>
-            
-            <h2 class="section-title">Кружки и секции</h2>
-            
+            <h2 class="section-title" style="margin-top:24px;">Все кружки</h2>
             <div class="search-results">
-                <!-- Карточки кружков остаются без изменений -->
                 <div class="result-card">
-                    <div class="result-image">
-                        Футбол
-                        <div class="result-badge">Популярно</div>
-                    </div>
+                    <div class="result-image">Футбол<div class="result-badge">Популярно</div></div>
                     <div class="result-content">
                         <h3 class="result-title">Футбольная академия "Чемпион"</h3>
-                        <div class="result-info">
-                            <span>7-12 лет</span>
-                            <span class="result-price">2000₽/мес</span>
-                        </div>
+                        <div class="result-info"><span>7-12 лет</span><span class="result-price">2000₽/мес</span></div>
                         <p class="result-desc">Профессиональные тренировки по футболу для детей. Развиваем физическую форму, координацию и командный дух.</p>
-                        <div class="result-footer">
-                            <div class="result-rating">
-                                <i class="fas fa-star"></i>
-                                <span>4.9 (128)</span>
-                            </div>
-                            <button class="result-btn">Записаться</button>
-                        </div>
+                        <div class="result-footer"><div class="result-rating"><i class="fas fa-star"></i><span>4.9 (128)</span></div><button class="result-btn">Записаться</button></div>
                     </div>
                 </div>
-                
                 <div class="result-card">
-                    <div class="result-image">
-                        Роботы
-                        <div class="result-badge">Новое</div>
-                    </div>
+                    <div class="result-image">Роботы<div class="result-badge">Новое</div></div>
                     <div class="result-content">
                         <h3 class="result-title">Робототехника для детей</h3>
-                        <div class="result-info">
-                            <span>8-14 лет</span>
-                            <span class="result-price">2500₽/мес</span>
-                        </div>
+                        <div class="result-info"><span>8-14 лет</span><span class="result-price">2500₽/мес</span></div>
                         <p class="result-desc">Создаем роботов, изучаем программирование и основы механики. Современное оборудование и профессиональные преподаватели.</p>
-                        <div class="result-footer">
-                            <div class="result-rating">
-                                <i class="fas fa-star"></i>
-                                <span>4.8 (96)</span>
-                            </div>
-                            <button class="result-btn">Записаться</button>
-                        </div>
+                        <div class="result-footer"><div class="result-rating"><i class="fas fa-star"></i><span>4.8 (96)</span></div><button class="result-btn">Записаться</button></div>
                     </div>
                 </div>
-                
                 <div class="result-card">
-                    <div class="result-image">
-                        Искусство
-                    </div>
+                    <div class="result-image">Искусство</div>
                     <div class="result-content">
                         <h3 class="result-title">Студия рисования "Арт-Класс"</h3>
-                        <div class="result-info">
-                            <span>5-16 лет</span>
-                            <span class="result-price">1800₽/мес</span>
-                        </div>
+                        <div class="result-info"><span>5-16 лет</span><span class="result-price">1800₽/мес</span></div>
                         <p class="result-desc">Развиваем творческие способности, воображение и чувство прекрасного. Разные техники рисования и работы с материалами.</p>
-                        <div class="result-footer">
-                            <div class="result-rating">
-                                <i class="fas fa-star"></i>
-                                <span>4.7 (87)</span>
-                            </div>
-                            <button class="result-btn">Записаться</button>
-                        </div>
+                        <div class="result-footer"><div class="result-rating"><i class="fas fa-star"></i><span>4.7 (87)</span></div><button class="result-btn">Записаться</button></div>
                     </div>
                 </div>
-                
                 <div class="result-card">
-                    <div class="result-image">
-                        Танцы
-                        <div class="result-badge">Акция</div>
-                    </div>
+                    <div class="result-image">Танцы<div class="result-badge">Акция</div></div>
                     <div class="result-content">
                         <h3 class="result-title">Танцевальная студия "Грация"</h3>
-                        <div class="result-info">
-                            <span>4-15 лет</span>
-                            <span class="result-price">2200₽/мес</span>
-                        </div>
+                        <div class="result-info"><span>4-15 лет</span><span class="result-price">2200₽/мес</span></div>
                         <p class="result-desc">Обучение современным и классическим танцевальным направлениям. Участие в конкурсах и выступлениях.</p>
-                        <div class="result-footer">
-                            <div class="result-rating">
-                                <i class="fas fa-star"></i>
-                                <span>4.8 (112)</span>
-                            </div>
-                            <button class="result-btn">Записаться</button>
-                        </div>
+                        <div class="result-footer"><div class="result-rating"><i class="fas fa-star"></i><span>4.8 (112)</span></div><button class="result-btn">Записаться</button></div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Остальные экраны остаются без изменений -->
-        <!-- Экран поиска -->
-        <div class="screen" id="search-screen">
-            <div class="search-header">
-                <a href="#" class="back-btn">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <input type="text" class="search-input" placeholder="Поиск кружков и секций...">
-            </div>
-            
-            <div class="filters">
-                <button class="filter-btn active">Все</button>
-                <button class="filter-btn">Спорт</button>
-                <button class="filter-btn">Творчество</button>
-                <button class="filter-btn">Наука</button>
-                <button class="filter-btn">Музыка</button>
-                <button class="filter-btn">Танцы</button>
-                <button class="filter-btn">Развитие</button>
-            </div>
-            
-            <div class="search-results">
                 <div class="result-card">
-                    <div class="result-image">
-                        Футбол
-                        <div class="result-badge">Популярно</div>
-                    </div>
+                    <div class="result-image">Шахматы<div class="result-badge">Премиум</div></div>
                     <div class="result-content">
-                        <h3 class="result-title">Футбольная академия "Чемпион"</h3>
-                        <div class="result-info">
-                            <span>7-12 лет</span>
-                            <span class="result-price">2000₽/мес</span>
-                        </div>
-                        <p class="result-desc">Профессиональные тренировки по футболу для детей. Развиваем физическую форму, координацию и командный дух.</p>
-                        <div class="result-footer">
-                            <div class="result-rating">
-                                <i class="fas fa-star"></i>
-                                <span>4.9 (128)</span>
-                            </div>
-                            <button class="result-btn">Записаться</button>
-                        </div>
+                        <h3 class="result-title">Шахматная школа "Гроссмейстер"</h3>
+                        <div class="result-info"><span>6-16 лет</span><span class="result-price">5000₽/мес</span></div>
+                        <p class="result-desc">Обучение шахматам от чемпионов России и международных мастеров. Индивидуальный подход к каждому ребенку.</p>
+                        <div class="result-footer"><div class="result-rating"><i class="fas fa-star"></i><span>5.0 (89)</span></div><button class="result-btn">Записаться</button></div>
                     </div>
                 </div>
-                
                 <div class="result-card">
-                    <div class="result-image">
-                        Роботы
-                        <div class="result-badge">Новое</div>
-                    </div>
+                    <div class="result-image">Теннис<div class="result-badge">Премиум</div></div>
                     <div class="result-content">
-                        <h3 class="result-title">Робототехника для детей</h3>
-                        <div class="result-info">
-                            <span>8-14 лет</span>
-                            <span class="result-price">2500₽/мес</span>
-                        </div>
-                        <p class="result-desc">Создаем роботов, изучаем программирование и основы механики. Современное оборудование и профессиональные преподаватели.</p>
-                        <div class="result-footer">
-                            <div class="result-rating">
-                                <i class="fas fa-star"></i>
-                                <span>4.8 (96)</span>
-                            </div>
-                            <button class="result-btn">Записаться</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="result-card">
-                    <div class="result-image">
-                        Искусство
-                    </div>
-                    <div class="result-content">
-                        <h3 class="result-title">Студия рисования "Арт-Класс"</h3>
-                        <div class="result-info">
-                            <span>5-16 лет</span>
-                            <span class="result-price">1800₽/мес</span>
-                        </div>
-                        <p class="result-desc">Развиваем творческие способности, воображение и чувство прекрасного. Разные техники рисования и работы с материалами.</p>
-                        <div class="result-footer">
-                            <div class="result-rating">
-                                <i class="fas fa-star"></i>
-                                <span>4.7 (87)</span>
-                            </div>
-                            <button class="result-btn">Записаться</button>
-                        </div>
+                        <h3 class="result-title">Теннисная академия "ACE"</h3>
+                        <div class="result-info"><span>5-18 лет</span><span class="result-price">6000₽/мес</span></div>
+                        <p class="result-desc">Профессиональные тренировки на кортах с покрытием US Open. Занятия в малых группах с персональным вниманием.</p>
+                        <div class="result-footer"><div class="result-rating"><i class="fas fa-star"></i><span>4.9 (124)</span></div><button class="result-btn">Записаться</button></div>
                     </div>
                 </div>
             </div>
@@ -1898,73 +2205,41 @@
         
         <!-- Экран профиля -->
         <div class="screen" id="profile-screen">
-            <div class="profile-header">
-                <div class="profile-avatar">
+            <div class="profile-block">
+                <div class="profile-avatar-large">
                     <i class="fas fa-user"></i>
                 </div>
-                <h2 class="profile-name">Алексей Петров</h2>
-                <p class="profile-email">alexey@example.com</p>
+                <div class="profile-details-block">
+                    <h2 class="profile-name" id="profile-name">Имя</h2>
+                    <p class="profile-phone" id="profile-phone">Телефон</p>
+                    <p class="profile-city" id="profile-city">Город</p>
+                </div>
             </div>
-            
-            <div class="profile-menu">
-                <div class="menu-item">
-                    <div class="menu-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="menu-text">Мой профиль</div>
-                    <div class="menu-arrow">
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
+            <div class="profile-menu-new">
+                <div class="menu-item" id="menu-chats">
+                    <span class="menu-icon"><i class="fas fa-comments"></i></span>
+                    <span class="menu-text">Чаты</span>
+                    <span class="menu-arrow"><i class="fas fa-chevron-right"></i></span>
                 </div>
-                
-                <div class="menu-item">
-                    <div class="menu-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <div class="menu-text">Избранное</div>
-                    <div class="menu-arrow">
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
+                <div class="menu-item" id="menu-notifications">
+                    <span class="menu-icon"><i class="fas fa-bell"></i></span>
+                    <span class="menu-text">Уведомления</span>
+                    <span class="menu-arrow"><i class="fas fa-chevron-right"></i></span>
                 </div>
-                
-                <div class="menu-item">
-                    <div class="menu-icon">
-                        <i class="fas fa-history"></i>
-                    </div>
-                    <div class="menu-text">История записей</div>
-                    <div class="menu-arrow">
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
+                <div class="menu-item" id="menu-about">
+                    <span class="menu-icon"><i class="fas fa-info-circle"></i></span>
+                    <span class="menu-text">О приложении</span>
+                    <span class="menu-arrow"><i class="fas fa-chevron-right"></i></span>
                 </div>
-                
-                <div class="menu-item">
-                    <div class="menu-icon">
-                        <i class="fas fa-cog"></i>
-                    </div>
-                    <div class="menu-text">Настройки</div>
-                    <div class="menu-arrow">
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
+                <div class="menu-item" id="menu-help">
+                    <span class="menu-icon"><i class="fas fa-question-circle"></i></span>
+                    <span class="menu-text">Помощь</span>
+                    <span class="menu-arrow"><i class="fas fa-chevron-right"></i></span>
                 </div>
-                
-                <div class="menu-item">
-                    <div class="menu-icon">
-                        <i class="fas fa-question-circle"></i>
-                    </div>
-                    <div class="menu-text">Помощь</div>
-                    <div class="menu-arrow">
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                </div>
-                
-                <div class="menu-item">
-                    <div class="menu-icon">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </div>
-                    <div class="menu-text">Выйти</div>
-                    <div class="menu-arrow">
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
+                <div class="menu-item" id="menu-logout">
+                    <span class="menu-icon"><i class="fas fa-sign-out-alt"></i></span>
+                    <span class="menu-text">Выйти</span>
+                    <span class="menu-arrow"><i class="fas fa-chevron-right"></i></span>
                 </div>
             </div>
         </div>
@@ -2032,24 +2307,6 @@
                 </div>
                 
                 <div class="chat-messages" id="chat-messages">
-                    <!-- Сообщения будут добавляться через JS -->
-                </div>
-                
-                <div class="chat-input-container">
-                    <input type="text" class="chat-input" id="chat-input" placeholder="Введите сообщение...">
-                    <button class="chat-send-btn" id="chat-send-btn">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Экран уведомлений -->
-         <div class="screen" id="notifications-screen">
-            <h2 style="margin-bottom: 20px;">Уведомления</h2>
-            <div class="notifications-container">
-                <div class="notification-card">
-                    <div class="notification-icon">
                         <i class="fas fa-calendar-check"></i>
                     </div>
                     <div class="notification-content">
@@ -2095,8 +2352,175 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Экран оплаты -->
+        <div class="screen" id="pay-screen">
+            <h2 class="section-title">Оплата кружков</h2>
+            
+            <div class="cart-items">
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <i class="fas fa-futbol"></i>
+                    </div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">Футбольная академия "Чемпион"</div>
+                        <div class="cart-item-price">2000₽/мес</div>
+                    </div>
+                    <div class="cart-item-remove">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                
+                <div class="cart-item">
+                    <div class="cart-item-image">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">Робототехника для детей</div>
+                        <div class="cart-item-price">2500₽/мес</div>
+                    </div>
+                    <div class="cart-item-remove">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-container">
+                <h3>Способы оплаты</h3>
+                <div class="payment-methods">
+                    <div class="payment-method active" data-method="card">
+                        <i class="fas fa-credit-card"></i>
+                        <div>Карта</div>
+                    </div>
+                    <div class="payment-method" data-method="apple">
+                        <i class="fab fa-apple-pay"></i>
+                        <div>Apple Pay</div>
+                    </div>
+                    <div class="payment-method" data-method="google">
+                        <i class="fab fa-google-pay"></i>
+                        <div>Google Pay</div>
+                    </div>
+                </div>
+                
+                <div class="payment-form">
+                    <div class="form-group">
+                        <label class="form-label">Номер карты</label>
+                        <input type="text" class="form-input" placeholder="1234 5678 9012 3456">
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label class="form-label">Срок действия</label>
+                            <input type="text" class="form-input" placeholder="ММ/ГГ">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label">CVV/CVC</label>
+                            <input type="text" class="form-input" placeholder="123">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Имя владельца карты</label>
+                        <input type="text" class="form-input" placeholder="IVAN IVANOV">
+                    </div>
+                </div>
+                
+                <div class="payment-summary">
+                    <div class="summary-item">
+                        <span>Футбольная академия "Чемпион"</span>
+                        <span>2000₽</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Робототехника для детей</span>
+                        <span>2500₽</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Скидка</span>
+                        <span style="color: var(--accent);">-500₽</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Итого</span>
+                        <span>4000₽</span>
+                    </div>
+                </div>
+                
+                <button class="pay-button">Оплатить</button>
+            </div>
+        </div>
     </div>
 
+    <div class="screen" id="search-page-screen">
+        <div class="search-header search-page-header">
+            <div class="search-input-container search-page-input-container">
+                <input type="text" class="search-input search-page-input" placeholder="Поиск кружков и секций...">
+                <i class="fas fa-search search-icon search-page-icon"></i>
+            </div>
+            <div class="filter-icon search-page-filter">
+                <i class="fas fa-filter"></i>
+            </div>
+        </div>
+        <div class="category-section">
+            <div class="category-header">
+                <h3>Спортивные секции</h3>
+            </div>
+            <div class="search-results">
+                <!-- Пример карточки кружка -->
+                <div class="result-card">
+                    <div class="result-image">Футбол<div class="result-badge">Популярно</div></div>
+                    <div class="result-content">
+                        <h3 class="result-title">Футбольная академия "Чемпион"</h3>
+                        <div class="result-info"><span>7-12 лет</span><span class="result-price">2000₽/мес</span></div>
+                        <p class="result-desc">Профессиональные тренировки по футболу для детей. Развиваем физическую форму, координацию и командный дух.</p>
+                        <div class="result-footer">
+                            <div class="result-rating"><i class="fas fa-star"></i><span>4.9 (128)</span></div>
+                            <button class="result-btn">Записаться</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- ...другие кружки... -->
+            </div>
+        </div>
+        <div class="category-section">
+            <div class="category-header">
+                <h3>Творческие кружки</h3>
+            </div>
+            <div class="search-results">
+                <div class="result-card">
+                    <div class="result-image">Искусство</div>
+                    <div class="result-content">
+                        <h3 class="result-title">Студия рисования "Арт-Класс"</h3>
+                        <div class="result-info"><span>5-16 лет</span><span class="result-price">1800₽/мес</span></div>
+                        <p class="result-desc">Развиваем творческие способности, воображение и чувство прекрасного. Разные техники рисования и работы с материалами.</p>
+                        <div class="result-footer">
+                            <div class="result-rating"><i class="fas fa-star"></i><span>4.7 (87)</span></div>
+                            <button class="result-btn">Записаться</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- ...другие кружки... -->
+            </div>
+        </div>
+        <div class="category-section">
+            <div class="category-header">
+                <h3>Научные кружки</h3>
+            </div>
+            <div class="search-results">
+                <div class="result-card">
+                    <div class="result-image">Роботы<div class="result-badge">Новое</div></div>
+                    <div class="result-content">
+                        <h3 class="result-title">Робототехника для детей</h3>
+                        <div class="result-info"><span>8-14 лет</span><span class="result-price">2500₽/мес</span></div>
+                        <p class="result-desc">Создаем роботов, изучаем программирование и основы механики. Современное оборудование и профессиональные преподаватели.</p>
+                        <div class="result-footer">
+                            <div class="result-rating"><i class="fas fa-star"></i><span>4.8 (96)</span></div>
+                            <button class="result-btn">Записаться</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- ...другие кружки... -->
+            </div>
+        </div>
+    </div>
 
     <!-- Анимация "ИИ думает" -->
     <div class="ai-thinking" id="ai-thinking">
@@ -2133,9 +2557,9 @@
             <i class="fas fa-history nav-icon"></i>
             <span>Записи</span>
         </a>
-        <a href="#" class="nav-item" data-screen="profile-screen">
-            <i class="fas fa-user nav-icon"></i>
-            <span>Профиль</span>
+        <a href="#" class="nav-item" data-screen="pay-screen">
+            <i class="fas fa-credit-card nav-icon"></i>
+            <span>Оплата</span>
         </a>
     </div>
 
@@ -2217,7 +2641,7 @@
             const timerElement = document.getElementById('timer');
             const resendLink = document.getElementById('resend-link');
             
-            const timerInterval = setInterval(() => {
+            const timerInterval = setInterval(function() {
                 timerElement.textContent = timeLeft;
                 timeLeft--;
                 
@@ -2267,7 +2691,6 @@
                 // Обновляем имя пользователя в приложении
                 const userName = localStorage.getItem('userName');
                 if (userName) {
-                    document.querySelector('.welcome-text').textContent = `Привет, ${userName}!`;
                     document.querySelector('.profile-name').textContent = userName;
                 }
             } else {
@@ -2301,6 +2724,33 @@
                 const targetScreen = document.getElementById(targetScreenId);
                 targetScreen.classList.add('active');
             });
+        });
+        
+        // Обработчик для иконки профиля
+        document.getElementById('profile-icon').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Скрываем все экраны
+            screens.forEach(screen => {
+                screen.classList.remove('active');
+            });
+            
+            // Показываем экран профиля
+            document.getElementById('profile-screen').classList.add('active');
+            
+            // Убираем активный класс у всех пунктов меню
+            navItems.forEach(navItem => navItem.classList.remove('active'));
+            fillProfileInfo();
+        });
+
+        // Обработчики для пунктов меню профиля
+        document.getElementById('menu-chats').addEventListener('click', function() {
+            document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+            document.getElementById('chats-screen').classList.add('active');
+        });
+        document.getElementById('menu-notifications').addEventListener('click', function() {
+            document.querySelectorAll('.screen').forEach(screen => screen.classList.remove('active'));
+            document.getElementById('notifications-screen').classList.add('active');
         });
         
         // Данные для теста
@@ -2454,7 +2904,7 @@
         }
 
         // Показ анимации "ИИ думает"
-        function showAIThinking() {
+       function showAIThinking() {
             aiThinking.classList.add('active');
             createParticles();
             
@@ -2474,7 +2924,9 @@
                     aiStatus.textContent = messages[messageIndex];
                 } else {
                     clearInterval(messageInterval);
-                    calculateResults();
+                    setTimeout(() => {
+                        calculateResults();
+                    }, 1000);
                 }
             }, 1500);
         }
@@ -2488,18 +2940,17 @@
                 const particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                // Случайные размеры и позиция
+                // Случайные параметры
                 const size = Math.random() * 10 + 5;
                 const posX = Math.random() * 100;
-                const posY = Math.random() * 100;
-                const delay = Math.random() * 2;
+                const delay = Math.random() * 5;
                 const duration = Math.random() * 3 + 3;
                 
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 particle.style.left = `${posX}%`;
-                particle.style.top = `${posY}%`;
-                particle.style.animation = `float ${duration}s linear ${delay}s infinite`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
                 
                 particlesContainer.appendChild(particle);
             }
@@ -2612,44 +3063,54 @@
             if (localStorage.getItem('onboardingCompleted')) {
                 const userName = localStorage.getItem('userName');
                 if (userName) {
-                    document.getElementById('welcome-text').textContent = `Привет, ${userName}!`;
                     document.querySelector('.profile-name').textContent = userName;
                 }
             }
-        });
-
-        // Обработчики для иконок в шапке
-        const chatIcon = document.getElementById('chat-icon');
-        const notificationIcon = document.getElementById('notification-icon');
-
-        chatIcon.addEventListener('click', function(e) {
-            e.preventDefault();
             
-            // Скрываем все экраны
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
+            // Обработчики для способов оплаты
+            const paymentMethods = document.querySelectorAll('.payment-method');
+            paymentMethods.forEach(method => {
+                method.addEventListener('click', function() {
+                    paymentMethods.forEach(m => m.classList.remove('active'));
+                    this.classList.add('active');
+                });
             });
             
-            // Показываем экран чатов
-            document.getElementById('chats-screen').classList.add('active');
-            
-            // Обновляем навигацию
-            navItems.forEach(item => item.classList.remove('active'));
+            // Обработчик для кнопки оплаты
+            document.querySelector('.pay-button').addEventListener('click', function() {
+                alert('Оплата прошла успешно! Спасибо за покупку.');
+                // Переходим на главный экран
+                document.querySelectorAll('.screen').forEach(screen => {
+                    screen.classList.remove('active');
+                });
+                document.getElementById('home-screen').classList.add('active');
+                
+                // Активируем пункт меню "Главная"
+                navItems.forEach(item => item.classList.remove('active'));
+                document.querySelector('[data-screen="home-screen"]').classList.add('active');
+            });
         });
 
-        notificationIcon.addEventListener('click', function(e) {
+        // Заполнение профиля из localStorage
+        function fillProfileInfo() {
+            document.getElementById('profile-name').textContent = localStorage.getItem('userName') || 'Имя';
+            document.getElementById('profile-phone').textContent = localStorage.getItem('userPhone') || 'Телефон';
+            document.getElementById('profile-city').textContent = localStorage.getItem('userCity') || 'Город';
+        }
+
+        document.getElementById('search-icon').addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Скрываем все экраны
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            
-            // Показываем экран уведомлений
-            document.getElementById('notifications-screen').classList.add('active');
-            
-            // Обновляем навигацию
-            navItems.forEach(item => item.classList.remove('active'));
+            screens.forEach(screen => screen.classList.remove('active'));
+            document.getElementById('search-screen').classList.add('active');
+            navItems.forEach(navItem => navItem.classList.remove('active'));
+        });
+
+        document.getElementById('search-back-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            screens.forEach(screen => screen.classList.remove('active'));
+            document.getElementById('home-screen').classList.add('active');
+            navItems.forEach(navItem => navItem.classList.remove('active'));
+            document.querySelector('[data-screen="home-screen"]').classList.add('active');
         });
     </script>
 </body>
