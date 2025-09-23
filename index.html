@@ -1579,6 +1579,22 @@
         .pre-spark { position:absolute; width:8px; height:8px; border-radius:50%; background: radial-gradient(circle, #fff, rgba(255,255,255,0)); animation: preBurst 1.6s ease-out forwards; }
         @keyframes preBurst { 0% { transform: translate(0) scale(0.5); opacity:0.95;} 100% { transform: translate(var(--dx), var(--dy)) scale(1); opacity:0; } }
         .pretest-text { position: relative; margin-top: 24px; color: #d9f7ff; font-weight: 800; font-size: 1.2rem; text-shadow: 0 0 10px rgba(124,243,255,0.35); letter-spacing: .3px; }
+
+        /* Мои дети */
+        .kids-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:12px; }
+        @media (max-width: 1100px) { .kids-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+        @media (max-width: 700px) { .kids-grid { grid-template-columns: 1fr; } }
+        .kid-card { background:#fff; border-radius:14px; padding:14px; box-shadow: var(--card-shadow); border:1px solid var(--light-gray); cursor:pointer; transition: transform .15s ease, box-shadow .15s ease; }
+        .kid-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,0.08); }
+        .kid-row { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+        .kid-avatar { width:48px; height:48px; border-radius:50%; background: linear-gradient(135deg, var(--primary), var(--neon-2)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; }
+        .kid-title { font-weight:800; }
+        .kid-sub { color: var(--gray); font-size:0.9rem; }
+        .progress-rows { display:grid; gap:8px; }
+        .progress-row { display:flex; align-items:center; gap:10px; }
+        .progress-bar-thin { flex:1; height:8px; background: var(--light); border-radius:999px; position:relative; overflow:hidden; }
+        .progress-bar-thin > span { position:absolute; left:0; top:0; bottom:0; background: linear-gradient(90deg, var(--primary), var(--neon-2)); border-radius:999px; width:0%; }
+        /* удалены стили домашек */
     </style>
 </head>
 <body>
@@ -1687,6 +1703,10 @@
                 <div class="nav-item" data-screen="pay-screen">
                     <i class="fas fa-credit-card nav-icon"></i>
                     <span class="nav-text">Оплата</span>
+                </div>
+                <div class="nav-item" data-screen="kids-screen">
+                    <i class="fas fa-children nav-icon"></i>
+                    <span class="nav-text">Мои дети</span>
                 </div>
                 <div class="nav-item" data-screen="chats-screen">
                     <i class="fas fa-comments nav-icon"></i>
@@ -2394,6 +2414,42 @@
                             </div>
                             <span class="menu-right"><i class="fas fa-chevron-right"></i></span>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Экран "Мои дети" -->
+            <div class="screen" id="kids-screen">
+                <div class="content-card" style="padding:16px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between;">
+                    <h2 style="margin:0;">Мои дети</h2>
+                    <div style="display:flex; gap:8px;">
+                        <button class="profile-btn" id="kid-add-btn"><i class="fas fa-user-plus"></i>&nbsp;Добавить</button>
+                    </div>
+                </div>
+                <div class="kids-grid" id="kids-list"></div>
+                <div class="content-card" id="kid-detail" style="display:none; margin-top:12px;">
+                    <div class="kid-header" style="display:flex; align-items:center; gap:12px; margin-bottom:10px;">
+                        <div class="kid-avatar" id="kid-avatar"></div>
+                        <div>
+                            <div class="kid-name" id="kid-name" style="font-weight:800; font-size:1.1rem;">Имя</div>
+                            <div class="kid-age" id="kid-age" style="color:var(--gray);">Возраст</div>
+                        </div>
+                        <div style="margin-left:auto; display:flex; gap:8px;">
+                            <button class="profile-btn" id="kid-edit-btn"><i class="fas fa-edit"></i>&nbsp;Редактировать</button>
+                            <button class="profile-btn" id="kid-remove-btn"><i class="fas fa-trash"></i>&nbsp;Удалить</button>
+                        </div>
+                    </div>
+                    <div class="kid-section">
+                        <h3 class="section-title" style="margin-bottom:10px;">Прогресс обучения</h3>
+                        <div class="progress-rows" id="kid-progress"></div>
+                    </div>
+                    <div class="kid-section">
+                        <h3 class="section-title" style="margin-bottom:10px;">Предыдущее занятие</h3>
+                        <div id="kid-prev-lesson" style="color:#333;">—</div>
+                    </div>
+                    <div class="kid-section">
+                        <h3 class="section-title" style="margin-bottom:10px;">Следующее занятие</h3>
+                        <div id="kid-next-lesson" style="color:#333;">—</div>
                     </div>
                 </div>
             </div>
@@ -3371,6 +3427,9 @@
 
             // ===== Chats init =====
             initChats();
+
+            // Инициализация "Мои дети"
+            initKids();
         });
 
         // ====== Club detail logic ======
@@ -3494,6 +3553,101 @@
             const q = encodeURIComponent(`${place} ${address}`);
             window.open(`https://www.google.com/maps/search/?api=1&query=${q}`, '_blank');
         });
+
+        // ===== My Kids =====
+        const KIDS_KEY = 'kidcircle_kids_v1';
+        function readKids() { try { return JSON.parse(localStorage.getItem(KIDS_KEY) || '[]'); } catch { return []; } }
+        function writeKids(arr) { localStorage.setItem(KIDS_KEY, JSON.stringify(arr)); }
+
+        function initKids() {
+            // seed
+            if (readKids().length === 0) {
+                writeKids([
+                    { id:'kid1', name:'Миша', age:10, color:'#6c5ce7', progress:[{name:'Футбол', percent:40},{name:'Робототехника', percent:20}], prevLesson:'Техника паса: работа в парах, координация', nextLesson:'Игра 3х3, отработка ударов' },
+                    { id:'kid2', name:'Аня', age:7, color:'#ff6b6b', progress:[{name:'Рисование', percent:55}], prevLesson:'Свет и тень: построение шара', nextLesson:'Цветовой круг: тёплые и холодные' }
+                ]);
+            }
+            renderKids();
+            const addBtn = document.getElementById('kid-add-btn');
+            if (addBtn) addBtn.addEventListener('click', addKidFlow);
+        }
+
+        function renderKids() {
+            const listEl = document.getElementById('kids-list');
+            if (!listEl) return;
+            const kids = readKids();
+            listEl.innerHTML = kids.map(k => `
+                <div class="kid-card" data-id="${k.id}">
+                    <div class="kid-row">
+                        <div class="kid-avatar" style="background:${k.color}">${k.name.slice(0,1)}</div>
+                        <div>
+                            <div class="kid-title">${k.name}</div>
+                            <div class="kid-sub">${k.age} лет</div>
+                        </div>
+                    </div>
+                    <div class="kid-sub">Кружков: ${k.progress.length}</div>
+                </div>
+            `).join('');
+            listEl.querySelectorAll('.kid-card').forEach(card => {
+                card.addEventListener('click', function(){ openKid(this.getAttribute('data-id')); });
+            });
+        }
+
+        function openKid(id) {
+            const kids = readKids();
+            const k = kids.find(x => x.id === id);
+            if (!k) return;
+            const detail = document.getElementById('kid-detail');
+            detail.style.display = 'block';
+            document.getElementById('kid-avatar').style.background = k.color;
+            document.getElementById('kid-avatar').textContent = k.name.slice(0,1);
+            document.getElementById('kid-name').textContent = k.name;
+            document.getElementById('kid-age').textContent = `${k.age} лет`;
+            // progress
+            const prog = document.getElementById('kid-progress');
+            prog.innerHTML = k.progress.map(p => `
+                <div class="progress-row"><div style="width:120px; font-weight:700;">${p.name}</div><div class="progress-bar-thin"><span style="width:${p.percent}%"></span></div><div style="width:40px; text-align:right; font-weight:700;">${p.percent}%</div></div>
+            `).join('');
+            document.getElementById('kid-prev-lesson').textContent = k.prevLesson || '—';
+            document.getElementById('kid-next-lesson').textContent = k.nextLesson || '—';
+            // edit/remove
+            document.getElementById('kid-edit-btn').onclick = () => editKidFlow(k.id);
+            document.getElementById('kid-remove-btn').onclick = () => removeKid(k.id);
+        }
+
+        function addKidFlow() {
+            const name = prompt('Имя ребёнка'); if (!name) return;
+            const ageStr = prompt('Возраст'); const age = parseInt(ageStr||'0');
+            const color = ['#6c5ce7','#ff6b6b','#00d1b2','#ffc107','#8E2DE2'][Math.floor(Math.random()*5)];
+            const kids = readKids();
+            const id = 'kid_' + Date.now();
+            kids.push({ id, name, age:isNaN(age)?7:age, color, progress:[], prevLesson:'', nextLesson:'' });
+            writeKids(kids);
+            renderKids();
+            openKid(id);
+        }
+
+        function editKidFlow(id) {
+            const kids = readKids();
+            const k = kids.find(x=>x.id===id); if (!k) return;
+            const name = prompt('Имя ребёнка', k.name); if (!name) return;
+            const ageStr = prompt('Возраст', String(k.age)); const age = parseInt(ageStr||String(k.age));
+            k.name = name; if (!isNaN(age)) k.age = age;
+            writeKids(kids);
+            renderKids();
+            openKid(id);
+        }
+
+        function removeKid(id) {
+            if (!confirm('Удалить ребёнка и его данные?')) return;
+            let kids = readKids();
+            kids = kids.filter(x=>x.id!==id);
+            writeKids(kids);
+            renderKids();
+            document.getElementById('kid-detail').style.display='none';
+        }
+
+        // удалены функции работы с домашками
 
         // ====== Chats logic ======
         const CHAT_KEY = 'kidcircle_chats_v1';
