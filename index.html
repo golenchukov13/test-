@@ -1712,6 +1712,10 @@
                     <i class="fas fa-comments nav-icon"></i>
                     <span class="nav-text">Чаты</span>
                 </div>
+                <div class="nav-item" data-screen="support-screen">
+                    <i class="fas fa-headset nav-icon"></i>
+                    <span class="nav-text">Техподдержка</span>
+                </div>
             </div>
             
             <div class="user-section">
@@ -1762,13 +1766,13 @@
                     
                     <div class="promo-blocks">
                         <div class="promo-block">
-                            <div class="promo-title">Топ кружки</div>
+                            <div class="promo-title">Премиум</div>
                             <div class="promo-subtitle">Лучшие секции для развития талантов</div>
                             <div class="promo-icon"><i class="fas fa-trophy"></i></div>
                         </div>
                         <div class="promo-block">
-                            <div class="promo-title">Популярное</div>
-                            <div class="promo-subtitle">Самые востребованные кружки города</div>
+                            <div class="promo-title">Новое</div>
+                            <div class="promo-subtitle">Лучшие новинки KIDCIRCLE</div>
                             <div class="promo-icon"><i class="fas fa-fire"></i></div>
                         </div>
                         <div class="promo-block">
@@ -2317,6 +2321,19 @@
                 </div>
             </div>
 
+            <!-- Экран техподдержки -->
+            <div class="screen" id="support-screen">
+                <div class="content-card">
+                    <h2 class="section-title">Техническая поддержка</h2>
+                    <p style="color: var(--gray); margin-bottom:12px;">Опишите проблему максимально подробно — мы постараемся помочь.</p>
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                        <input id="support-input" type="text" class="form-input" placeholder="Кратко опишите проблему..." style="flex:1; min-width:260px;">
+                        <button class="onboarding-btn" id="support-send"><i class="fas fa-paper-plane"></i>&nbsp;Отправить</button>
+                    </div>
+                    <div id="support-list" class="search-results" style="margin-top:16px;"></div>
+                </div>
+            </div>
+
             <!-- Экран уведомлений -->
             <div class="screen" id="notifications-screen">
                 <h2 style="margin-bottom: 20px;">Уведомления</h2>
@@ -2595,6 +2612,24 @@
                 }
             }
         }
+
+        // Простой сбор обращений в техподдержку (локально)
+        (function initSupport() {
+            const sendBtn = document.getElementById('support-send');
+            const input = document.getElementById('support-input');
+            const list = document.getElementById('support-list');
+            if (!sendBtn || !input || !list) return;
+            sendBtn.addEventListener('click', () => {
+                const text = (input.value || '').trim();
+                if (!text) return;
+                const card = document.createElement('div');
+                card.className = 'result-card';
+                card.innerHTML = `<div class="result-content"><div class="result-title">Ваше обращение</div><div class="result-desc">${text}</div><div class="result-footer"><span style="color:var(--gray); font-size:0.85rem;">${new Date().toLocaleString('ru-RU')}</span></div></div>`;
+                list.prepend(card);
+                input.value = '';
+                alert('Обращение отправлено! Мы свяжемся с вами в ближайшее время.');
+            });
+        })();
         
         // Проверка кода подтверждения
         function verifyCode() {
